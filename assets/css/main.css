@@ -1278,3 +1278,17 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+.book-a-table {
+  --background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+}
+
+.book-a-table .book-a-table-form {
+  padding: 30px;
+  box-shadow: 0px 0 30px color-mix(in srgb, var(--default-color), transparent 90%);
+}
+
+.book{
+  padding: 30px;
+  box-shadow: 0px 0 30px color-mix(in srgb, var(--default-color), transparent 90%);
+}
