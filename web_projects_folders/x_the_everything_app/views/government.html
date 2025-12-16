@@ -1,0 +1,336 @@
+<div class="view government-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Government Services</h2>
+        <button id="governmentMenuBtn" class="settings-btn">⋮</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Search Bar -->
+        <div class="search-section">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="governmentSearch" placeholder="Search services..." />
+            </div>
+        </div>
+
+        <!-- Service Categories -->
+        <div class="section-header">
+            <h3>Service Categories</h3>
+        </div>
+
+        <div class="service-categories">
+            <button class="service-category active" data-category="all">
+                <div class="category-icon">📋</div>
+                <div class="category-name">All Services</div>
+            </button>
+            <button class="service-category" data-category="documents">
+                <div class="category-icon">📄</div>
+                <div class="category-name">Documents</div>
+            </button>
+            <button class="service-category" data-category="permits">
+                <div class="category-icon">✅</div>
+                <div class="category-name">Permits</div>
+            </button>
+            <button class="service-category" data-category="taxes">
+                <div class="category-icon">💵</div>
+                <div class="category-name">Taxes</div>
+            </button>
+            <button class="service-category" data-category="health">
+                <div class="category-icon">🏥</div>
+                <div class="category-name">Health</div>
+            </button>
+            <button class="service-category" data-category="utilities">
+                <div class="category-icon">💡</div>
+                <div class="category-name">Utilities</div>
+            </button>
+        </div>
+
+        <!-- Services List -->
+        <div class="section-header">
+            <h3 id="servicesCategoryTitle">All Services</h3>
+        </div>
+
+        <div id="servicesContainer" class="services-list">
+            <!-- Services will be loaded here -->
+        </div>
+
+        <!-- My Applications -->
+        <div class="section-header">
+            <h3>My Applications</h3>
+        </div>
+
+        <div id="applicationsContainer" class="applications-list">
+            <!-- Applications will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+    /* Search Section */
+    .government-view .search-section {
+        padding: 16px;
+        background: var(--x-black);
+    }
+
+    .government-view .search-bar {
+        display: flex;
+        align-items: center;
+        background: var(--x-dark-gray);
+        border: 1px solid var(--x-border);
+        border-radius: 24px;
+        padding: 12px 16px;
+        gap: 12px;
+        transition: all 0.2s;
+    }
+
+    .government-view .search-bar:focus-within {
+        border-color: var(--x-blue);
+        background: rgba(29, 155, 240, 0.05);
+    }
+
+    .government-view .search-icon {
+        font-size: 16px;
+        opacity: 0.6;
+    }
+
+    .government-view .search-bar input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--x-white);
+        font-size: 15px;
+    }
+
+    .government-view .search-bar input::placeholder {
+        color: var(--x-gray);
+    }
+
+    .government-view .section-header {
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .government-view .section-header h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .service-categories {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 0 16px 16px 16px;
+        background: var(--x-black);
+    }
+
+    .service-category {
+        background: var(--x-dark-gray);
+        border: 1px solid var(--x-border);
+        border-radius: 12px;
+        padding: 16px 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+
+    .service-category:hover {
+        background: var(--x-hover);
+    }
+
+    .service-category.active {
+        background: rgba(29, 155, 240, 0.15);
+        border-color: var(--x-blue);
+    }
+
+    .category-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .category-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--x-white);
+    }
+
+    .services-list {
+        background: var(--x-black);
+    }
+
+    .service-item {
+        padding: 16px;
+        border-bottom: 1px solid var(--x-border);
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .service-item:hover {
+        background: var(--x-hover);
+    }
+
+    .service-item-icon {
+        width: 56px;
+        height: 56px;
+        background: var(--x-dark-gray);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        flex-shrink: 0;
+    }
+
+    .service-item-info {
+        flex: 1;
+    }
+
+    .service-item-name {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .service-item-desc {
+        font-size: 13px;
+        color: var(--x-gray);
+        margin-bottom: 6px;
+    }
+
+    .service-item-meta {
+        display: flex;
+        gap: 12px;
+        font-size: 12px;
+    }
+
+    .service-fee {
+        color: var(--x-blue);
+        font-weight: 600;
+    }
+
+    .service-time {
+        color: var(--x-gray);
+    }
+
+    .service-item-arrow {
+        font-size: 18px;
+        color: var(--x-gray);
+    }
+
+    .applications-list {
+        background: var(--x-black);
+    }
+
+    .application-item {
+        padding: 16px;
+        border-bottom: 1px solid var(--x-border);
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .application-item:hover {
+        background: var(--x-hover);
+    }
+
+    .application-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+    }
+
+    .application-name {
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .application-status {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .application-status.pending {
+        background: rgba(255, 212, 59, 0.2);
+        color: #ffd43b;
+    }
+
+    .application-status.approved {
+        background: rgba(0, 186, 124, 0.2);
+        color: var(--x-green);
+    }
+
+    .application-status.rejected {
+        background: rgba(244, 33, 46, 0.2);
+        color: var(--x-red);
+    }
+
+    .application-status.processing {
+        background: rgba(29, 155, 240, 0.2);
+        color: var(--x-blue);
+    }
+
+    .application-id {
+        font-size: 12px;
+        color: var(--x-gray);
+        margin-bottom: 4px;
+    }
+
+    .application-date {
+        font-size: 12px;
+        color: var(--x-gray);
+    }
+
+    .empty-applications {
+        padding: 60px 40px;
+        text-align: center;
+    }
+
+    .empty-applications .empty-icon {
+        font-size: 60px;
+        margin-bottom: 16px;
+    }
+
+    .empty-applications h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .empty-applications p {
+        color: var(--x-gray);
+        font-size: 14px;
+    }
+</style>

@@ -1,0 +1,51 @@
+<div class="view dashboard-view">
+    <div class="view-header dashboard-header">
+        <div class="user-greeting">
+            <h2>Hello, <span id="userName">User</span></h2>
+            <p class="subtitle">Manage your trust funds</p>
+        </div>
+        <button class="icon-btn" id="settingsBtn">⚙️</button>
+    </div>
+    <div class="view-content">
+        <div class="balance-card">
+            <p class="balance-label">Total Balance</p>
+            <h1 class="balance-amount">KSh <span id="totalBalance">0</span></h1>
+            <div class="balance-stats">
+                <div class="stat">
+                    <span class="stat-label">Active Funds</span>
+                    <span class="stat-value" id="activeFunds">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Next Payout</span>
+                    <span class="stat-value" id="nextPayout">--</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-header">
+            <h3>Your Trust Funds</h3>
+            <button class="btn btn-primary btn-sm" id="createFundBtn">+ New Fund</button>
+        </div>
+        
+        <div id="fundsList" class="funds-list">
+            <div class="empty-state">
+                <p>No trust funds yet</p>
+                <p class="empty-subtitle">Create your first trust fund to get started</p>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-nav">
+        <button class="nav-item active" data-view="dashboard">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="dependents">
+            <span class="nav-icon">👥</span>
+            <span class="nav-label">Dependents</span>
+        </button>
+        <button class="nav-item" data-view="transactions">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">History</span>
+        </button>
+    </div>
+</div>

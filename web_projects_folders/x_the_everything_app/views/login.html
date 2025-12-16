@@ -1,0 +1,96 @@
+<div class="view login-view">
+    <div class="auth-container">
+        <div class="auth-header">
+            <div class="auth-logo">
+                <svg viewBox="0 0 24 24" width="40" height="40" fill="white">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+            </div>
+            <h1>Sign in to X</h1>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+            <div class="form-group">
+                <input 
+                    type="text" 
+                    id="username" 
+                    class="form-input" 
+                    placeholder="Username or email"
+                    autocomplete="username"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="form-input" 
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required
+                />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Sign in
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Don't have an account? <a href="#" id="signupLink" class="text-blue">Sign up</a></p>
+        </div>
+    </div>
+</div>
+
+<style>
+.login-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    padding: 20px;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.auth-logo {
+    margin-bottom: 16px;
+}
+
+.auth-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.auth-form {
+    margin-bottom: 24px;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.auth-footer {
+    text-align: center;
+    color: var(--x-gray);
+    font-size: 14px;
+}
+
+.auth-footer a {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+</style>

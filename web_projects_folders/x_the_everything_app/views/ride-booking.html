@@ -1,0 +1,261 @@
+<div class="view ride-booking-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Book Ride</h2>
+        <button class="settings-btn" style="opacity: 0; pointer-events: none;">⋮</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Map Placeholder -->
+        <div class="map-container">
+            <div class="map-placeholder">
+                <div class="route-indicator">
+                    <div class="route-point pickup">📍</div>
+                    <div class="route-line"></div>
+                    <div class="route-point dropoff">🎯</div>
+                </div>
+                <div class="map-text">Map View</div>
+            </div>
+        </div>
+
+        <!-- Trip Info -->
+        <div id="tripInfoContainer" class="trip-info">
+            <!-- Trip info will be loaded here -->
+        </div>
+
+        <!-- Payment Method -->
+        <div class="payment-section">
+            <div class="section-label">Payment Method</div>
+            <div id="paymentMethodDisplay" class="payment-method-display">
+                <div class="payment-icon">💳</div>
+                <div class="payment-text">X Wallet</div>
+                <div class="payment-balance" id="walletBalanceDisplay">$0.00</div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button id="confirmRideBtn" class="btn-confirm-ride">Confirm Ride</button>
+            <button id="cancelBookingBtn" class="btn-cancel">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.map-container {
+    width: 100%;
+    height: 300px;
+    background: var(--x-dark-gray);
+    position: relative;
+    overflow: hidden;
+}
+
+.map-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.route-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.route-point {
+    font-size: 32px;
+    animation: pulse 2s infinite;
+}
+
+.route-line {
+    width: 3px;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--x-blue), var(--x-green));
+    border-radius: 4px;
+}
+
+.map-text {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--x-gray);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.trip-info {
+    padding: 20px;
+    background: var(--x-black);
+}
+
+.trip-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.trip-detail-row:last-child {
+    border-bottom: none;
+}
+
+.trip-detail-label {
+    font-size: 14px;
+    color: var(--x-gray);
+}
+
+.trip-detail-value {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.trip-route-display {
+    margin-bottom: 20px;
+}
+
+.trip-location {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.trip-location-icon {
+    font-size: 16px;
+    width: 24px;
+    text-align: center;
+}
+
+.trip-location-text {
+    font-size: 15px;
+}
+
+.trip-location.pickup .trip-location-text {
+    color: var(--x-blue);
+}
+
+.trip-location.dropoff .trip-location-text {
+    color: var(--x-green);
+}
+
+.ride-type-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--x-dark-gray);
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.ride-type-icon {
+    font-size: 36px;
+}
+
+.ride-type-details {
+    flex: 1;
+}
+
+.ride-type-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.ride-type-capacity {
+    font-size: 13px;
+    color: var(--x-gray);
+}
+
+.ride-type-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--x-blue);
+}
+
+.payment-section {
+    padding: 20px;
+    background: var(--x-black);
+}
+
+.section-label {
+    font-size: 14px;
+    color: var(--x-gray);
+    margin-bottom: 12px;
+}
+
+.payment-method-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--x-dark-gray);
+    border-radius: 12px;
+}
+
+.payment-icon {
+    font-size: 28px;
+}
+
+.payment-text {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.payment-balance {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--x-green);
+}
+
+.action-buttons {
+    padding: 20px;
+    background: var(--x-black);
+}
+
+.btn-confirm-ride {
+    width: 100%;
+    background: var(--x-blue);
+    color: var(--x-white);
+    border: none;
+    padding: 16px;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 12px;
+}
+
+.btn-confirm-ride:hover {
+    background: #1a8cd8;
+}
+
+.btn-cancel {
+    width: 100%;
+    background: transparent;
+    color: var(--x-red);
+    border: 1px solid var(--x-red);
+    padding: 14px;
+    border-radius: 24px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+    background: rgba(249, 24, 128, 0.1);
+}
+</style>

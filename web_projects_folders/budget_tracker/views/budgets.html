@@ -1,0 +1,409 @@
+<div class="view budgets-view">
+    <!-- Header -->
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Budgets</h2>
+        <button class="header-action-btn" id="addBudgetBtn">+</button>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="view-scrollable">
+        <!-- Month Selector -->
+        <div class="month-selector">
+            <button class="month-nav-btn" id="prevMonthBtn">‹</button>
+            <span class="month-label" id="currentMonthLabel">December 2025</span>
+            <button class="month-nav-btn" id="nextMonthBtn">›</button>
+        </div>
+
+        <!-- Budget Summary -->
+        <div class="budget-summary" id="budgetSummary">
+            <div class="summary-card">
+                <div class="summary-item">
+                    <span class="summary-label">Total Budget</span>
+                    <span class="summary-value" id="totalBudget">KSh 0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Spent</span>
+                    <span class="summary-value spent" id="totalSpent">KSh 0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Remaining</span>
+                    <span class="summary-value remaining" id="totalRemaining">KSh 0.00</span>
+                </div>
+            </div>
+            <div class="overall-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress" style="width: 0%"></div>
+                </div>
+                <span class="progress-text" id="overallProgressText">0% used</span>
+            </div>
+        </div>
+
+        <!-- Budgets List -->
+        <div class="budgets-container" id="budgetsContainer">
+            <!-- Budgets will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Add/Edit Budget Modal -->
+    <div class="modal-overlay hidden" id="budgetModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="budgetModalTitle">Set Budget</h3>
+                <button class="modal-close" id="closeBudgetModalBtn">×</button>
+            </div>
+            <form id="budgetForm" class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select id="budgetCategory" class="form-select" required>
+                        <!-- Categories will be loaded here -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Monthly Budget Amount</label>
+                    <div class="budget-amount-input">
+                        <span class="currency-prefix">KSh</span>
+                        <input 
+                            type="number" 
+                            id="budgetAmount" 
+                            class="form-input" 
+                            placeholder="0.00"
+                            step="100"
+                            min="0"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <input type="hidden" id="budgetId" value="">
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBudgetModalBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Budget</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-item" data-view="dashboard">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="transactions">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">History</span>
+        </button>
+        <button class="nav-item active" data-view="budgets">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Budgets</span>
+        </button>
+        <button class="nav-item" data-view="settings">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Settings</span>
+        </button>
+    </nav>
+</div>
+
+<style>
+.budgets-view {
+    padding: 0;
+}
+
+.budgets-view .view-header {
+    flex-shrink: 0;
+    padding-right: 8px;
+}
+
+.budgets-view .view-scrollable {
+    padding: 0;
+}
+
+/* Month Selector */
+.month-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 16px 16px;
+}
+
+.month-nav-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--bg-input);
+    border-radius: 50%;
+    font-size: 20px;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.month-nav-btn:hover {
+    background: var(--border-light);
+}
+
+.month-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 140px;
+    text-align: center;
+}
+
+/* Budget Summary */
+.budget-summary {
+    margin: 0 16px 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    border-radius: var(--radius-xl);
+    color: white;
+}
+
+.summary-card {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.summary-item {
+    text-align: center;
+}
+
+.summary-label {
+    display: block;
+    font-size: 12px;
+    opacity: 0.9;
+    margin-bottom: 4px;
+}
+
+.summary-value {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.summary-value.spent {
+    color: #FFB8B8;
+}
+
+.summary-value.remaining {
+    color: #B8FFD0;
+}
+
+.overall-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: white;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.progress-fill.warning {
+    background: #F39C12;
+}
+
+.progress-fill.danger {
+    background: #E74C3C;
+}
+
+.progress-text {
+    font-size: 12px;
+    opacity: 0.9;
+    min-width: 60px;
+    text-align: right;
+}
+
+/* Budgets Container */
+.budgets-container {
+    flex: 1;
+    padding: 0 16px;
+    overflow-y: auto;
+}
+
+/* Budget Card */
+.budget-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.budget-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.budget-category-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.budget-category-info {
+    flex: 1;
+}
+
+.budget-category-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.budget-category-amount {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.budget-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.budget-action-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--bg-input);
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.budget-action-btn:hover {
+    background: var(--border-light);
+}
+
+.budget-action-btn.delete:hover {
+    background: rgba(231, 76, 60, 0.2);
+}
+
+/* Budget Progress */
+.budget-progress {
+    margin-bottom: 8px;
+}
+
+.budget-progress-bar {
+    height: 10px;
+    background: var(--bg-input);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.budget-progress-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+    background: var(--success);
+}
+
+.budget-progress-fill.warning {
+    background: var(--warning);
+}
+
+.budget-progress-fill.danger {
+    background: var(--danger);
+}
+
+.budget-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.budget-spent {
+    color: var(--text-secondary);
+}
+
+.budget-remaining {
+    font-weight: 500;
+}
+
+.budget-remaining.positive {
+    color: var(--success);
+}
+
+.budget-remaining.negative {
+    color: var(--danger);
+}
+
+/* Empty State */
+.budgets-empty {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.budgets-empty-icon {
+    font-size: 60px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.budgets-empty h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.budgets-empty p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+/* Budget Amount Input */
+.budget-amount-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.currency-prefix {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.budget-amount-input .form-input {
+    flex: 1;
+}
+
+/* Form Select */
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+}
+</style>

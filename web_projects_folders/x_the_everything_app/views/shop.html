@@ -1,0 +1,244 @@
+<div class="view shop-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Shop</h2>
+        <button id="cartBtn" class="cart-btn">
+            🛒
+            <span id="cartBadge" class="cart-badge" style="display: none;">0</span>
+        </button>
+    </div>
+
+    <div class="view-content">
+        <!-- Search Bar -->
+        <div class="shop-search">
+            <input type="text" id="shopSearchInput" placeholder="Search products..." />
+        </div>
+
+        <!-- Categories -->
+        <div class="shop-categories">
+            <button class="category-chip active" data-category="all">All</button>
+            <button class="category-chip" data-category="electronics">Electronics</button>
+            <button class="category-chip" data-category="fashion">Fashion</button>
+            <button class="category-chip" data-category="home">Home</button>
+            <button class="category-chip" data-category="books">Books</button>
+            <button class="category-chip" data-category="sports">Sports</button>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="productsGrid" class="products-grid">
+            <!-- Products will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>
+.shop-view .view-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.shop-view .view-header h2 {
+    flex: 1;
+}
+
+.back-btn {
+    background: transparent;
+    border: none;
+    color: var(--x-white);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: var(--x-hover);
+}
+
+.cart-btn {
+    background: transparent;
+    border: none;
+    color: var(--x-white);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.cart-btn:hover {
+    background: var(--x-hover);
+}
+
+.cart-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: var(--x-red);
+    color: var(--x-white);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+}
+
+.shop-search {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.shop-search input {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--x-dark-gray);
+    border: 1px solid var(--x-border);
+    border-radius: 24px;
+    color: var(--x-white);
+    font-size: 15px;
+}
+
+.shop-search input:focus {
+    outline: none;
+    border-color: var(--x-blue);
+}
+
+.shop-categories {
+    padding: 16px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--x-border);
+    scrollbar-width: none;
+}
+
+.shop-categories::-webkit-scrollbar {
+    display: none;
+}
+
+.category-chip {
+    background: var(--x-dark-gray);
+    border: 1px solid var(--x-border);
+    color: var(--x-white);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.category-chip:hover {
+    background: var(--x-hover);
+}
+
+.category-chip.active {
+    background: var(--x-blue);
+    border-color: var(--x-blue);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 16px;
+}
+
+.product-card {
+    background: var(--x-dark-gray);
+    border: 1px solid var(--x-border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--x-blue);
+    box-shadow: 0 4px 12px rgba(29, 155, 240, 0.2);
+}
+
+.product-image {
+    width: 100%;
+    height: 150px;
+    background: var(--x-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.product-info {
+    padding: 12px;
+}
+
+.product-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--x-blue);
+    margin-bottom: 8px;
+}
+
+.product-rating {
+    font-size: 12px;
+    color: var(--x-gray);
+    margin-bottom: 8px;
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    padding: 8px;
+    background: var(--x-blue);
+    border: none;
+    border-radius: 8px;
+    color: var(--x-white);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-to-cart-btn:hover {
+    background: #1a8cd8;
+}
+
+.add-to-cart-btn:active {
+    transform: scale(0.95);
+}
+
+.empty-shop {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.empty-shop .empty-icon {
+    font-size: 60px;
+    margin-bottom: 16px;
+}
+
+.empty-shop h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.empty-shop p {
+    color: var(--x-gray);
+    font-size: 14px;
+}
+</style>

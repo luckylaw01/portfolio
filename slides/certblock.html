@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CERTBLOCK | Lawrence Munyaka Portfolio</title>
+    <meta name="description"
+        content="CERTBLOCK - A digital secure certificates wallet and insurance system using blockchain technology">
+
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="../assets/css/design-system.css">
+    <link rel="stylesheet" href="../assets/css/transitions.css">
+    <link rel="stylesheet" href="../assets/css/navigation.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
+
+    <style>
+        /* CERTBLOCK Slide - Blockchain Theme */
+        /* Vibrant Color Palette: Green + Electric Blue + Cyan + Purple */
+
+        :root {
+            --cert-blue: #2196F3;
+            --cert-cyan: #00BCD4;
+            --cert-purple: #9C27B0;
+            --cert-electric: #00E5FF;
+            --cert-deep-blue: #1565C0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fef8 0%, #E3F2FD 50%, #E1F5FE 100%);
+            overflow-x: hidden;
+        }
+
+        /* Animated Grid Background */
+        .blockchain-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(33, 150, 243, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(33, 150, 243, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes grid-move {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+
+        /* Floating Blockchain Nodes */
+        .blockchain-node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--cert-cyan);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 32px rgba(33, 150, 243, 0.3);
+            animation: float-node 6s ease-in-out infinite;
+        }
+
+        @keyframes float-node {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+        }
+
+        .blockchain-node:nth-child(1) {
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .blockchain-node:nth-child(2) {
+            top: 25%;
+            right: 15%;
+            animation-delay: 1.5s;
+        }
+
+        .blockchain-node:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 3s;
+        }
+
+        .blockchain-node:nth-child(4) {
+            bottom: 30%;
+            right: 25%;
+            animation-delay: 4.5s;
+        }
+
+        /* Main Content Container */
+        .certblock-container {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 30% 70%;
+            gap: var(--space-2xl);
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-lg);
+        }
+
+        /* Left Side - Project Info */
+        .project-info-side {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-md);
+            background: linear-gradient(135deg, var(--cert-cyan), var(--cert-blue));
+            color: white;
+            font-size: var(--text-sm);
+            font-weight: var(--weight-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: var(--radius-full);
+            align-self: flex-start;
+            box-shadow: 0 4px 20px rgba(0, 188, 212, 0.4);
+            animation: badge-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badge-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 4px 20px rgba(0, 188, 212, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 8px 30px rgba(0, 188, 212, 0.6);
+            }
+        }
+
+        .project-header h1 {
+            font-family: var(--font-display);
+            font-size: var(--text-5xl);
+            font-weight: var(--weight-black);
+            background: linear-gradient(135deg, var(--cert-blue), var(--cert-purple), var(--cert-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-sm);
+            line-height: var(--leading-tight);
+        }
+
+        .project-tagline {
+            font-size: var(--text-xl);
+            color: var(--text-secondary);
+            font-weight: var(--weight-medium);
+            margin-bottom: var(--space-md);
+        }
+
+        .project-description {
+            font-size: var(--text-base);
+            color: var(--text-primary);
+            line-height: var(--leading-normal);
+            margin-bottom: var(--space-sm);
+        }
+
+        .project-story-box {
+            padding: var(--space-md);
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(156, 39, 176, 0.1));
+            border-left: 3px solid var(--cert-purple);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-md);
+        }
+
+        .story-title {
+            font-family: var(--font-display);
+            font-size: var(--text-base);
+            font-weight: var(--weight-bold);
+            color: var(--cert-purple);
+            margin-bottom: var(--space-xs);
+        }
+
+        .story-content {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: var(--leading-normal);
+        }
+
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .stat-card {
+            padding: var(--space-md);
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid var(--cert-cyan);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            transition: all var(--transition-base);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(33, 150, 243, 0.3);
+            border-color: var(--cert-blue);
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: var(--text-3xl);
+            font-weight: var(--weight-black);
+            background: linear-gradient(135deg, var(--cert-blue), var(--cert-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-xs);
+        }
+
+        .stat-label {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-md);
+        }
+
+        .tech-tag {
+            padding: var(--space-xs) var(--space-sm);
+            background: rgba(33, 150, 243, 0.15);
+            border: 1.5px solid var(--cert-blue);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--weight-semibold);
+            color: var(--cert-deep-blue);
+            transition: all var(--transition-base);
+        }
+
+        .tech-tag:hover {
+            background: var(--cert-blue);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-xl);
+            background: linear-gradient(135deg, var(--cert-blue), var(--cert-purple));
+            color: white;
+            font-size: var(--text-base);
+            font-weight: var(--weight-bold);
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.4);
+            transition: all var(--transition-base);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(33, 150, 243, 0.6);
+            background: linear-gradient(135deg, var(--cert-purple), var(--cert-cyan));
+        }
+
+        /* Right Side - Visual Preview */
+        .project-visual-side {
+            position: relative;
+        }
+
+        .screenshot-frame {
+            position: relative;
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(33, 150, 243, 0.4);
+            border: 3px solid var(--cert-cyan);
+            background: white;
+            transition: all var(--transition-slow);
+        }
+
+        .screenshot-frame:hover {
+            transform: scale(1.02) rotate(1deg);
+            box-shadow: 0 30px 80px rgba(33, 150, 243, 0.5);
+        }
+
+        .screenshot-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .glow-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .glow-circle-1 {
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: var(--cert-cyan);
+        }
+
+        .glow-circle-2 {
+            bottom: -120px;
+            left: -120px;
+            width: 400px;
+            height: 400px;
+            background: var(--cert-purple);
+            animation-delay: 1.5s;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.5;
+            }
+        }
+
+        /* Animations */
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .stagger-item.animate {
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .certblock-container {
+                grid-template-columns: 1fr;
+                gap: var(--space-2xl);
+            }
+
+            .project-header h1 {
+                font-size: var(--text-4xl);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip Navigation -->
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+    <!-- Slide Counter -->
+    <div id="slide-counter" class="slide-counter"></div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button id="nav-prev" class="nav-btn" aria-label="Previous slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <button id="nav-next" class="nav-btn" aria-label="Next slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Blockchain Grid Background -->
+    <div class="blockchain-grid"></div>
+
+    <!-- Floating Blockchain Nodes -->
+    <div class="blockchain-node"></div>
+    <div class="blockchain-node"></div>
+    <div class="blockchain-node"></div>
+    <div class="blockchain-node"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="certblock-container">
+            <!-- Left Side - Project Information -->
+            <div class="project-info-side">
+                <div class="project-badge stagger-item">Blockchain System • 2025</div>
+
+                <div class="project-header">
+                    <h1 class="stagger-item">CERTBLOCK</h1>
+                    <p class="project-tagline stagger-item">Digital Certificate Wallet & Insurance System</p>
+                </div>
+
+                <p class="project-description stagger-item">
+                    A blockchain-powered digital certificate wallet enabling instant authentication and verification of
+                    credentials.
+                </p>
+
+                <div class="project-story-box stagger-item">
+                    <h3 class="story-title">The Story</h3>
+                    <p class="story-content">
+                        Created to solve certificate fraud and streamline verification. Leverages blockchain's
+                        immutability for instant, secure authentication.
+                    </p>
+                </div>
+
+                <div class="impact-stats">
+                    <div class="stat-card stagger-item">
+                        <div class="stat-number">100,000+</div>
+                        <div class="stat-label">Projected Impact</div>
+                    </div>
+                    <div class="stat-card stagger-item">
+                        <div class="stat-number">Instant</div>
+                        <div class="stat-label">Verification</div>
+                    </div>
+                </div>
+
+                <div class="tech-stack stagger-item">
+                    <span class="tech-tag">Blockchain</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Smart Contracts</span>
+                </div>
+
+                <a href="https://www.lawrencemunyaka.engineer" target="_blank" rel="noopener"
+                    class="cta-button stagger-item">
+                    Visit Project
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Right Side - Visual Preview -->
+            <div class="project-visual-side">
+                <div class="glow-circle glow-circle-1"></div>
+                <div class="glow-circle glow-circle-2"></div>
+
+                <div class="screenshot-frame stagger-item">
+                    <img src="../assets/images/projects/certblock-screenshot.jpg" alt="CERTBLOCK Dashboard"
+                        class="screenshot-img">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Core Scripts -->
+    <script src="../assets/js/navigation-core.js"></script>
+    <script src="../assets/js/transitions.js"></script>
+    <script src="../assets/js/menu.js"></script>
+
+    <!-- Initialize -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Stagger animations
+            setTimeout(() => {
+                const items = document.querySelectorAll('.stagger-item');
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('animate');
+                    }, index * 100);
+                });
+            }, 200);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenya Education Institutions Heatmap - LMS Market</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #fff;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .control-btn.active {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .btn-university {
+            background: #E74C3C;
+            color: white;
+        }
+        
+        .btn-university.active {
+            background: #C0392B;
+        }
+        
+        .btn-tvet {
+            background: #3498DB;
+            color: white;
+        }
+        
+        .btn-tvet.active {
+            background: #2980B9;
+        }
+        
+        .btn-heatmap {
+            background: #9B59B6;
+            color: white;
+        }
+        
+        .btn-heatmap.active {
+            background: #8E44AD;
+        }
+        
+        .btn-all {
+            background: #2ECC71;
+            color: white;
+        }
+        
+        .btn-all.active {
+            background: #27AE60;
+        }
+        
+        .map-container {
+            background: #fff;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        #map {
+            width: 1000px;
+            height: 700px;
+            border-radius: 10px;
+        }
+        
+        .info {
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            font-size: 13px;
+            max-width: 280px;
+        }
+        
+        .info h4 {
+            margin: 0 0 8px;
+            color: #333;
+            font-size: 15px;
+            border-bottom: 2px solid #3498DB;
+            padding-bottom: 5px;
+        }
+        
+        .info .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .info .stat-item {
+            text-align: center;
+            padding: 8px;
+            border-radius: 6px;
+        }
+        
+        .info .stat-item.uni {
+            background: #FADBD8;
+        }
+        
+        .info .stat-item.tvet {
+            background: #D4E6F1;
+        }
+        
+        .info .stat-number {
+            font-size: 20px;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .info .stat-label {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .legend {
+            line-height: 20px;
+            color: #555;
+            background: rgba(255,255,255,0.95);
+            padding: 12px 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+        
+        .legend h4 {
+            margin: 0 0 10px;
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 6px 0;
+            font-size: 12px;
+        }
+        
+        .legend-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+        
+        .stats-panel {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px 25px;
+            margin-top: 15px;
+            display: flex;
+            gap: 30px;
+            color: white;
+        }
+        
+        .stats-panel .stat {
+            text-align: center;
+        }
+        
+        .stats-panel .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2ECC71;
+        }
+        
+        .stats-panel .stat-label {
+            font-size: 12px;
+            color: #aaa;
+        }
+        
+        .leaflet-popup-content {
+            margin: 10px 12px;
+        }
+        
+        .popup-title {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .popup-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .popup-type.university {
+            background: #E74C3C;
+            color: white;
+        }
+        
+        .popup-type.tvet {
+            background: #3498DB;
+            color: white;
+        }
+        
+        .popup-location {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .popup-contact {
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+            border-top: 1px solid #eee;
+            padding-top: 5px;
+        }
+
+        @media (max-width: 1050px) {
+            #map {
+                width: 95vw;
+                height: 70vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎓 Kenya Education Institutions Heatmap</h1>
+    <p class="subtitle">Universities & TVET Institutions - LMS Market Potential</p>
+    
+    <div class="controls">
+        <button class="control-btn btn-all active" onclick="showAll()">📍 Show All</button>
+        <button class="control-btn btn-university" onclick="showUniversities()">🏛️ Universities Only</button>
+        <button class="control-btn btn-tvet" onclick="showTVET()">🔧 TVET Only</button>
+        <button class="control-btn btn-heatmap" onclick="toggleHeatmap()">🔥 Toggle Heatmap</button>
+    </div>
+    
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+    
+    <div class="stats-panel">
+        <div class="stat">
+            <div class="stat-value" id="total-institutions">0</div>
+            <div class="stat-label">Total Institutions</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value" style="color: #E74C3C;" id="total-universities">0</div>
+            <div class="stat-label">Universities</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value" style="color: #3498DB;" id="total-tvet">0</div>
+            <div class="stat-label">TVET Institutions</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value" style="color: #F39C12;" id="total-counties">0</div>
+            <div class="stat-label">Counties Covered</div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize the map centered on Kenya
+        const map = L.map('map').setView([-0.5, 37.5], 7);
+        
+        // Add map tiles - using a cleaner style for heatmap visibility
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        // ========== KENYA UNIVERSITIES ==========
+        const universities = [
+            // Public Universities
+            { name: "University of Nairobi", lat: -1.2794, lng: 36.8169, county: "Nairobi", type: "Public" },
+            { name: "Kenyatta University", lat: -1.1805, lng: 36.9283, county: "Nairobi", type: "Public" },
+            { name: "Moi University", lat: 0.2833, lng: 35.3000, county: "Uasin Gishu", type: "Public" },
+            { name: "Egerton University", lat: -0.3679, lng: 35.9330, county: "Nakuru", type: "Public" },
+            { name: "Jomo Kenyatta University (JKUAT)", lat: -1.0917, lng: 37.0142, county: "Kiambu", type: "Public" },
+            { name: "Maseno University", lat: -0.0022, lng: 34.5969, county: "Kisumu", type: "Public" },
+            { name: "Masinde Muliro University (MMUST)", lat: 0.2833, lng: 34.7500, county: "Kakamega", type: "Public" },
+            { name: "Dedan Kimathi University", lat: -0.3986, lng: 36.9611, county: "Nyeri", type: "Public" },
+            { name: "Chuka University", lat: -0.3333, lng: 37.6500, county: "Tharaka-Nithi", type: "Public" },
+            { name: "Technical University of Kenya", lat: -1.2833, lng: 36.8167, county: "Nairobi", type: "Public" },
+            { name: "Technical University of Mombasa", lat: -4.0435, lng: 39.6682, county: "Mombasa", type: "Public" },
+            { name: "Pwani University", lat: -3.9417, lng: 39.7417, county: "Kilifi", type: "Public" },
+            { name: "Kisii University", lat: -0.6817, lng: 34.7717, county: "Kisii", type: "Public" },
+            { name: "Laikipia University", lat: 0.0333, lng: 36.9667, county: "Laikipia", type: "Public" },
+            { name: "South Eastern Kenya University (SEKU)", lat: -1.7833, lng: 38.4500, county: "Kitui", type: "Public" },
+            { name: "Meru University of Science & Technology", lat: 0.0500, lng: 37.6500, county: "Meru", type: "Public" },
+            { name: "Multimedia University of Kenya", lat: -1.2833, lng: 36.8833, county: "Nairobi", type: "Public" },
+            { name: "Jaramogi Oginga Odinga University", lat: -0.1167, lng: 34.2833, county: "Siaya", type: "Public" },
+            { name: "University of Eldoret", lat: 0.5167, lng: 35.2833, county: "Uasin Gishu", type: "Public" },
+            { name: "Karatina University", lat: -0.4833, lng: 37.1333, county: "Nyeri", type: "Public" },
+            { name: "University of Kabianga", lat: -0.5333, lng: 35.1000, county: "Kericho", type: "Public" },
+            { name: "Maasai Mara University", lat: -1.0833, lng: 35.8667, county: "Narok", type: "Public" },
+            { name: "Machakos University", lat: -1.5167, lng: 37.2667, county: "Machakos", type: "Public" },
+            { name: "Murang'a University of Technology", lat: -0.7833, lng: 37.1500, county: "Murang'a", type: "Public" },
+            { name: "Kibabii University", lat: 0.6167, lng: 34.5000, county: "Bungoma", type: "Public" },
+            { name: "University of Embu", lat: -0.5333, lng: 37.4500, county: "Embu", type: "Public" },
+            { name: "Kirinyaga University", lat: -0.5000, lng: 37.2833, county: "Kirinyaga", type: "Public" },
+            { name: "Rongo University", lat: -0.8000, lng: 34.6167, county: "Migori", type: "Public" },
+            { name: "Taita Taveta University", lat: -3.4167, lng: 38.3500, county: "Taita Taveta", type: "Public" },
+            { name: "Garissa University", lat: -0.4500, lng: 39.6500, county: "Garissa", type: "Public" },
+            { name: "Co-operative University of Kenya", lat: -1.2167, lng: 36.8833, county: "Nairobi", type: "Public" },
+            { name: "Tharaka University", lat: -0.2000, lng: 37.8500, county: "Tharaka-Nithi", type: "Public" },
+            { name: "Bomet University College", lat: -0.7833, lng: 35.3333, county: "Bomet", type: "Public" },
+            
+            // Private Universities
+            { name: "Strathmore University", lat: -1.3097, lng: 36.8125, county: "Nairobi", type: "Private" },
+            { name: "United States International University (USIU)", lat: -1.2222, lng: 36.8889, county: "Nairobi", type: "Private" },
+            { name: "Daystar University", lat: -1.4667, lng: 36.9333, county: "Machakos", type: "Private" },
+            { name: "Catholic University of Eastern Africa", lat: -1.2203, lng: 36.8883, county: "Nairobi", type: "Private" },
+            { name: "Africa Nazarene University", lat: -1.4167, lng: 36.7500, county: "Kajiado", type: "Private" },
+            { name: "Pan Africa Christian University", lat: -1.2500, lng: 36.8667, county: "Nairobi", type: "Private" },
+            { name: "KCA University", lat: -1.2667, lng: 36.8500, county: "Nairobi", type: "Private" },
+            { name: "Mount Kenya University", lat: -1.0417, lng: 37.0833, county: "Kiambu", type: "Private" },
+            { name: "Kabarak University", lat: -0.1833, lng: 35.9667, county: "Nakuru", type: "Private" },
+            { name: "Scott Christian University", lat: -3.3833, lng: 38.5667, county: "Taita Taveta", type: "Private" },
+            { name: "Kenya Methodist University", lat: 0.0500, lng: 37.6333, county: "Meru", type: "Private" },
+            { name: "St. Paul's University", lat: -1.1500, lng: 36.9667, county: "Kiambu", type: "Private" },
+            { name: "Zetech University", lat: -1.2333, lng: 36.9000, county: "Nairobi", type: "Private" },
+            { name: "Riara University", lat: -1.2500, lng: 36.7333, county: "Nairobi", type: "Private" },
+            { name: "Pioneer International University", lat: -1.2833, lng: 36.8333, county: "Nairobi", type: "Private" },
+            { name: "Management University of Africa", lat: -1.2833, lng: 36.8167, county: "Nairobi", type: "Private" },
+            { name: "Adventist University of Africa", lat: -1.2167, lng: 36.8000, county: "Nairobi", type: "Private" },
+            { name: "Great Lakes University of Kisumu", lat: -0.0917, lng: 34.7583, county: "Kisumu", type: "Private" },
+            { name: "Gretsa University", lat: -1.0833, lng: 37.0167, county: "Kiambu", type: "Private" },
+            { name: "Lukenya University", lat: -1.4833, lng: 37.0667, county: "Machakos", type: "Private" },
+            { name: "Kenya Highlands University", lat: 0.1500, lng: 35.1167, county: "Nandi", type: "Private" },
+            { name: "Aga Khan University - Nairobi", lat: -1.2622, lng: 36.8028, county: "Nairobi", type: "Private" },
+            { name: "UMMA University", lat: -1.7333, lng: 37.3167, county: "Kajiado", type: "Private" }
+        ];
+
+        // ========== KENYA TVET INSTITUTIONS ==========
+        const tvetInstitutions = [
+            // National Polytechnics
+            { name: "Kenya Polytechnic University College", lat: -1.2833, lng: 36.8167, county: "Nairobi", type: "National Polytechnic" },
+            { name: "Mombasa Polytechnic University College", lat: -4.0435, lng: 39.6682, county: "Mombasa", type: "National Polytechnic" },
+            { name: "Eldoret Polytechnic", lat: 0.5167, lng: 35.2833, county: "Uasin Gishu", type: "National Polytechnic" },
+            { name: "Kisumu Polytechnic", lat: -0.1017, lng: 34.7617, county: "Kisumu", type: "National Polytechnic" },
+            { name: "Nyeri National Polytechnic", lat: -0.4333, lng: 36.9500, county: "Nyeri", type: "National Polytechnic" },
+            { name: "Kenya Coast National Polytechnic", lat: -4.0167, lng: 39.6167, county: "Mombasa", type: "National Polytechnic" },
+            
+            // Technical Training Institutes
+            { name: "Kiambu Institute of Science and Technology", lat: -1.1667, lng: 36.8333, county: "Kiambu", type: "TTI" },
+            { name: "Thika Technical Training Institute", lat: -1.0333, lng: 37.0667, county: "Kiambu", type: "TTI" },
+            { name: "Kabete National Polytechnic", lat: -1.2500, lng: 36.7333, county: "Nairobi", type: "TTI" },
+            { name: "PC Kinyanjui TTI", lat: -1.1833, lng: 36.7000, county: "Nairobi", type: "TTI" },
+            { name: "Nairobi TTI", lat: -1.3000, lng: 36.8667, county: "Nairobi", type: "TTI" },
+            { name: "Athi River TTI", lat: -1.4500, lng: 36.9833, county: "Machakos", type: "TTI" },
+            { name: "Kajiado TTI", lat: -1.8500, lng: 36.7833, county: "Kajiado", type: "TTI" },
+            { name: "Machakos TTI", lat: -1.5167, lng: 37.2667, county: "Machakos", type: "TTI" },
+            { name: "Kitui TTI", lat: -1.3667, lng: 38.0167, county: "Kitui", type: "TTI" },
+            { name: "Makueni TTI", lat: -1.8000, lng: 37.6167, county: "Makueni", type: "TTI" },
+            { name: "Meru TTI", lat: 0.0500, lng: 37.6500, county: "Meru", type: "TTI" },
+            { name: "Embu TTI", lat: -0.5333, lng: 37.4500, county: "Embu", type: "TTI" },
+            { name: "Michuki TTI", lat: -0.7167, lng: 37.1500, county: "Murang'a", type: "TTI" },
+            { name: "Nyandarua TTI", lat: -0.5000, lng: 36.4500, county: "Nyandarua", type: "TTI" },
+            { name: "Nakuru TTI", lat: -0.2833, lng: 36.0667, county: "Nakuru", type: "TTI" },
+            { name: "Naivasha TTI", lat: -0.7167, lng: 36.4333, county: "Nakuru", type: "TTI" },
+            { name: "Rift Valley TTI", lat: -0.2833, lng: 36.0667, county: "Nakuru", type: "TTI" },
+            { name: "Ol'lessos TTI", lat: 0.1500, lng: 35.1167, county: "Nandi", type: "TTI" },
+            { name: "Kericho TTI", lat: -0.3667, lng: 35.2833, county: "Kericho", type: "TTI" },
+            { name: "Eldoret TTI", lat: 0.5167, lng: 35.2833, county: "Uasin Gishu", type: "TTI" },
+            { name: "Kitale TTI", lat: 1.0167, lng: 35.0000, county: "Trans Nzoia", type: "TTI" },
+            { name: "Bumbe TTI", lat: 0.3333, lng: 34.2167, county: "Busia", type: "TTI" },
+            { name: "Sigalagala TTI", lat: 0.1333, lng: 34.6167, county: "Kakamega", type: "TTI" },
+            { name: "Shamberere TTI", lat: 0.3500, lng: 34.6833, county: "Kakamega", type: "TTI" },
+            { name: "Friends College Kaimosi", lat: 0.1667, lng: 34.9500, county: "Vihiga", type: "TTI" },
+            { name: "Sang'alo TTI", lat: 0.5833, lng: 34.5500, county: "Bungoma", type: "TTI" },
+            { name: "Kisumu TTI", lat: -0.1017, lng: 34.7617, county: "Kisumu", type: "TTI" },
+            { name: "Ramogi TTI", lat: -0.1833, lng: 34.4500, county: "Siaya", type: "TTI" },
+            { name: "Gusii TTI", lat: -0.6833, lng: 34.7667, county: "Kisii", type: "TTI" },
+            { name: "Keroka TTI", lat: -0.8167, lng: 34.9167, county: "Nyamira", type: "TTI" },
+            { name: "Mawego TTI", lat: -0.6000, lng: 34.4833, county: "Homa Bay", type: "TTI" },
+            { name: "Siaya TTI", lat: -0.0667, lng: 34.2833, county: "Siaya", type: "TTI" },
+            { name: "Mombasa TTI", lat: -4.0500, lng: 39.6667, county: "Mombasa", type: "TTI" },
+            { name: "Maweni TTI", lat: -4.0333, lng: 39.6500, county: "Mombasa", type: "TTI" },
+            { name: "Kilifi TTI", lat: -3.6333, lng: 39.8500, county: "Kilifi", type: "TTI" },
+            { name: "Coast TTI", lat: -3.9500, lng: 39.7333, county: "Kilifi", type: "TTI" },
+            { name: "Wote TTI", lat: -1.7833, lng: 37.6333, county: "Makueni", type: "TTI" },
+            { name: "Rwika TTI", lat: -0.5833, lng: 37.4333, county: "Embu", type: "TTI" },
+            { name: "Tharaka TTI", lat: -0.2000, lng: 37.8500, county: "Tharaka-Nithi", type: "TTI" },
+            { name: "Nkabune TTI", lat: 0.0667, lng: 37.6667, county: "Meru", type: "TTI" },
+            { name: "Ekerubo Gietai TTI", lat: -0.8333, lng: 34.8833, county: "Nyamira", type: "TTI" },
+            { name: "Sot TTI", lat: -0.3333, lng: 35.1667, county: "Kericho", type: "TTI" },
+            { name: "Baringo TTI", lat: 0.4667, lng: 35.7500, county: "Baringo", type: "TTI" },
+            { name: "Maralal TTI", lat: 1.1000, lng: 36.7000, county: "Samburu", type: "TTI" },
+            { name: "Lodwar TTI", lat: 3.1167, lng: 35.6000, county: "Turkana", type: "TTI" },
+            { name: "Kapenguria TTI", lat: 1.2333, lng: 35.1167, county: "West Pokot", type: "TTI" },
+            { name: "Marsabit TTI", lat: 2.3333, lng: 37.9833, county: "Marsabit", type: "TTI" },
+            { name: "Mandera TTI", lat: 3.9333, lng: 41.8667, county: "Mandera", type: "TTI" },
+            { name: "Wajir TTI", lat: 1.7500, lng: 40.0667, county: "Wajir", type: "TTI" },
+            { name: "Garissa TTI", lat: -0.4500, lng: 39.6500, county: "Garissa", type: "TTI" },
+            { name: "Isiolo TTI", lat: 0.3500, lng: 37.5833, county: "Isiolo", type: "TTI" },
+            { name: "Narok TTI", lat: -1.0833, lng: 35.8667, county: "Narok", type: "TTI" },
+            { name: "Bomet TTI", lat: -0.7833, lng: 35.3333, county: "Bomet", type: "TTI" },
+            { name: "Migori TTI", lat: -1.0667, lng: 34.4667, county: "Migori", type: "TTI" },
+            { name: "Bushiangala TTI", lat: 0.2333, lng: 34.6500, county: "Kakamega", type: "TTI" },
+            { name: "Matili TTI", lat: 0.5833, lng: 34.5000, county: "Bungoma", type: "TTI" },
+            { name: "Kagumo TTI", lat: -0.5333, lng: 37.0833, county: "Kirinyaga", type: "TTI" },
+            { name: "Mathenge TTI", lat: -0.4500, lng: 37.3000, county: "Nyeri", type: "TTI" },
+            { name: "Mukurweini TTI", lat: -0.5333, lng: 37.0667, county: "Nyeri", type: "TTI" },
+            
+            // Vocational Training Centres
+            { name: "Nairobi VTC", lat: -1.2833, lng: 36.8333, county: "Nairobi", type: "VTC" },
+            { name: "Mombasa VTC", lat: -4.0500, lng: 39.6833, county: "Mombasa", type: "VTC" },
+            { name: "Kisumu VTC", lat: -0.0917, lng: 34.7583, county: "Kisumu", type: "VTC" },
+            { name: "Nakuru VTC", lat: -0.3000, lng: 36.0833, county: "Nakuru", type: "VTC" },
+            { name: "Eldoret VTC", lat: 0.5000, lng: 35.2667, county: "Uasin Gishu", type: "VTC" },
+            { name: "Nyeri VTC", lat: -0.4333, lng: 36.9667, county: "Nyeri", type: "VTC" },
+            { name: "Meru VTC", lat: 0.0333, lng: 37.6500, county: "Meru", type: "VTC" },
+            { name: "Kakamega VTC", lat: 0.2833, lng: 34.7500, county: "Kakamega", type: "VTC" },
+            { name: "Kisii VTC", lat: -0.6833, lng: 34.7833, county: "Kisii", type: "VTC" },
+            { name: "Embu VTC", lat: -0.5500, lng: 37.4667, county: "Embu", type: "VTC" },
+            { name: "Machakos VTC", lat: -1.5000, lng: 37.2500, county: "Machakos", type: "VTC" },
+            { name: "Kitui VTC", lat: -1.3667, lng: 38.0167, county: "Kitui", type: "VTC" },
+            { name: "Kilifi VTC", lat: -3.6333, lng: 39.8500, county: "Kilifi", type: "VTC" },
+            { name: "Thika VTC", lat: -1.0333, lng: 37.0833, county: "Kiambu", type: "VTC" },
+            { name: "Naivasha VTC", lat: -0.7167, lng: 36.4500, county: "Nakuru", type: "VTC" }
+        ];
+
+        // Create custom icons
+        const universityIcon = L.divIcon({
+            className: 'custom-marker',
+            html: '<div style="background:#E74C3C;width:24px;height:24px;border-radius:50%;border:3px solid white;box-shadow:0 2px 5px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:bold;">🏛</div>',
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+        });
+
+        const tvetIcon = L.divIcon({
+            className: 'custom-marker',
+            html: '<div style="background:#3498DB;width:22px;height:22px;border-radius:50%;border:3px solid white;box-shadow:0 2px 5px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:bold;">🔧</div>',
+            iconSize: [22, 22],
+            iconAnchor: [11, 11]
+        });
+
+        // Create layer groups
+        const universityMarkers = L.layerGroup();
+        const tvetMarkers = L.layerGroup();
+
+        // Add university markers
+        universities.forEach(uni => {
+            const marker = L.marker([uni.lat, uni.lng], { icon: universityIcon })
+                .bindPopup(`
+                    <div class="popup-title">${uni.name}</div>
+                    <span class="popup-type university">${uni.type} University</span>
+                    <div class="popup-location">📍 ${uni.county} County</div>
+                `);
+            universityMarkers.addLayer(marker);
+        });
+
+        // Add TVET markers
+        tvetInstitutions.forEach(tvet => {
+            const marker = L.marker([tvet.lat, tvet.lng], { icon: tvetIcon })
+                .bindPopup(`
+                    <div class="popup-title">${tvet.name}</div>
+                    <span class="popup-type tvet">${tvet.type}</span>
+                    <div class="popup-location">📍 ${tvet.county} County</div>
+                `);
+            tvetMarkers.addLayer(marker);
+        });
+
+        // Add layers to map
+        universityMarkers.addTo(map);
+        tvetMarkers.addTo(map);
+
+        // Create heatmap data
+        const heatData = [
+            ...universities.map(u => [u.lat, u.lng, 0.8]),
+            ...tvetInstitutions.map(t => [t.lat, t.lng, 0.5])
+        ];
+
+        // Create heat layer
+        const heatLayer = L.heatLayer(heatData, {
+            radius: 30,
+            blur: 20,
+            maxZoom: 10,
+            max: 1.0,
+            gradient: {
+                0.2: '#2ECC71',
+                0.4: '#F1C40F',
+                0.6: '#E67E22',
+                0.8: '#E74C3C',
+                1.0: '#9B59B6'
+            }
+        });
+
+        let heatmapVisible = false;
+
+        // Control functions
+        function showAll() {
+            universityMarkers.addTo(map);
+            tvetMarkers.addTo(map);
+            updateButtons('all');
+        }
+
+        function showUniversities() {
+            map.removeLayer(tvetMarkers);
+            universityMarkers.addTo(map);
+            updateButtons('university');
+        }
+
+        function showTVET() {
+            map.removeLayer(universityMarkers);
+            tvetMarkers.addTo(map);
+            updateButtons('tvet');
+        }
+
+        function toggleHeatmap() {
+            if (heatmapVisible) {
+                map.removeLayer(heatLayer);
+                heatmapVisible = false;
+                document.querySelector('.btn-heatmap').classList.remove('active');
+            } else {
+                heatLayer.addTo(map);
+                heatmapVisible = true;
+                document.querySelector('.btn-heatmap').classList.add('active');
+            }
+        }
+
+        function updateButtons(active) {
+            document.querySelectorAll('.control-btn').forEach(btn => {
+                if (!btn.classList.contains('btn-heatmap')) {
+                    btn.classList.remove('active');
+                }
+            });
+            if (active === 'all') document.querySelector('.btn-all').classList.add('active');
+            if (active === 'university') document.querySelector('.btn-university').classList.add('active');
+            if (active === 'tvet') document.querySelector('.btn-tvet').classList.add('active');
+        }
+
+        // Info control
+        const info = L.control({ position: 'topright' });
+
+        info.onAdd = function(map) {
+            this._div = L.DomUtil.create('div', 'info');
+            this.update();
+            return this._div;
+        };
+
+        info.update = function() {
+            const counties = new Set([
+                ...universities.map(u => u.county),
+                ...tvetInstitutions.map(t => t.county)
+            ]);
+            
+            this._div.innerHTML = `
+                <h4>📊 LMS Market Overview</h4>
+                <div class="stats">
+                    <div class="stat-item uni">
+                        <span class="stat-number">${universities.length}</span>
+                        <span class="stat-label">Universities</span>
+                    </div>
+                    <div class="stat-item tvet">
+                        <span class="stat-number">${tvetInstitutions.length}</span>
+                        <span class="stat-label">TVET Institutions</span>
+                    </div>
+                </div>
+                <p style="margin-top:10px;font-size:11px;color:#666;">
+                    🎯 Total: <strong>${universities.length + tvetInstitutions.length}</strong> institutions<br>
+                    🗺️ Coverage: <strong>${counties.size}</strong> counties
+                </p>
+            `;
+        };
+
+        info.addTo(map);
+
+        // Add legend
+        const legend = L.control({ position: 'bottomright' });
+
+        legend.onAdd = function(map) {
+            const div = L.DomUtil.create('div', 'legend');
+            div.innerHTML = `
+                <h4>Legend</h4>
+                <div class="legend-item">
+                    <div class="legend-icon" style="background:#E74C3C;">🏛</div>
+                    <span>University</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon" style="background:#3498DB;">🔧</div>
+                    <span>TVET Institution</span>
+                </div>
+                <div class="legend-item" style="margin-top:10px;">
+                    <div style="width:60px;height:10px;background:linear-gradient(to right,#2ECC71,#F1C40F,#E67E22,#E74C3C,#9B59B6);border-radius:3px;margin-right:8px;"></div>
+                    <span style="font-size:11px;">Density</span>
+                </div>
+            `;
+            return div;
+        };
+
+        legend.addTo(map);
+
+        // Update stats panel
+        const counties = new Set([
+            ...universities.map(u => u.county),
+            ...tvetInstitutions.map(t => t.county)
+        ]);
+        
+        document.getElementById('total-institutions').textContent = universities.length + tvetInstitutions.length;
+        document.getElementById('total-universities').textContent = universities.length;
+        document.getElementById('total-tvet').textContent = tvetInstitutions.length;
+        document.getElementById('total-counties').textContent = counties.size;
+    </script>
+</body>
+</html>

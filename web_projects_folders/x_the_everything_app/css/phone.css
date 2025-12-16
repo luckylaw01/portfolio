@@ -1,0 +1,127 @@
+/* ===================================
+   PHONE DEVICE MOCKUP STYLES
+   =================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.phone-container {
+    perspective: 1000px;
+}
+
+.phone-frame {
+    width: 375px;
+    height: 812px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    box-shadow: 
+        0 0 0 12px #1a1a1a,
+        0 0 0 14px #3a3a3a,
+        0 20px 60px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 30px;
+    background: #000;
+    border-radius: 0 0 20px 20px;
+    z-index: 1000;
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+    position: relative;
+}
+
+.status-bar {
+    height: 44px;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    padding-top: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    position: relative;
+    z-index: 999;
+}
+
+.status-left {
+    flex: 1;
+}
+
+.status-right {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.status-icon {
+    font-size: 12px;
+}
+
+.app-content {
+    width: 100%;
+    height: calc(100% - 44px - 34px); /* Minus status bar and home indicator */
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #000;
+    position: relative;
+}
+
+.phone-home-indicator {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 134px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 100px;
+}
+
+/* Scrollbar Styling */
+.app-content::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+/* View Transition Animation */
+.view-transition {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

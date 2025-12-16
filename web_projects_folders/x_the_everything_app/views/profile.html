@@ -1,0 +1,198 @@
+<div class="view profile-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Profile</h2>
+        <button id="settingsBtn" class="settings-btn">⚙️</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-cover">
+                <!-- Cover image placeholder -->
+            </div>
+            <div class="profile-info-container">
+                <div class="profile-avatar-container">
+                    <div class="profile-avatar">👤</div>
+                </div>
+                <button class="btn btn-outline btn-edit-profile">Edit profile</button>
+            </div>
+        </div>
+
+        <!-- Profile Details -->
+        <div class="profile-details">
+            <h1 id="profileName" class="profile-name">User Name</h1>
+            <p id="profileUsername" class="profile-username">@username</p>
+            <p id="profileBio" class="profile-bio">Bio goes here</p>
+            
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span id="followingCount" class="stat-number">0</span>
+                    <span class="stat-label">Following</span>
+                </div>
+                <div class="stat-item">
+                    <span id="followersCount" class="stat-number">0</span>
+                    <span class="stat-label">Followers</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="profile-tabs">
+            <button class="tab-btn active" data-tab="posts">Posts</button>
+            <button class="tab-btn" data-tab="replies">Replies</button>
+            <button class="tab-btn" data-tab="media">Media</button>
+            <button class="tab-btn" data-tab="likes">Likes</button>
+        </div>
+
+        <!-- User Posts -->
+        <div id="userPostsContainer" class="feed-container">
+            <!-- User posts will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item active" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+.settings-btn {
+    background: transparent;
+    border: none;
+    color: var(--x-white);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-full);
+    transition: background 0.2s;
+    margin-left: auto;
+}
+
+.settings-btn:hover {
+    background: var(--x-hover);
+}
+
+.profile-cover {
+    height: 120px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.profile-info-container {
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: -32px;
+}
+
+.profile-avatar-container {
+    position: relative;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--x-black);
+    border: 4px solid var(--x-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.btn-edit-profile {
+    margin-bottom: 8px;
+    padding: 8px 16px;
+}
+
+.profile-details {
+    padding: 16px;
+}
+
+.profile-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.profile-username {
+    color: var(--x-gray);
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.profile-bio {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat-item {
+    display: flex;
+    gap: 4px;
+}
+
+.stat-number {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.stat-label {
+    color: var(--x-gray);
+    font-size: 14px;
+}
+
+.profile-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--x-gray);
+    padding: 16px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    background: var(--x-hover);
+}
+
+.tab-btn.active {
+    color: var(--x-white);
+    border-bottom-color: var(--x-blue);
+}
+</style>

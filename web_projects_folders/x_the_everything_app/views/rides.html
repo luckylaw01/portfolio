@@ -1,0 +1,341 @@
+<div class="view rides-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Rides</h2>
+        <button id="ridesMenuBtn" class="settings-btn">⋮</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Trip Planner -->
+        <div class="trip-planner">
+            <div class="location-input-group">
+                <div class="location-input">
+                    <span class="location-dot pickup">●</span>
+                    <input type="text" id="pickupLocation" placeholder="Pickup location" value="Current Location" />
+                </div>
+                <div class="location-input">
+                    <span class="location-dot dropoff">■</span>
+                    <input type="text" id="dropoffLocation" placeholder="Where to?" />
+                </div>
+            </div>
+            <button id="findRideBtn" class="btn-find-ride">Find a Ride</button>
+        </div>
+
+        <!-- Ride Options -->
+        <div id="rideOptionsContainer" class="ride-options" style="display: none;">
+            <div class="section-header">
+                <h3>Choose a ride</h3>
+            </div>
+            <div id="rideOptionsList">
+                <!-- Ride options will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section-header">
+            <h3>Suggestions</h3>
+        </div>
+
+        <div class="suggestions-list">
+            <div class="suggestion-item" data-location="Home">
+                <div class="suggestion-icon">🏠</div>
+                <div class="suggestion-info">
+                    <div class="suggestion-name">Home</div>
+                    <div class="suggestion-address">123 Main St, New York</div>
+                </div>
+            </div>
+            <div class="suggestion-item" data-location="Work">
+                <div class="suggestion-icon">💼</div>
+                <div class="suggestion-info">
+                    <div class="suggestion-name">Work</div>
+                    <div class="suggestion-address">456 Office Blvd, New York</div>
+                </div>
+            </div>
+            <div class="suggestion-item" data-location="Airport">
+                <div class="suggestion-icon">✈️</div>
+                <div class="suggestion-info">
+                    <div class="suggestion-name">Airport</div>
+                    <div class="suggestion-address">JFK International Airport</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Trips -->
+        <div class="section-header">
+            <h3>Recent Trips</h3>
+        </div>
+
+        <div id="recentTripsContainer" class="recent-trips">
+            <!-- Recent trips will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+.trip-planner {
+    padding: 20px;
+    background: var(--x-dark-gray);
+    margin: 16px;
+    border-radius: 16px;
+}
+
+.location-input-group {
+    margin-bottom: 16px;
+}
+
+.location-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+}
+
+.location-dot {
+    font-size: 12px;
+    width: 20px;
+    text-align: center;
+}
+
+.location-dot.pickup {
+    color: var(--x-blue);
+}
+
+.location-dot.dropoff {
+    color: var(--x-green);
+}
+
+.location-input input {
+    flex: 1;
+    padding: 12px 16px;
+    background: var(--x-black);
+    border: 1px solid var(--x-border);
+    border-radius: 12px;
+    color: var(--x-white);
+    font-size: 15px;
+}
+
+.location-input input:focus {
+    outline: none;
+    border-color: var(--x-blue);
+}
+
+.btn-find-ride {
+    width: 100%;
+    background: var(--x-blue);
+    color: var(--x-white);
+    border: none;
+    padding: 14px;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-find-ride:hover {
+    background: #1a8cd8;
+}
+
+.ride-options {
+    margin: 16px 0;
+}
+
+.ride-option {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    display: flex;
+    gap: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ride-option:hover {
+    background: var(--x-hover);
+}
+
+.ride-option-icon {
+    font-size: 40px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--x-dark-gray);
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.ride-option-info {
+    flex: 1;
+}
+
+.ride-option-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.ride-option-details {
+    font-size: 13px;
+    color: var(--x-gray);
+    margin-bottom: 4px;
+}
+
+.ride-option-eta {
+    font-size: 12px;
+    color: var(--x-gray);
+}
+
+.ride-option-price {
+    text-align: right;
+}
+
+.ride-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--x-blue);
+    margin-bottom: 4px;
+}
+
+.ride-surge {
+    font-size: 11px;
+    color: var(--x-red);
+    font-weight: 600;
+}
+
+.suggestions-list {
+    background: var(--x-black);
+}
+
+.suggestion-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.suggestion-item:hover {
+    background: var(--x-hover);
+}
+
+.suggestion-icon {
+    font-size: 32px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--x-dark-gray);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.suggestion-info {
+    flex: 1;
+}
+
+.suggestion-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.suggestion-address {
+    font-size: 13px;
+    color: var(--x-gray);
+}
+
+.recent-trips {
+    background: var(--x-black);
+}
+
+.trip-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.trip-item:hover {
+    background: var(--x-hover);
+}
+
+.trip-route {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.trip-route-text {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.trip-route-arrow {
+    color: var(--x-gray);
+}
+
+.trip-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--x-gray);
+}
+
+.trip-date {
+}
+
+.trip-price {
+    font-weight: 700;
+    color: var(--x-blue);
+}
+
+.empty-trips {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.empty-trips .empty-icon {
+    font-size: 60px;
+    margin-bottom: 16px;
+}
+
+.empty-trips h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.empty-trips p {
+    color: var(--x-gray);
+    font-size: 14px;
+}
+</style>

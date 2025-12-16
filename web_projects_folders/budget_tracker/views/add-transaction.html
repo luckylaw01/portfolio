@@ -1,0 +1,234 @@
+<div class="view add-transaction-view">
+    <!-- Header -->
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2 id="addTransactionTitle">Add Transaction</h2>
+        <div class="header-spacer"></div>
+    </div>
+
+    <!-- Transaction Type Toggle -->
+    <div class="type-toggle">
+        <button class="type-btn active" data-type="expense" id="expenseTypeBtn">
+            <span class="type-icon">↓</span>
+            Expense
+        </button>
+        <button class="type-btn" data-type="income" id="incomeTypeBtn">
+            <span class="type-icon">↑</span>
+            Income
+        </button>
+    </div>
+
+    <!-- Transaction Form -->
+    <form id="transactionForm" class="transaction-form">
+        <!-- Amount Input -->
+        <div class="amount-input-container">
+            <span class="currency-label">KSh</span>
+            <input 
+                type="number" 
+                id="transactionAmount" 
+                class="amount-input" 
+                placeholder="0.00"
+                step="0.01"
+                min="0"
+                required
+            >
+        </div>
+
+        <!-- Category Selection -->
+        <div class="form-group">
+            <label class="form-label">Category</label>
+            <div class="category-grid" id="categoryGrid">
+                <!-- Categories will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Date Input -->
+        <div class="form-group">
+            <label class="form-label">Date</label>
+            <input 
+                type="date" 
+                id="transactionDate" 
+                class="form-input"
+                required
+            >
+        </div>
+
+        <!-- Description Input -->
+        <div class="form-group">
+            <label class="form-label">Description (optional)</label>
+            <input 
+                type="text" 
+                id="transactionDescription" 
+                class="form-input" 
+                placeholder="Add a note..."
+                maxlength="100"
+            >
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="saveTransactionBtn">
+            Save Transaction
+        </button>
+    </form>
+</div>
+
+<style>
+.add-transaction-view {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding-bottom: 40px;
+}
+
+.add-transaction-view .view-header {
+    background: transparent;
+    border-bottom: none;
+}
+
+/* Type Toggle */
+.type-toggle {
+    display: flex;
+    gap: 12px;
+    padding: 0 16px;
+    margin-bottom: 24px;
+}
+
+.type-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.type-btn:hover {
+    border-color: var(--border-medium);
+}
+
+.type-btn.active[data-type="expense"] {
+    border-color: var(--danger);
+    background: rgba(231, 76, 60, 0.1);
+    color: var(--danger);
+}
+
+.type-btn.active[data-type="income"] {
+    border-color: var(--success);
+    background: rgba(46, 204, 113, 0.1);
+    color: var(--success);
+}
+
+.type-icon {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Amount Input */
+.amount-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px 16px 30px;
+}
+
+.currency-label {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.amount-input {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--text-primary);
+    border: none;
+    background: transparent;
+    text-align: center;
+    width: 200px;
+    outline: none;
+}
+
+.amount-input::placeholder {
+    color: var(--text-muted);
+}
+
+.amount-input::-webkit-inner-spin-button,
+.amount-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Transaction Form */
+.transaction-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+}
+
+.transaction-form .form-group {
+    margin-bottom: 20px;
+}
+
+.transaction-form .btn {
+    margin-top: auto;
+}
+
+/* Category Grid */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px;
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    background: var(--bg-input);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.category-item:hover {
+    background: var(--border-light);
+}
+
+.category-item.selected {
+    border-color: var(--primary);
+    background: rgba(74, 144, 226, 0.1);
+}
+
+.category-icon {
+    font-size: 24px;
+}
+
+.category-name {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.category-item.selected .category-name {
+    color: var(--primary);
+}
+</style>

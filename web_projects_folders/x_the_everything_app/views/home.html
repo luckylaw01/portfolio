@@ -1,0 +1,250 @@
+<!-- View Fragment -->
+<div class="view home-view">
+    <div class="view-header home-header">
+        <div class="home-logo">
+            <span style="font-size: 28px; font-weight: 700;">𝕏</span>
+        </div>
+    </div>
+
+    <!-- Feed Tabs -->
+    <div class="feed-tabs">
+        <button class="feed-tab active" data-tab="foryou">
+            <span>For you</span>
+        </button>
+        <button class="feed-tab" data-tab="following">
+            <span>Following</span>
+        </button>
+    </div>
+
+    <div class="view-content">
+        <div id="feedContainer" class="feed-container">
+            <!-- Posts will be loaded here dynamically -->
+        </div>
+    </div>
+
+    <!-- Compose FAB -->
+    <button id="composeBtn" class="compose-fab">
+        ✏️
+    </button>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item active" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+.home-header {
+    justify-content: center;
+    position: relative;
+}
+
+.home-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feed-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--x-border);
+    position: sticky;
+    top: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 99;
+}
+
+.feed-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--x-gray);
+    padding: 16px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.feed-tab:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.feed-tab.active {
+    color: var(--x-white);
+}
+
+.feed-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56px;
+    height: 4px;
+    background: var(--x-blue);
+    border-radius: 4px 4px 0 0;
+}
+
+.compose-fab {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    background: var(--x-blue);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(29, 155, 240, 0.4);
+    transition: all 0.2s;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.compose-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(29, 155, 240, 0.6);
+}
+
+.compose-fab:active {
+    transform: scale(0.95);
+}
+
+.feed-container {
+    background: var(--x-black);
+}
+
+.post {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.post:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.post-header {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.post-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--x-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.post-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-user-info {
+    flex: 1;
+}
+
+.post-name {
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.post-username {
+    color: var(--x-gray);
+    font-size: 15px;
+}
+
+.post-content {
+    margin-left: 52px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.post-image {
+    margin-left: 52px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--x-border);
+}
+
+.post-image img {
+    width: 100%;
+    display: block;
+}
+
+.post-actions {
+    margin-left: 52px;
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    max-width: 400px;
+}
+
+.post-action-btn {
+    background: transparent;
+    border: none;
+    color: var(--x-gray);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.post-action-btn:hover {
+    background: rgba(29, 155, 240, 0.1);
+    color: var(--x-blue);
+}
+
+.post-action-btn.like-btn.active {
+    color: var(--x-red);
+}
+
+.post-action-btn.retweet-btn.active {
+    color: var(--x-green);
+}
+</style>

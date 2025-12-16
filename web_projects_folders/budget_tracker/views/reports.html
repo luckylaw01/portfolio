@@ -1,0 +1,465 @@
+<div class="view reports-view">
+    <!-- Header -->
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Reports</h2>
+        <button class="header-icon-btn" id="exportReportBtn">📤</button>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="view-scrollable">
+        <!-- Period Selector -->
+        <div class="period-selector">
+            <button class="period-btn active" data-period="week">Week</button>
+            <button class="period-btn" data-period="month">Month</button>
+            <button class="period-btn" data-period="year">Year</button>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="report-summary">
+            <div class="summary-stat income">
+                <span class="stat-icon">↑</span>
+                <div class="stat-content">
+                    <span class="stat-label">Income</span>
+                    <span class="stat-amount" id="reportIncome">KSh 0.00</span>
+                </div>
+            </div>
+            <div class="summary-stat expense">
+                <span class="stat-icon">↓</span>
+                <div class="stat-content">
+                    <span class="stat-label">Expenses</span>
+                    <span class="stat-amount" id="reportExpenses">KSh 0.00</span>
+                </div>
+            </div>
+            <div class="summary-stat balance">
+                <span class="stat-icon">=</span>
+                <div class="stat-content">
+                    <span class="stat-label">Balance</span>
+                    <span class="stat-amount" id="reportBalance">KSh 0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Container -->
+        <div class="charts-container">
+            <!-- Expense by Category Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Expenses by Category</h3>
+                </div>
+                <div class="pie-chart-container" id="pieChartContainer">
+                    <div class="pie-chart" id="pieChart"></div>
+                    <div class="pie-chart-legend" id="pieChartLegend"></div>
+                </div>
+            </div>
+
+            <!-- Income vs Expense Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Income vs Expenses</h3>
+                </div>
+                <div class="bar-chart-container" id="barChartContainer">
+                    <!-- Bar chart will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Daily Spending Trend -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Spending Trend</h3>
+                </div>
+                <div class="line-chart-container" id="lineChartContainer">
+                    <!-- Line chart will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Top Spending Categories -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Top Spending</h3>
+                </div>
+                <div class="top-categories" id="topCategories">
+                    <!-- Top categories will be listed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-item" data-view="dashboard">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="transactions">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">History</span>
+        </button>
+        <button class="nav-item" data-view="budgets">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Budgets</span>
+        </button>
+        <button class="nav-item" data-view="settings">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Settings</span>
+        </button>
+    </nav>
+</div>
+
+<style>
+.reports-view {
+    padding: 0;
+}
+
+.reports-view .view-header {
+    flex-shrink: 0;
+    padding-right: 8px;
+}
+
+.reports-view .view-scrollable {
+    padding: 0;
+}
+
+.header-icon-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--bg-input);
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition-fast);
+}
+
+.header-icon-btn:hover {
+    background: var(--border-light);
+}
+
+/* Period Selector */
+.period-selector {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 16px;
+}
+
+.period-btn {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.period-btn:hover {
+    border-color: var(--border-medium);
+}
+
+.period-btn.active {
+    border-color: var(--primary);
+    background: rgba(74, 144, 226, 0.1);
+    color: var(--primary);
+}
+
+/* Report Summary */
+.report-summary {
+    display: flex;
+    gap: 10px;
+    padding: 0 16px 20px;
+}
+
+.summary-stat {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+}
+
+.summary-stat .stat-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.summary-stat.income .stat-icon {
+    background: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.summary-stat.expense .stat-icon {
+    background: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+}
+
+.summary-stat.balance .stat-icon {
+    background: rgba(74, 144, 226, 0.2);
+    color: var(--primary);
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-stat .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.summary-stat .stat-amount {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Charts Container */
+.charts-container {
+    flex: 1;
+    padding: 0 16px;
+    overflow-y: auto;
+}
+
+.chart-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.chart-header {
+    margin-bottom: 16px;
+}
+
+.chart-header h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Pie Chart */
+.pie-chart-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pie-chart {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.pie-chart-empty {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--bg-input);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.pie-chart-legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.legend-label {
+    flex: 1;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.legend-value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Bar Chart */
+.bar-chart-container {
+    height: 150px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 30px;
+    padding: 10px 0;
+}
+
+.bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.bar-wrapper {
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.bar {
+    width: 50px;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.5s ease;
+}
+
+.bar.income {
+    background: linear-gradient(to top, #2ECC71, #58D68D);
+}
+
+.bar.expense {
+    background: linear-gradient(to top, #E74C3C, #EC7063);
+}
+
+.bar-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.bar-value {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+/* Line Chart */
+.line-chart-container {
+    height: 150px;
+    position: relative;
+    padding: 10px 0;
+}
+
+.line-chart-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.line-chart-empty {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* Top Categories */
+.top-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.top-category-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.top-category-rank {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--bg-input);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.top-category-rank.gold {
+    background: #FFD700;
+    color: #333;
+}
+
+.top-category-rank.silver {
+    background: #C0C0C0;
+    color: #333;
+}
+
+.top-category-rank.bronze {
+    background: #CD7F32;
+    color: white;
+}
+
+.top-category-icon {
+    font-size: 20px;
+}
+
+.top-category-info {
+    flex: 1;
+}
+
+.top-category-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.top-category-bar {
+    height: 4px;
+    background: var(--bg-input);
+    border-radius: 2px;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+.top-category-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+}
+
+.top-category-amount {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.reports-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+}
+</style>

@@ -1,0 +1,249 @@
+<div class="view bank-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Bank</h2>
+        <button id="bankInfoBtn" class="settings-btn">ℹ️</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Account Overview -->
+        <div class="account-card">
+            <div class="account-label">Total Balance</div>
+            <div id="bankBalance" class="account-amount">$0.00</div>
+            <div class="account-number">Account: ****5678</div>
+        </div>
+
+        <!-- Banking Services -->
+        <div class="section-header">
+            <h3>Banking Services</h3>
+        </div>
+
+        <div class="services-grid">
+            <button class="service-card" id="loansService">
+                <div class="service-icon">💵</div>
+                <div class="service-label">Loans</div>
+                <div class="service-desc">Personal & business loans</div>
+            </button>
+
+            <button class="service-card" id="mortgagesService">
+                <div class="service-icon">🏠</div>
+                <div class="service-label">Mortgages</div>
+                <div class="service-desc">Home financing</div>
+            </button>
+
+            <button class="service-card" id="savingsService">
+                <div class="service-icon">🏦</div>
+                <div class="service-label">Savings</div>
+                <div class="service-desc">High-yield accounts</div>
+            </button>
+
+            <button class="service-card" id="creditCardService">
+                <div class="service-icon">💳</div>
+                <div class="service-label">Credit Cards</div>
+                <div class="service-desc">Apply for cards</div>
+            </button>
+
+            <button class="service-card" id="insuranceService">
+                <div class="service-icon">🛡️</div>
+                <div class="service-label">Insurance</div>
+                <div class="service-desc">Life, health & auto</div>
+            </button>
+        </div>
+
+        <!-- Active Products -->
+        <div class="section-header">
+            <h3>Your Products</h3>
+            <button id="viewAllProducts"
+                style="background: transparent; border: none; color: var(--x-blue); cursor: pointer; font-size: 14px; font-weight: 600;">View
+                all</button>
+        </div>
+
+        <div id="bankProductsContainer" class="products-list">
+            <!-- Bank products will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+    .account-card {
+        margin: 16px;
+        padding: 24px;
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        border-radius: 16px;
+        text-align: center;
+    }
+
+    .account-label {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 8px;
+    }
+
+    .account-amount {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .account-number {
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    .bank-view .section-header {
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .bank-view .section-header h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 16px 16px 16px;
+    }
+
+    .service-card {
+        background: var(--x-dark-gray);
+        border: 1px solid var(--x-border);
+        border-radius: 12px;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+
+    .service-card:hover {
+        background: var(--x-hover);
+        transform: translateY(-2px);
+        border-color: var(--x-blue);
+    }
+
+    .service-icon {
+        font-size: 36px;
+        margin-bottom: 8px;
+    }
+
+    .service-label {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--x-white);
+        margin-bottom: 4px;
+    }
+
+    .service-desc {
+        font-size: 12px;
+        color: var(--x-gray);
+    }
+
+    .products-list {
+        background: var(--x-black);
+    }
+
+    .product-item {
+        padding: 16px;
+        border-bottom: 1px solid var(--x-border);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .product-item:hover {
+        background: var(--x-hover);
+    }
+
+    .product-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--x-dark-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .product-details {
+        flex: 1;
+    }
+
+    .product-name {
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 2px;
+    }
+
+    .product-info {
+        font-size: 13px;
+        color: var(--x-gray);
+    }
+
+    .product-amount {
+        text-align: right;
+    }
+
+    .amount-value {
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 2px;
+    }
+
+    .amount-status {
+        font-size: 13px;
+        color: var(--x-gray);
+    }
+
+    .empty-products {
+        padding: 60px 40px;
+        text-align: center;
+    }
+
+    .empty-products .empty-icon {
+        font-size: 60px;
+        margin-bottom: 16px;
+    }
+
+    .empty-products h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .empty-products p {
+        color: var(--x-gray);
+        font-size: 14px;
+    }
+</style>

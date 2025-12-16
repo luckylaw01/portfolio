@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker | Lawrence Munyaka Portfolio</title>
+    <meta name="description" content="Personal Budget Tracker - A comprehensive expense tracking application">
+
+    <link rel="stylesheet" href="../assets/css/design-system.css">
+    <link rel="stylesheet" href="../assets/css/transitions.css">
+    <link rel="stylesheet" href="../assets/css/navigation.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
+    <link rel="stylesheet" href="../assets/css/local-projects.css">
+
+    <style>
+        /* Budget Tracker - Financial Blue/Green Theme */
+        :root {
+            --budget-blue: #2563EB;
+            --budget-green: #10B981;
+            --budget-dark: #1E293B;
+            --budget-light: #EFF6FF;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 100%);
+        }
+
+        .project-type-badge {
+            background: linear-gradient(135deg, var(--budget-blue), var(--budget-green));
+        }
+
+        .iframe-frame {
+            border-color: var(--budget-blue);
+        }
+
+        .project-main-title {
+            background: linear-gradient(135deg, var(--budget-dark), var(--budget-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .highlight-box {
+            background: rgba(37, 99, 235, 0.05);
+            border-left-color: var(--budget-blue);
+        }
+
+        .highlight-title {
+            color: var(--budget-blue);
+        }
+
+        .tech-tag-item {
+            border-color: var(--budget-blue);
+            color: var(--budget-blue);
+        }
+
+        .tech-tag-item:hover {
+            background: var(--budget-blue);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+    <div id="slide-counter" class="slide-counter"></div>
+
+    <div class="nav-controls">
+        <button id="nav-prev" class="nav-btn" aria-label="Previous slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <button id="nav-next" class="nav-btn" aria-label="Next slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </button>
+    </div>
+
+    <main id="main-content">
+        <div class="local-project-container">
+            <div class="iframe-section">
+                <div class="iframe-frame stagger-item">
+                    <iframe src="../web_projects_folders/budget_tracker/index.html" class="project-iframe"
+                        title="Budget Tracker Application"></iframe>
+                </div>
+                <button class="fullscreen-toggle" aria-label="Toggle fullscreen">
+                    <span class="enter-fullscreen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                            </path>
+                        </svg>
+                        Fullscreen
+                    </span>
+                    <span class="exit-fullscreen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3">
+                            </path>
+                        </svg>
+                        Exit
+                    </span>
+                </button>
+            </div>
+
+            <div class="info-section">
+                <div class="project-type-badge stagger-item">Financial App • 2024</div>
+                <h1 class="project-main-title stagger-item">Budget Tracker</h1>
+                <p class="project-subtitle stagger-item">Personal Expense Management</p>
+                <p class="project-desc stagger-item">A comprehensive tool for tracking expenses and managing budgets
+                    with visual analytics.</p>
+
+                <div class="highlight-box stagger-item">
+                    <h3 class="highlight-title">Features</h3>
+                    <p class="highlight-text">Visual charts, category tracking, and data persistence.</p>
+                </div>
+
+                <div class="tech-tags-list stagger-item">
+                    <span class="tech-tag-item">JavaScript</span>
+                    <span class="tech-tag-item">Chart.js</span>
+                    <span class="tech-tag-item">Bootstrap</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/navigation-core.js"></script>
+    <script src="../assets/js/transitions.js"></script>
+    <script src="../assets/js/menu.js"></script>
+    <script src="../assets/js/fullscreen-toggle.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.stagger-item').forEach((item, index) => {
+                    setTimeout(() => item.classList.add('animate'), index * 100);
+                });
+            }, 200);
+        });
+    </script>
+</body>
+
+</html>

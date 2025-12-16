@@ -1,0 +1,244 @@
+<div class="view payments-view">
+    <div class="view-header">
+        <h2>Payments</h2>
+        <button id="paymentSettingsBtn" class="settings-btn">⚙️</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <div class="balance-label">Available Balance</div>
+            <div id="balanceAmount" class="balance-amount">$0.00</div>
+            <div class="balance-actions">
+                <button id="addMoneyBtn" class="btn btn-primary">Add Money</button>
+                <button id="sendMoneyBtn" class="btn btn-outline">Send</button>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section-header">
+            <h3>Quick Actions</h3>
+        </div>
+
+        <div class="quick-actions-grid">
+            <button class="action-card" id="sendMoneyAction">
+                <div class="action-icon">💸</div>
+                <div class="action-label">Send Money</div>
+            </button>
+            <button class="action-card" id="requestMoneyAction">
+                <div class="action-icon">📥</div>
+                <div class="action-label">Request</div>
+            </button>
+            <button class="action-card" id="shopAction">
+                <div class="action-icon">🏪</div>
+                <div class="action-label">Shop</div>
+            </button>
+            <button class="action-card" id="investAction">
+                <div class="action-icon">📊</div>
+                <div class="action-label">Invest</div>
+            </button>
+        </div>
+
+        <!-- Transactions -->
+        <div class="section-header">
+            <h3>Recent Transactions</h3>
+            <button id="viewAllTransactions"
+                style="background: transparent; border: none; color: var(--x-blue); cursor: pointer; font-size: 14px; font-weight: 600;">View
+                all</button>
+        </div>
+
+        <div id="transactionsContainer" class="transactions-list">
+            <!-- Transactions will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+    .balance-card {
+        margin: 16px;
+        padding: 24px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 16px;
+        text-align: center;
+    }
+
+    .balance-label {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 8px;
+    }
+
+    .balance-amount {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 24px;
+    }
+
+    .balance-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .balance-actions .btn {
+        flex: 1;
+        max-width: 150px;
+    }
+
+    .section-header {
+        padding: 16px;
+        border-bottom: 1px solid var(--x-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .section-header h3 {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .quick-actions-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .action-card {
+        background: var(--x-dark-gray);
+        border: 1px solid var(--x-border);
+        border-radius: 12px;
+        padding: 24px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+
+    .action-card:hover {
+        background: var(--x-hover);
+        transform: translateY(-2px);
+        border-color: var(--x-blue);
+    }
+
+    .action-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .action-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--x-white);
+    }
+
+    .transactions-list {
+        background: var(--x-black);
+    }
+
+    .transaction-item {
+        padding: 16px;
+        border-bottom: 1px solid var(--x-border);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .transaction-item:hover {
+        background: var(--x-hover);
+    }
+
+    .transaction-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--x-dark-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .transaction-icon.sent {
+        background: rgba(244, 33, 46, 0.15);
+    }
+
+    .transaction-icon.received {
+        background: rgba(0, 186, 124, 0.15);
+    }
+
+    .transaction-details {
+        flex: 1;
+    }
+
+    .transaction-name {
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 2px;
+    }
+
+    .transaction-date {
+        font-size: 13px;
+        color: var(--x-gray);
+    }
+
+    .transaction-amount {
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .transaction-amount.sent {
+        color: var(--x-red);
+    }
+
+    .transaction-amount.received {
+        color: var(--x-green);
+    }
+
+    .empty-transactions {
+        padding: 60px 40px;
+        text-align: center;
+    }
+
+    .empty-transactions .empty-icon {
+        font-size: 60px;
+        margin-bottom: 16px;
+    }
+
+    .empty-transactions h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .empty-transactions p {
+        color: var(--x-gray);
+        font-size: 14px;
+    }
+</style>

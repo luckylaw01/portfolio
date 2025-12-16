@@ -1,0 +1,237 @@
+<div class="view settings-view">
+    <!-- Header -->
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Settings</h2>
+        <div class="header-spacer"></div>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="view-scrollable">
+        <!-- User Profile -->
+        <div class="settings-profile">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+                <h3 id="settingsUserName">User</h3>
+                <p>Member since <span id="memberSince">2025</span></p>
+            </div>
+        </div>
+
+        <!-- Settings Sections -->
+        <div class="settings-sections">
+            <!-- General Settings -->
+            <div class="settings-section">
+                <h4 class="section-title">General</h4>
+                <div class="settings-list">
+                    <button class="settings-item" id="categoriesBtn">
+                        <span class="settings-icon">📁</span>
+                        <span class="settings-label">Manage Categories</span>
+                        <span class="settings-arrow">›</span>
+                    </button>
+                    <button class="settings-item" id="currencyBtn">
+                        <span class="settings-icon">💱</span>
+                        <span class="settings-label">Currency</span>
+                        <span class="settings-value">KSh</span>
+                        <span class="settings-arrow">›</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Data Management -->
+            <div class="settings-section">
+                <h4 class="section-title">Data</h4>
+                <div class="settings-list">
+                    <button class="settings-item" id="exportDataBtn">
+                        <span class="settings-icon">📤</span>
+                        <span class="settings-label">Export Data</span>
+                        <span class="settings-arrow">›</span>
+                    </button>
+                    <button class="settings-item danger" id="clearDataBtn">
+                        <span class="settings-icon">🗑️</span>
+                        <span class="settings-label">Clear All Data</span>
+                        <span class="settings-arrow">›</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Account -->
+            <div class="settings-section">
+                <h4 class="section-title">Account</h4>
+                <div class="settings-list">
+                    <button class="settings-item" id="changePinBtn">
+                        <span class="settings-icon">🔒</span>
+                        <span class="settings-label">Change PIN</span>
+                        <span class="settings-arrow">›</span>
+                    </button>
+                    <button class="settings-item danger" id="logoutBtn">
+                        <span class="settings-icon">🚪</span>
+                        <span class="settings-label">Logout</span>
+                        <span class="settings-arrow">›</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- About -->
+            <div class="settings-section">
+                <h4 class="section-title">About</h4>
+                <div class="settings-list">
+                    <div class="settings-item static">
+                        <span class="settings-icon">📱</span>
+                        <span class="settings-label">Version</span>
+                        <span class="settings-value">1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-item" data-view="dashboard">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="transactions">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">History</span>
+        </button>
+        <button class="nav-item" data-view="budgets">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Budgets</span>
+        </button>
+        <button class="nav-item active" data-view="settings">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Settings</span>
+        </button>
+    </nav>
+</div>
+
+<style>
+.settings-view {
+    padding: 0;
+}
+
+.settings-view .view-header {
+    flex-shrink: 0;
+}
+
+.settings-view .view-scrollable {
+    padding: 0;
+}
+
+/* Profile Section */
+.settings-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    margin: 0 16px 20px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+}
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+    background: var(--bg-input);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.profile-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.profile-info p {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* Settings Sections */
+.settings-sections {
+    padding: 0 16px;
+}
+
+.settings-section {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 4px;
+}
+
+.settings-list {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.settings-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.settings-item:last-child {
+    border-bottom: none;
+}
+
+.settings-item:hover {
+    background: var(--bg-input);
+}
+
+.settings-item.static {
+    cursor: default;
+}
+
+.settings-item.static:hover {
+    background: transparent;
+}
+
+.settings-item.danger .settings-label {
+    color: var(--danger);
+}
+
+.settings-icon {
+    font-size: 20px;
+    width: 28px;
+    text-align: center;
+}
+
+.settings-label {
+    flex: 1;
+    font-size: 15px;
+    color: var(--text-primary);
+}
+
+.settings-value {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.settings-arrow {
+    font-size: 20px;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+</style>

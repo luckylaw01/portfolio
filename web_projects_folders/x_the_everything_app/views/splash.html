@@ -1,0 +1,59 @@
+<div class="view splash-view">
+    <div class="splash-container">
+        <div class="splash-logo">
+            <svg viewBox="0 0 24 24" width="80" height="80" fill="white">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+        </div>
+        <div class="splash-tagline">
+            <h1>The Everything App</h1>
+        </div>
+    </div>
+</div>
+
+<style>
+.splash-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    background: var(--x-black);
+}
+
+.splash-container {
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.splash-logo {
+    margin-bottom: 24px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.splash-tagline h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--x-gray);
+    letter-spacing: 0.5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+</style>

@@ -1,0 +1,129 @@
+<div class="view service-detail-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Service Details</h2>
+        <button class="settings-btn" style="opacity: 0; pointer-events: none;">⋮</button>
+    </div>
+
+    <div class="view-content">
+        <div id="serviceDetailContainer" class="service-detail-container">
+            <!-- Service details will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>
+.service-detail-container {
+    background: var(--x-black);
+}
+
+.service-detail-header {
+    padding: 24px 16px;
+    background: var(--x-dark-gray);
+    text-align: center;
+}
+
+.service-detail-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.service-detail-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.service-detail-category {
+    font-size: 13px;
+    color: var(--x-blue);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.service-info-section {
+    padding: 20px 16px;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.info-section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.info-section-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--x-gray);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-size: 14px;
+    color: var(--x-gray);
+}
+
+.info-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--x-white);
+}
+
+.requirements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.requirement-item {
+    padding: 12px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.requirement-item::before {
+    content: "✓";
+    color: var(--x-green);
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.requirement-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--x-gray);
+}
+
+.service-actions {
+    padding: 20px 16px;
+}
+
+.btn-apply-service {
+    width: 100%;
+    background: var(--x-blue);
+    color: var(--x-white);
+    border: none;
+    padding: 16px;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-apply-service:hover {
+    background: #1a8cd8;
+}
+</style>

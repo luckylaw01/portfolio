@@ -1,0 +1,120 @@
+<div class="view product-detail-view">
+    <div class="view-header">
+        <button id="productDetailBackBtn" class="back-btn">←</button>
+        <h2>Product Details</h2>
+        <button id="productCartBtn" class="cart-btn">
+            🛒
+            <span id="productCartBadge" class="cart-badge" style="display: none;">0</span>
+        </button>
+    </div>
+
+    <div class="view-content">
+        <div id="productDetailContent">
+            <!-- Product details will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>
+.product-detail-content {
+    background: var(--x-black);
+}
+
+.product-detail-image {
+    width: 100%;
+    height: 300px;
+    background: var(--x-dark-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.product-detail-info {
+    padding: 20px;
+}
+
+.product-detail-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.product-detail-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    color: var(--x-gray);
+    font-size: 14px;
+}
+
+.product-detail-price {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--x-blue);
+    margin-bottom: 20px;
+}
+
+.product-detail-description {
+    color: var(--x-gray);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    font-size: 15px;
+}
+
+.product-quantity {
+    margin-bottom: 20px;
+}
+
+.product-quantity label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.quantity-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--x-dark-gray);
+    border: 1px solid var(--x-border);
+    border-radius: 50%;
+    color: var(--x-white);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quantity-btn:hover {
+    background: var(--x-hover);
+    border-color: var(--x-blue);
+}
+
+.quantity-value {
+    font-size: 18px;
+    font-weight: 600;
+    min-width: 40px;
+    text-align: center;
+}
+
+.product-detail-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.product-detail-actions .btn {
+    flex: 1;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 700;
+}
+</style>

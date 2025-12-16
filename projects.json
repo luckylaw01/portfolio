@@ -1,0 +1,164 @@
+{
+    "intro": {
+        "name": "Lawrence Munyaka",
+        "title": "Systems Engineer • Graphics Designer • Project Manager",
+        "bio": "A passionate systems engineer and graphics designer with robust problem-solving skills. Motivated towards positive change and improvement for myself and my community, and always ready to learn new skills. I transform ideas into impactful digital solutions.",
+        "avatar": "./assets/images/my_photo.png"
+    },
+    "projects": [
+        {
+            "id": "certblock",
+            "name": "CERTBLOCK",
+            "type": "web-hosted",
+            "category": "Blockchain System",
+            "date": "2025-01",
+            "description": "A digital secure certificates wallet and insurance system using blockchain technology",
+            "story": "Created to solve the problem of certificate fraud and enable instant verification. This system uses digital blockchain to allow instant authentication of certificates, projected to impact 100,000+ people.",
+            "liveUrl": "https://www.lawrencemunyaka.engineer",
+            "screenshot": "./assets/images/projects/certblock-screenshot.jpg",
+            "technologies": [
+                "Blockchain",
+                "JavaScript",
+                "Node.js",
+                "React"
+            ]
+        },
+        {
+            "id": "tvet-lms",
+            "name": "TVET LMS",
+            "type": "web-hosted",
+            "category": "AI-Powered Learning System",
+            "date": "2025-01",
+            "description": "An AI-powered Learning Management System for TVET institutions",
+            "story": "Led a development team of five through nine months to build this system. Uses powerful algorithms and AI to make TVET students' and trainers' work and collaboration easier. Impacted 20 teachers and 250 students.",
+            "liveUrl": "https://www.lawrencemunyaka.engineer",
+            "screenshot": "./assets/images/projects/tvet-lms-screenshot.jpg",
+            "technologies": [
+                "AI/ML",
+                "React",
+                "Node.js",
+                "Python",
+                "MySQL"
+            ]
+        },
+        {
+            "id": "fbas",
+            "name": "FBAS - Fingerprint-Based Attendance System",
+            "type": "web-local",
+            "category": "School Management System",
+            "date": "2024-11",
+            "description": "A 3D interactive simulation of a biometric attendance system for schools",
+            "story": "Built to revolutionize school attendance tracking with biometric authentication. Features a beautiful 3D interface simulating a physical device with admin dashboard for real-time monitoring.",
+            "localPath": "./web_projects_folders/fbas",
+            "entryFile": "index.html",
+            "technologies": [
+                "Three.js",
+                "JavaScript",
+                "HTML5",
+                "CSS3"
+            ]
+        },
+        {
+            "id": "budget-tracker",
+            "name": "Budget Tracker",
+            "type": "web-local",
+            "category": "Financial Application",
+            "date": "2024-06",
+            "description": "A comprehensive budget management and expense tracking application",
+            "story": "Designed to help individuals and small businesses manage their finances effectively. Features intuitive UI with data visualization and category-based expense tracking.",
+            "localPath": "./web_projects_folders/budget_tracker",
+            "entryFile": "index.html",
+            "technologies": [
+                "JavaScript",
+                "Chart.js",
+                "Bootstrap",
+                "LocalStorage"
+            ]
+        },
+        {
+            "id": "kenya-heat-map",
+            "name": "Kenya Heat Map",
+            "type": "web-local",
+            "category": "Data Visualization",
+            "date": "2024-09",
+            "description": "An interactive heat map visualization for Kenya with real-time data",
+            "story": "Created to visualize geographical data across Kenya with interactive regions. Perfect for displaying statistics, weather data, and demographic information in an engaging way.",
+            "localPath": "./web_projects_folders/kenya_heat_map",
+            "entryFile": "index.html",
+            "technologies": [
+                "JavaScript",
+                "Leaflet.js",
+                "D3.js",
+                "OpenStreetMap API"
+            ]
+        },
+        {
+            "id": "nitrust",
+            "name": "Nitrust Short-Term Trust Fund",
+            "type": "web-local",
+            "category": "Financial Platform",
+            "date": "2024-08",
+            "description": "A modern web platform for a short-term trust fund management",
+            "story": "Built to provide a professional online presence for Nitrust with features for portfolio management, client dashboards, and investment tracking.",
+            "localPath": "./web_projects_folders/nitrust short-term trust fund",
+            "entryFile": "index.html",
+            "technologies": [
+                "React",
+                "Node.js",
+                "Bootstrap",
+                "QuickBooks Integration"
+            ]
+        },
+        {
+            "id": "x-app",
+            "name": "X - The Everything App",
+            "type": "web-local",
+            "category": "Social Platform",
+            "date": "2024-10",
+            "description": "A comprehensive social platform reimagining with modern features",
+            "story": "An ambitious project to create a modern social platform with real-time updates, multimedia sharing, and seamless user experience. Features include posts, messaging, and content discovery.",
+            "localPath": "./web_projects_folders/x_the_everything_app",
+            "entryFile": "index.html",
+            "technologies": [
+                "JavaScript",
+                "WebSockets",
+                "IndexedDB",
+                "PWA"
+            ]
+        },
+        {
+            "id": "marriott",
+            "name": "Marriott Budget Analysis",
+            "type": "web-local",
+            "category": "Data Analysis Dashboard",
+            "date": "2024-07",
+            "description": "A budget analysis dashboard for Marriott hotel operations",
+            "story": "Created to provide clear visualization and insights into budget allocations and spending patterns. Helps management make informed financial decisions.",
+            "localPath": "./web_projects_folders/Marriott",
+            "entryFile": "budget-analysis.html",
+            "technologies": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "Chart.js"
+            ]
+        },
+        {
+            "id": "brotherhood",
+            "name": "Brotherhood",
+            "type": "web-local",
+            "category": "Community Platform",
+            "date": "2024-05",
+            "description": "A community platform fostering connection and collaboration",
+            "story": "Designed to bring people together through shared interests and goals. Features member profiles, event coordination, and community discussions.",
+            "localPath": "./web_projects_folders/Brotherhood",
+            "entryFile": "index.html",
+            "technologies": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "Bootstrap"
+            ]
+        }
+    ]
+}

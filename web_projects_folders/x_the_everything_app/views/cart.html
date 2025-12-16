@@ -1,0 +1,177 @@
+<div class="view cart-view">
+    <div class="view-header">
+        <button id="cartBackBtn" class="back-btn">←</button>
+        <h2>Shopping Cart</h2>
+        <button id="clearCartBtn" style="background: transparent; border: none; color: var(--x-red); cursor: pointer; font-size: 14px; font-weight: 600;">Clear</button>
+    </div>
+
+    <div class="view-content">
+        <div id="cartItems" class="cart-items">
+            <!-- Cart items will be loaded here -->
+        </div>
+
+        <div id="cartSummary" class="cart-summary">
+            <!-- Cart summary will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>
+.cart-items {
+    background: var(--x-black);
+}
+
+.cart-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    display: flex;
+    gap: 12px;
+}
+
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    background: var(--x-dark-gray);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    flex-shrink: 0;
+    border: 1px solid var(--x-border);
+}
+
+.cart-item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cart-item-name {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.cart-item-price {
+    color: var(--x-blue);
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.cart-qty-btn {
+    width: 28px;
+    height: 28px;
+    background: var(--x-dark-gray);
+    border: 1px solid var(--x-border);
+    border-radius: 50%;
+    color: var(--x-white);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cart-qty-btn:hover {
+    background: var(--x-hover);
+    border-color: var(--x-blue);
+}
+
+.cart-qty-value {
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 30px;
+    text-align: center;
+}
+
+.cart-item-remove {
+    background: transparent;
+    border: none;
+    color: var(--x-red);
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 4px;
+    text-align: left;
+}
+
+.cart-summary {
+    position: sticky;
+    bottom: 0;
+    background: var(--x-dark-gray);
+    border-top: 1px solid var(--x-border);
+    padding: 20px;
+}
+
+.cart-summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.cart-summary-row.total {
+    font-size: 20px;
+    font-weight: 700;
+    padding-top: 12px;
+    border-top: 1px solid var(--x-border);
+    margin-top: 12px;
+}
+
+.cart-summary-row.total .amount {
+    color: var(--x-blue);
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--x-blue);
+    border: none;
+    border-radius: 8px;
+    color: var(--x-white);
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all 0.2s;
+}
+
+.checkout-btn:hover {
+    background: #1a8cd8;
+}
+
+.checkout-btn:active {
+    transform: scale(0.98);
+}
+
+.empty-cart {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.empty-cart .empty-icon {
+    font-size: 60px;
+    margin-bottom: 16px;
+}
+
+.empty-cart h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.empty-cart p {
+    color: var(--x-gray);
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.empty-cart .btn {
+    max-width: 200px;
+    margin: 0 auto;
+}
+</style>

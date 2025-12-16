@@ -1,0 +1,177 @@
+<div class="view job-detail-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Job Details</h2>
+        <button id="shareJobBtn" class="settings-btn">📤</button>
+    </div>
+
+    <div class="view-content">
+        <div id="jobDetailContent">
+            <!-- Job detail content will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+.job-detail-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.job-detail-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    background: var(--x-dark-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+
+.job-detail-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.job-detail-company {
+    font-size: 16px;
+    color: var(--x-gray);
+    margin-bottom: 4px;
+}
+
+.job-detail-location {
+    font-size: 14px;
+    color: var(--x-gray);
+    margin-bottom: 16px;
+}
+
+.job-detail-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.job-detail-salary {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--x-blue);
+}
+
+.job-detail-section {
+    padding: 20px;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.job-detail-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.job-detail-section p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--x-gray);
+    margin-bottom: 12px;
+}
+
+.job-detail-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.job-detail-section li {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--x-gray);
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.job-detail-section li::before {
+    content: "•";
+    position: absolute;
+    left: 8px;
+    color: var(--x-blue);
+    font-weight: 700;
+}
+
+.job-actions {
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    position: sticky;
+    bottom: 0;
+    background: var(--x-black);
+    border-top: 1px solid var(--x-border);
+}
+
+.btn-apply {
+    flex: 1;
+    background: var(--x-blue);
+    color: var(--x-white);
+    border: none;
+    padding: 14px;
+    border-radius: 24px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-apply:hover {
+    background: #1a8cd8;
+}
+
+.btn-save {
+    background: var(--x-dark-gray);
+    color: var(--x-white);
+    border: 1px solid var(--x-border);
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-save:hover {
+    background: var(--x-hover);
+}
+
+.btn-save.saved {
+    background: rgba(29, 155, 240, 0.15);
+    color: var(--x-blue);
+    border-color: var(--x-blue);
+}
+</style>

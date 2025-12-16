@@ -1,0 +1,187 @@
+<div class="view messages-view">
+    <div class="view-header">
+        <h2>Messages</h2>
+        <button id="newMessageBtn" class="new-message-btn">✏️</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Search Bar -->
+        <div class="messages-search">
+            <input type="text" id="messageSearchInput" class="search-input" placeholder="Search for people" />
+        </div>
+
+        <!-- Messages List -->
+        <div id="messagesList" class="messages-list">
+            <!-- Conversations will be loaded here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="messagesEmpty" class="empty-state" style="display: none;">
+            <div class="empty-icon">💬</div>
+            <h3>Send a message, get a message</h3>
+            <p>Direct Messages are private conversations between you and other people on X.</p>
+            <button id="startMessageBtn" class="btn btn-primary">Start a conversation</button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item active" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+    .new-message-btn {
+        background: transparent;
+        border: none;
+        color: var(--x-white);
+        font-size: 20px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: var(--radius-full);
+        transition: background 0.2s;
+        margin-left: auto;
+    }
+
+    .new-message-btn:hover {
+        background: var(--x-hover);
+    }
+
+    .messages-search {
+        padding: 16px;
+        background: var(--x-black);
+    }
+
+    .messages-search .search-input {
+        width: 100%;
+        background: var(--x-dark-gray);
+        border: 1px solid var(--x-border);
+        border-radius: 24px;
+        padding: 12px 16px 12px 44px;
+        color: var(--x-white);
+        font-size: 15px;
+        transition: all 0.2s;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: 16px center;
+    }
+
+    .messages-search .search-input:focus {
+        outline: none;
+        border-color: var(--x-blue);
+        background-color: rgba(29, 155, 240, 0.05);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231d9bf0' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+    }
+
+    .messages-search .search-input::placeholder {
+        color: var(--x-gray);
+    }
+
+    .messages-list {
+        background: var(--x-black);
+    }
+
+    .message-item {
+        display: flex;
+        gap: 12px;
+        padding: 16px;
+        border-bottom: 1px solid var(--x-border);
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .message-item:hover {
+        background: var(--x-hover);
+    }
+
+    .message-item.unread {
+        background: rgba(29, 155, 240, 0.05);
+    }
+
+    .message-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--x-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+
+    .message-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .message-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4px;
+    }
+
+    .message-name {
+        font-weight: 700;
+        font-size: 15px;
+    }
+
+    .message-time {
+        font-size: 13px;
+        color: var(--x-gray);
+    }
+
+    .message-preview {
+        font-size: 15px;
+        color: var(--x-gray);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .message-preview.unread {
+        color: var(--x-white);
+        font-weight: 600;
+    }
+
+    .empty-state {
+        padding: 60px 40px;
+        text-align: center;
+    }
+
+    .empty-icon {
+        font-size: 60px;
+        margin-bottom: 16px;
+    }
+
+    .empty-state h3 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    .empty-state p {
+        color: var(--x-gray);
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 24px;
+    }
+</style>

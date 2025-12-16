@@ -1,0 +1,826 @@
+# NITRUST - SHORT-TERM TRUST FUND MOBILE APPLICATION
+## Comprehensive App Description for Kotlin Development in Android Studio
+
+---
+
+## 1. APPLICATION OVERVIEW
+
+**App Name:** NiTrust (Short-term Trust Fund Manager)
+**Platform:** Android (Kotlin)
+**Target Users:** Kenyan users seeking automated savings and financial discipline
+**Primary Goal:** Help users save money through structured short-term trust funds with automated periodic payouts
+
+**Core Concept:**
+NiTrust is a financial management app that allows users to create short-term trust funds where they deposit a lump sum amount, which is then automatically paid out to them (or their dependents) in smaller portions over a defined period. This promotes financial discipline and helps users manage their money more effectively.
+
+---
+
+## 2. COMPLETE FEATURE SET & FUNCTIONALITIES
+
+### 2.1 USER AUTHENTICATION & ONBOARDING
+
+**Splash Screen:**
+- Display NiTrust logo and branding
+- 2-second display before routing to appropriate screen
+- Auto-check if user is already logged in
+
+**Onboarding (First-time Users):**
+- Welcome screens explaining what NiTrust is and how it works
+- Educational slides about trust funds and automated payouts
+- Call-to-action button to proceed to signup
+
+**User Registration/Signup:**
+- Required fields:
+  * Phone number (Kenyan format - must be unique)
+  * Email address
+  * Full name
+  * 4-digit PIN for app access
+- Validation rules:
+  * Phone number must be unique in the system
+  * PIN must be exactly 4 digits
+  * All fields are required
+- Upon successful registration, create user profile and auto-login
+
+**Login:**
+- Simple PIN-based authentication (4 digits)
+- Session management with automatic login on app restart
+- Logout functionality available in settings
+
+**Session Management:**
+- Persistent login using local storage/SharedPreferences
+- Store user session with timestamp
+- Auto-logout after extended inactivity (optional)
+- Secure PIN storage (hashed)
+
+---
+
+### 2.2 DASHBOARD (HOME SCREEN)
+
+**Header Section:**
+- Personalized greeting: "Hello, [User Name]"
+- Subtitle: "Manage your trust funds"
+- Settings icon button (top-right corner)
+
+**Balance Card (Summary Widget):**
+- Display total balance across all active funds
+- Format: "KSh [Total Balance]"
+- Statistics:
+  * Number of active funds
+  * Date/time of next scheduled payout
+- Visual styling with gradient background
+
+**Trust Funds List:**
+- Display all user's trust funds in scrollable list
+- Each fund card shows:
+  * Fund name
+  * Beneficiary (Self or Dependent name)
+  * Current balance/remaining amount
+  * Progress indicator (visual progress bar showing percentage paid out)
+  * Status badge (Active, Paused, Completed, Withdrawn, Cancelled)
+  * Next payout date and amount
+- Empty state when no funds exist:
+  * Message: "No trust funds yet"
+  * Subtitle: "Create your first trust fund to get started"
+  * Prominent "Create Fund" button
+
+**Action Buttons:**
+- "New Fund" button (primary action)
+- Tap any fund card to view detailed fund information
+
+**Bottom Navigation Bar:**
+- Home/Dashboard (active indicator)
+- Dependents
+- Transaction History
+- Each with icon and label
+
+---
+
+### 2.3 CREATE TRUST FUND
+
+**Form Fields:**
+
+1. **Fund Name**
+   - Text input
+   - Placeholder: "e.g., Monthly Savings"
+   - Required field
+   - Purpose: Help user identify the fund
+
+2. **Beneficiary Type**
+   - Dropdown/Spinner with options:
+     * Self (default)
+     * Dependent
+   - If "Dependent" selected, show dependent selector
+
+3. **Dependent Selector** (conditional)
+   - Only visible when beneficiary type is "Dependent"
+   - Dropdown listing all user's dependents
+   - Option to add new dependent if list is empty
+   - Shows dependent name and relationship
+
+4. **Deposit Amount**
+   - Numeric input (Kenyan Shillings)
+   - Placeholder: "3000"
+   - Minimum amount: KSh 100
+   - Required field
+   - Real-time validation
+
+5. **Fund Duration**
+   - Dropdown/Spinner with options:
+     * 15 Days
+     * 30 Days (Monthly) - default
+     * 60 Days
+     * 90 Days
+   - Custom duration option (future enhancement)
+
+6. **Payout Frequency**
+   - Dropdown/Spinner with options:
+     * Daily - default
+     * Weekly
+     * Biweekly (every 2 weeks)
+     * Monthly
+   - Determines how often payouts occur
+
+**Real-time Calculations Display:**
+
+As user enters/modifies information, automatically calculate and display:
+
+1. **Payout Summary:**
+   - Payout Amount per occurrence
+   - Number of total payouts
+   - First payout date
+   - Formula: payoutAmount = depositAmount / numberOfPayouts
+   - Formula: numberOfPayouts = fundDuration / frequencyDays
+
+2. **Charges Breakdown:**
+   - Fund Amount (original deposit)
+   - M-Pesa Transaction Fees (calculated based on Kenyan M-Pesa rates)
+   - Service Charge: 3% of fund amount
+   - Total Charges (sum of M-Pesa fees and service charge)
+   - **Grand Total to Deposit** (fund amount + all charges)
+
+**M-Pesa Charges Calculation:**
+Based on Kenyan M-Pesa send money tariffs:
+- KSh 0-100: Free
+- KSh 101-500: KSh 7
+- KSh 501-1,000: KSh 13
+- KSh 1,001-1,500: KSh 23
+- KSh 1,501-2,500: KSh 33
+- KSh 2,501-3,500: KSh 53
+- KSh 3,501-5,000: KSh 57
+- KSh 5,001-7,500: KSh 78
+- KSh 7,501-10,000: KSh 90
+- KSh 10,001-15,000: KSh 100
+- KSh 15,001-20,000: KSh 105
+- KSh 20,001-35,000: KSh 108
+- KSh 35,001-250,000: KSh 108
+
+**Submit Action:**
+- Validate all fields
+- Create fund record with:
+  * All form data
+  * Generated unique fund ID
+  * User ID association
+  * Status: 'active'
+  * Creation timestamp
+  * Calculated next payout date
+- Create initial deposit transaction record
+- Navigate to fund details screen
+- Show success message
+
+---
+
+### 2.4 FUND DETAILS VIEW
+
+**Display Information:**
+- Fund name (header)
+- Back button to dashboard
+- Beneficiary information
+- Current balance (large, prominent)
+- Original deposit amount
+- Progress indicator (visual + percentage)
+- Number of payouts made vs. total
+- Next payout date and amount
+- Fund status badge
+- Creation date
+- Expected completion date
+
+**Action Buttons (context-dependent):**
+
+1. **Pause Fund** (if status is 'active')
+   - Temporarily stop automated payouts
+   - Can be resumed later
+   - No penalties
+
+2. **Resume Fund** (if status is 'paused')
+   - Restart automated payouts
+   - Continue from where it left off
+
+3. **Early Withdrawal** (if status is 'active' or 'paused')
+   - Withdraw all remaining balance immediately
+   - **Penalty: 15% of remaining balance**
+   - Confirmation dialog showing:
+     * Penalty amount
+     * Net amount to receive
+     * Requires user confirmation
+   - Fund status changes to 'withdrawn'
+
+4. **Cancel Fund** (if status is 'active' or 'paused')
+   - Cancel the entire fund
+   - **Penalty: 20% of original deposit amount**
+   - Refund remaining balance minus penalty
+   - Confirmation dialog showing:
+     * Penalty amount
+     * Refund amount
+     * Requires user confirmation
+   - Fund status changes to 'cancelled'
+
+**Transaction History Section:**
+- List all transactions related to this fund
+- Each transaction shows:
+  * Type (Deposit, Payout, Withdrawal, Refund)
+  * Amount
+  * Description
+  * Timestamp
+- Sorted by most recent first
+
+---
+
+### 2.5 DEPENDENTS MANAGEMENT
+
+**Dependents List Screen:**
+- Header: "Dependents"
+- Add button (+) in top-right corner
+- List of all dependents with cards showing:
+  * Name
+  * Relationship (e.g., Child, Spouse, Parent, Sibling)
+  * Phone number
+  * Email
+  * Number of active funds
+  * Edit/Delete options
+- Empty state when no dependents:
+  * Message: "No dependents added"
+  * Subtitle: "Add dependents to create funds for them"
+
+**Add Dependent Form:**
+- Fields:
+  * Full Name (required)
+  * Relationship (dropdown: Child, Spouse, Parent, Sibling, Other)
+  * Phone Number (required, Kenyan format)
+  * Email Address (optional)
+  * ID Number (optional)
+- Validation:
+  * Name and phone are required
+  * Phone number must be valid format
+- Submit creates dependent record linked to user
+- Return to dependents list
+
+**Edit Dependent:**
+- Pre-populate form with existing data
+- Allow updating all fields
+- Save changes
+
+**Delete Dependent:**
+- Confirmation dialog
+- Check if dependent has active funds
+- If active funds exist, prevent deletion or offer to transfer funds
+- If no active funds, allow deletion
+
+---
+
+### 2.6 TRANSACTION HISTORY
+
+**Overview Screen:**
+- Header: "Transaction History"
+- Filter options:
+  * All transactions
+  * By fund (dropdown of user's funds)
+  * By type (Deposits, Payouts, Withdrawals, Refunds)
+  * By date range
+
+**Transaction List:**
+- Chronologically sorted (newest first)
+- Each transaction item displays:
+  * Transaction type icon
+  * Description
+  * Amount (color-coded: green for incoming, red for outgoing)
+  * Date and time
+  * Associated fund name
+  * Transaction ID (expandable details)
+
+**Transaction Details (on tap):**
+- Full transaction information:
+  * Transaction ID
+  * Type
+  * Amount
+  * Fund name
+  * Description
+  * Timestamp
+  * Status
+- Option to download/share receipt (future enhancement)
+
+---
+
+### 2.7 SETTINGS
+
+**User Profile Section:**
+- Display user information:
+  * Name
+  * Phone number
+  * Email
+- Edit profile button
+- Profile picture (optional, future enhancement)
+
+**Account Settings:**
+- Change PIN
+- Enable/disable biometric authentication (future enhancement)
+- Notification preferences:
+  * Payout notifications
+  * Low balance alerts
+  * Fund completion alerts
+
+**App Settings:**
+- Language preference (English/Swahili)
+- Currency display format
+- Theme (Light/Dark mode - future enhancement)
+
+**Security:**
+- View active sessions
+- Security tips
+- Two-factor authentication setup (future enhancement)
+
+**About & Support:**
+- App version
+- Terms & Conditions
+- Privacy Policy
+- Contact Support
+- FAQ
+
+**Logout:**
+- Clear session
+- Return to login screen
+- Confirmation dialog
+
+---
+
+## 3. AUTOMATED PAYOUT SYSTEM
+
+**Background Service Requirements:**
+This is a critical feature that needs to run automatically without user intervention.
+
+**Payout Processing Logic:**
+
+1. **Background Service/Worker:**
+   - Use Android WorkManager for scheduled background tasks
+   - Run every hour (or configurable interval)
+   - Check all active funds for due payouts
+
+2. **Payout Eligibility Check:**
+   - For each fund with status 'active':
+     * Check if nextPayoutDate <= currentDate
+     * Verify remaining balance >= payout amount
+     * Verify fund is not paused
+
+3. **Process Payout:**
+   - Calculate payout amount based on frequency and deposit
+   - Deduct payout amount from remaining balance
+   - Create transaction record:
+     * Type: 'payout'
+     * Amount: calculated payout amount
+     * Description: "Automated payout"
+     * Timestamp: current datetime
+   - Update fund:
+     * Decrement remainingBalance
+     * Increment payoutsMade counter
+     * Calculate and set next payout date
+     * If remaining balance <= 0, set status to 'completed'
+
+4. **Notification:**
+   - Send push notification to user
+   - Message: "Payout processed: KSh [amount] from [fund name]"
+   - Include transaction details
+   - Deep link to fund details
+
+5. **M-Pesa Integration** (Production):
+   - In production, integrate with M-Pesa API
+   - Automatically send money to beneficiary phone number
+   - Handle API responses and errors
+   - Retry logic for failed transactions
+   - Record transaction status
+
+**Date Calculation:**
+- Daily: Add 1 day to current payout date
+- Weekly: Add 7 days
+- Biweekly: Add 14 days
+- Monthly: Add 30 days
+
+---
+
+## 4. DATA MODELS & STRUCTURE
+
+### 4.1 User Model
+```
+User {
+    id: Long (unique identifier, auto-generated)
+    phone: String (unique, Kenyan format)
+    email: String
+    name: String
+    pin: String (hashed)
+    createdAt: DateTime
+    lastLogin: DateTime
+}
+```
+
+### 4.2 Fund Model
+```
+Fund {
+    id: Long (unique identifier)
+    userId: Long (foreign key to User)
+    fundName: String
+    beneficiaryType: String ('self' or 'dependent')
+    dependentId: Long? (nullable, foreign key to Dependent)
+    depositAmount: Double
+    fundDuration: Int (in days)
+    payoutFrequency: String ('daily', 'weekly', 'biweekly', 'monthly')
+    payoutAmount: Double (calculated)
+    numberOfPayouts: Int (calculated)
+    remainingBalance: Double
+    payoutsMade: Int
+    status: String ('active', 'paused', 'completed', 'withdrawn', 'cancelled')
+    nextPayoutDate: DateTime
+    createdAt: DateTime
+    completedAt: DateTime? (nullable)
+}
+```
+
+### 4.3 Transaction Model
+```
+Transaction {
+    id: Long (unique identifier)
+    userId: Long (foreign key to User)
+    fundId: Long (foreign key to Fund)
+    type: String ('deposit', 'payout', 'withdrawal', 'refund')
+    amount: Double
+    description: String
+    timestamp: DateTime
+    status: String ('pending', 'completed', 'failed')
+}
+```
+
+### 4.4 Dependent Model
+```
+Dependent {
+    id: Long (unique identifier)
+    userId: Long (foreign key to User)
+    name: String
+    relationship: String
+    phone: String
+    email: String?
+    idNumber: String?
+    createdAt: DateTime
+}
+```
+
+### 4.5 Session Model
+```
+Session {
+    userId: Long
+    phone: String
+    timestamp: DateTime (creation time)
+}
+```
+
+---
+
+## 5. TECHNICAL REQUIREMENTS
+
+### 5.1 Android/Kotlin Specific Implementation
+
+**Architecture:**
+- MVVM (Model-View-ViewModel) architecture pattern
+- Repository pattern for data access
+- Use case/interactor layer for business logic
+
+**Key Libraries & Dependencies:**
+- **Room Database** - Local data persistence
+- **WorkManager** - Background payout processing
+- **Coroutines** - Asynchronous operations
+- **Flow** - Reactive data streams
+- **ViewModel & LiveData** - UI state management
+- **Navigation Component** - Screen navigation
+- **Material Design 3** - UI components and theming
+- **Hilt/Dagger** - Dependency injection
+- **Retrofit** - API calls (future M-Pesa integration)
+- **Gson/Moshi** - JSON parsing
+- **DataStore** - Preferences storage (session management)
+
+**Security:**
+- Encrypt PIN using BCrypt or similar
+- Use Android Keystore for sensitive data
+- Secure SharedPreferences/DataStore
+- Input validation and sanitization
+- SQL injection prevention (Room handles this)
+
+**Permissions:**
+- INTERNET (for future API integration)
+- RECEIVE_BOOT_COMPLETED (restart background service)
+- POST_NOTIFICATIONS (Android 13+)
+- READ_PHONE_STATE (optional, for phone number verification)
+
+### 5.2 UI/UX Guidelines
+
+**Design System:**
+- Material Design 3 components
+- Color scheme: Trust-building colors (blues, greens)
+- Consistent spacing (8dp grid system)
+- Typography: Roboto or similar modern font
+- Accessibility: Support TalkBack, large text, high contrast
+
+**Screen Flow:**
+```
+Splash Screen
+    ↓
+[First Time] Onboarding → Signup → Dashboard
+[Returning] Login → Dashboard
+
+Dashboard
+    ├── Create Fund → Fund Details
+    ├── Fund Details → Transactions
+    ├── Dependents → Add/Edit Dependent
+    ├── Transactions (History)
+    └── Settings → Profile/Security/About
+```
+
+**Responsive Design:**
+- Support various Android screen sizes
+- Landscape and portrait orientations
+- Tablet optimization (optional)
+
+---
+
+## 6. BUSINESS LOGIC & CALCULATIONS
+
+### 6.1 Payout Calculation
+```kotlin
+fun calculatePayouts(depositAmount: Double, duration: Int, frequency: String): PayoutInfo {
+    val frequencyDays = when(frequency) {
+        "daily" -> 1
+        "weekly" -> 7
+        "biweekly" -> 14
+        "monthly" -> 30
+        else -> 1
+    }
+    
+    val numberOfPayouts = duration / frequencyDays
+    val payoutAmount = depositAmount / numberOfPayouts
+    
+    return PayoutInfo(payoutAmount, numberOfPayouts)
+}
+```
+
+### 6.2 Next Payout Date Calculation
+```kotlin
+fun calculateNextPayoutDate(frequency: String, fromDate: Date = Date()): Date {
+    val calendar = Calendar.getInstance()
+    calendar.time = fromDate
+    
+    val daysToAdd = when(frequency) {
+        "daily" -> 1
+        "weekly" -> 7
+        "biweekly" -> 14
+        "monthly" -> 30
+        else -> 1
+    }
+    
+    calendar.add(Calendar.DAY_OF_MONTH, daysToAdd)
+    return calendar.time
+}
+```
+
+### 6.3 M-Pesa Charges Calculation
+```kotlin
+fun getMpesaSendCharge(amount: Double): Double {
+    return when {
+        amount <= 100 -> 0.0
+        amount <= 500 -> 7.0
+        amount <= 1000 -> 13.0
+        amount <= 1500 -> 23.0
+        amount <= 2500 -> 33.0
+        amount <= 3500 -> 53.0
+        amount <= 5000 -> 57.0
+        amount <= 7500 -> 78.0
+        amount <= 10000 -> 90.0
+        amount <= 15000 -> 100.0
+        amount <= 20000 -> 105.0
+        amount <= 250000 -> 108.0
+        else -> 108.0
+    }
+}
+
+fun calculateTotalCharges(depositAmount: Double, numberOfPayouts: Int, payoutAmount: Double): ChargesInfo {
+    val totalMpesaCharges = (0 until numberOfPayouts).sumOf { 
+        getMpesaSendCharge(payoutAmount) 
+    }
+    val serviceCharge = depositAmount * 0.03
+    val totalCharges = totalMpesaCharges + serviceCharge
+    val grandTotal = depositAmount + totalCharges
+    
+    return ChargesInfo(
+        mpesaCharges = totalMpesaCharges,
+        serviceCharge = serviceCharge,
+        totalCharges = totalCharges,
+        grandTotal = grandTotal
+    )
+}
+```
+
+### 6.4 Penalty Calculations
+```kotlin
+// Early withdrawal penalty: 15% of remaining balance
+fun calculateEarlyWithdrawalPenalty(remainingBalance: Double): Double {
+    return remainingBalance * 0.15
+}
+
+// Cancellation penalty: 20% of original deposit
+fun calculateCancellationPenalty(originalDeposit: Double): Double {
+    return originalDeposit * 0.20
+}
+```
+
+---
+
+## 7. KEY USER WORKFLOWS
+
+### 7.1 First-Time User Journey
+1. Open app → Splash screen
+2. View onboarding slides
+3. Tap "Get Started"
+4. Fill registration form (phone, email, name, PIN)
+5. Submit → Auto-login
+6. Land on empty dashboard
+7. Tap "Create Fund"
+8. Fill fund details
+9. Review calculations and charges
+10. Submit → Fund created
+11. View fund details
+12. Receive first payout notification after scheduled time
+
+### 7.2 Creating Fund for Dependent
+1. From dashboard, tap "Create Fund"
+2. Select beneficiary type: "Dependent"
+3. If no dependents exist:
+   - Tap "Add Dependent"
+   - Fill dependent form
+   - Return to create fund
+4. Select dependent from dropdown
+5. Complete fund details
+6. Submit → Fund created with dependent as beneficiary
+
+### 7.3 Payout Lifecycle
+1. User creates fund with daily payouts, 3000 KSh, 30 days
+2. System calculates: 100 KSh per day for 30 days
+3. Background service runs every hour
+4. Day 1: Service detects payout due
+5. Deduct 100 KSh from balance (2900 remaining)
+6. Create transaction record
+7. Send notification to user
+8. Update next payout date to Day 2
+9. Repeat until balance = 0
+10. Mark fund as 'completed'
+
+### 7.4 Early Withdrawal
+1. User views active fund with 1500 KSh remaining
+2. Taps "Early Withdrawal"
+3. System calculates: 15% penalty = 225 KSh
+4. Net amount: 1275 KSh
+5. Confirmation dialog shows breakdown
+6. User confirms
+7. Create withdrawal transaction (1275 KSh)
+8. Update fund status to 'withdrawn'
+9. Update remaining balance to 0
+10. Show success message
+
+---
+
+## 8. ERROR HANDLING & EDGE CASES
+
+**Input Validation:**
+- Empty required fields
+- Invalid phone number format
+- Deposit amount too low (< 100 KSh)
+- PIN not 4 digits
+- Duplicate phone number on registration
+
+**Business Logic Validations:**
+- Cannot create fund with zero balance
+- Cannot withdraw from completed fund
+- Cannot pause already paused fund
+- Cannot delete dependent with active funds
+- Payout amount must be > 0
+
+**Network & System Errors:**
+- Handle database errors gracefully
+- Handle WorkManager failures
+- Retry logic for failed payouts
+- Error logging and reporting
+- User-friendly error messages
+
+**Data Integrity:**
+- Validate remaining balance never goes negative
+- Ensure payouts don't exceed deposit
+- Transaction atomicity (use database transactions)
+- Prevent duplicate payout processing
+
+---
+
+## 9. FUTURE ENHANCEMENTS (PHASE 2)
+
+1. **M-Pesa API Integration** - Actual money transfers
+2. **Biometric Authentication** - Fingerprint/Face unlock
+3. **Social Features** - Share fund success stories
+4. **Analytics Dashboard** - Savings trends and insights
+5. **Recurring Deposits** - Auto-fund from M-Pesa
+6. **Investment Options** - Earn interest on funds
+7. **Group Funds** - Multiple contributors
+8. **Goal-based Savings** - Visual goal tracking
+9. **Loan Against Fund** - Borrow against trust fund
+10. **Multiple Languages** - Swahili and other local languages
+
+---
+
+## 10. TESTING REQUIREMENTS
+
+**Unit Tests:**
+- Calculation functions (payouts, charges, penalties)
+- Date calculations
+- Data model validations
+- Business logic use cases
+
+**Integration Tests:**
+- Database operations (Room)
+- Background service execution (WorkManager)
+- Repository interactions
+
+**UI Tests:**
+- Navigation flows
+- Form submissions
+- List rendering
+- Error states
+
+**Manual Testing Scenarios:**
+- Complete user journey from signup to first payout
+- Create multiple funds with different frequencies
+- Pause and resume fund
+- Early withdrawal with penalty
+- Add and manage dependents
+- View transaction history
+
+---
+
+## 11. DEPLOYMENT & DISTRIBUTION
+
+**Build Variants:**
+- Debug (testing)
+- Staging (pre-production)
+- Production (live)
+
+**App Store Listing:**
+- Google Play Store
+- Compliance with financial app guidelines
+- Clear description of fees and penalties
+- Privacy policy and terms of service
+- Screenshot requirements
+
+**Versioning:**
+- Semantic versioning (MAJOR.MINOR.PATCH)
+- Changelog documentation
+- Migration strategy for database updates
+
+---
+
+## 12. COMPLIANCE & LEGAL
+
+**Kenya Financial Regulations:**
+- May require fintech licensing depending on scale
+- KYC (Know Your Customer) requirements
+- Data protection compliance (Kenya Data Protection Act)
+- Terms of Service must clearly state:
+  * Fees and charges
+  * Penalty terms
+  * Fund management policies
+  * Liability limitations
+
+**Privacy & Security:**
+- Secure storage of personal information
+- No sharing of data with third parties without consent
+- Right to data deletion
+- GDPR-like compliance
+
+---
+
+## SUMMARY FOR GEMINI/GOOGLE AI STUDIO
+
+NiTrust is a comprehensive financial management Android application built with Kotlin that enables Kenyan users to create short-term trust funds with automated periodic payouts. The app focuses on promoting financial discipline through a user-friendly interface that handles fund creation, beneficiary management (self or dependents), automated background payout processing, transaction tracking, and comprehensive financial calculations including Kenyan M-Pesa integration charges.
+
+Key technical implementation requirements include Room database for local persistence, WorkManager for background payout automation, MVVM architecture, Material Design 3 UI components, secure PIN-based authentication, and robust business logic for payout calculations, penalty enforcement, and charge computation.
+
+The app must handle the complete lifecycle of trust funds from creation through automated payouts to completion or early withdrawal, while maintaining data integrity, security, and providing an excellent user experience throughout.

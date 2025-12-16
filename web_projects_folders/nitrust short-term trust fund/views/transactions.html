@@ -1,0 +1,32 @@
+<div class="view transactions-view">
+    <div class="view-header">
+        <h2>Transaction History</h2>
+    </div>
+    <div class="view-content">
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All</button>
+            <button class="filter-tab" data-filter="payout">Payouts</button>
+            <button class="filter-tab" data-filter="deposit">Deposits</button>
+        </div>
+        <div id="transactionsList" class="transactions-list">
+            <div class="empty-state">
+                <p>No transactions yet</p>
+                <p class="empty-subtitle">Your transaction history will appear here</p>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="dashboard">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="dependents">
+            <span class="nav-icon">👥</span>
+            <span class="nav-label">Dependents</span>
+        </button>
+        <button class="nav-item active" data-view="transactions">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">History</span>
+        </button>
+    </div>
+</div>

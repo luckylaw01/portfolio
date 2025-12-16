@@ -1,0 +1,178 @@
+<div class="view login-view">
+    <div class="login-header">
+        <div class="login-avatar">👤</div>
+        <h2 id="loginUserName">Welcome back</h2>
+        <p>Enter your PIN to continue</p>
+    </div>
+
+    <div class="pin-display" id="pinDisplay">
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+    </div>
+
+    <div class="numpad">
+        <button class="numpad-btn" data-value="1">1</button>
+        <button class="numpad-btn" data-value="2">2</button>
+        <button class="numpad-btn" data-value="3">3</button>
+        <button class="numpad-btn" data-value="4">4</button>
+        <button class="numpad-btn" data-value="5">5</button>
+        <button class="numpad-btn" data-value="6">6</button>
+        <button class="numpad-btn" data-value="7">7</button>
+        <button class="numpad-btn" data-value="8">8</button>
+        <button class="numpad-btn" data-value="9">9</button>
+        <button class="numpad-btn numpad-empty"></button>
+        <button class="numpad-btn" data-value="0">0</button>
+        <button class="numpad-btn numpad-delete" data-value="delete">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                <line x1="18" y1="9" x2="12" y2="15"></line>
+                <line x1="12" y1="9" x2="18" y2="15"></line>
+            </svg>
+        </button>
+    </div>
+
+    <button class="forgot-pin-btn" id="forgotPinBtn">Forgot PIN?</button>
+</div>
+
+<style>
+.login-view {
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+    padding-bottom: 40px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.login-avatar {
+    width: 80px;
+    height: 80px;
+    background: var(--bg-input);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin: 0 auto 16px;
+}
+
+.login-header h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.login-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.pin-display {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.pin-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--border-medium);
+    background: transparent;
+    transition: all var(--transition-fast);
+}
+
+.pin-dot.filled {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: scale(1.1);
+}
+
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 280px;
+}
+
+.numpad-btn {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-input);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    margin: 0 auto;
+}
+
+.numpad-btn:hover {
+    background: var(--border-light);
+}
+
+.numpad-btn:active {
+    transform: scale(0.95);
+    background: var(--primary);
+    color: white;
+}
+
+.numpad-empty {
+    background: transparent;
+    cursor: default;
+}
+
+.numpad-empty:hover {
+    background: transparent;
+}
+
+.numpad-delete {
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.numpad-delete:hover {
+    background: var(--bg-input);
+}
+
+.numpad-delete:active {
+    background: var(--danger);
+    color: white;
+}
+
+.numpad-delete svg {
+    width: 28px;
+    height: 28px;
+}
+
+.forgot-pin-btn {
+    margin-top: 24px;
+    padding: 12px 24px;
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.forgot-pin-btn:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+</style>

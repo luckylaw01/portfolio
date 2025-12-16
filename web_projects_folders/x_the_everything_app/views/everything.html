@@ -1,0 +1,295 @@
+<div class="view everything-view">
+    <div class="view-header">
+        <h2>Everything</h2>
+        <button id="everythingSettingsBtn" class="settings-btn">⚙️</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <div class="balance-label">X Wallet Balance</div>
+            <div id="balanceAmount" class="balance-amount">$0.00</div>
+            <div class="balance-actions">
+                <button id="addMoneyBtn" class="btn btn-primary">Add Money</button>
+                <button id="sendMoneyBtn" class="btn btn-outline">Send</button>
+            </div>
+        </div>
+
+        <!-- Everything Features Grid -->
+        <div class="section-header">
+            <h3>All Features</h3>
+        </div>
+
+        <div class="features-grid">
+            <button class="feature-card" id="paymentsFeature">
+                <div class="feature-icon">💰</div>
+                <div class="feature-label">Payments</div>
+                <div class="feature-desc">Send & receive money</div>
+            </button>
+            
+            <button class="feature-card" id="shopFeature">
+                <div class="feature-icon">🏪</div>
+                <div class="feature-label">Shop</div>
+                <div class="feature-desc">Browse & buy products</div>
+            </button>
+            
+            <button class="feature-card" id="bankFeature">
+                <div class="feature-icon">🏦</div>
+                <div class="feature-label">Bank</div>
+                <div class="feature-desc">Loans & mortgages</div>
+            </button>
+            
+            <button class="feature-card" id="jobsFeature">
+                <div class="feature-icon">💼</div>
+                <div class="feature-label">Jobs</div>
+                <div class="feature-desc">Find opportunities</div>
+            </button>
+            
+            <button class="feature-card" id="eventsFeature">
+                <div class="feature-icon">🎟️</div>
+                <div class="feature-label">Events</div>
+                <div class="feature-desc">Discover & book</div>
+            </button>
+            
+            <button class="feature-card" id="foodFeature">
+                <div class="feature-icon">🍔</div>
+                <div class="feature-label">Food</div>
+                <div class="feature-desc">Order delivery</div>
+            </button>
+            
+            <button class="feature-card" id="ridesFeature">
+                <div class="feature-icon">🚗</div>
+                <div class="feature-label">Rides</div>
+                <div class="feature-desc">Book transportation</div>
+            </button>
+            
+            <button class="feature-card" id="newsFeature">
+                <div class="feature-icon">📰</div>
+                <div class="feature-label">News</div>
+                <div class="feature-desc">Latest updates</div>
+            </button>
+            
+            <button class="feature-card" id="governmentFeature">
+                <div class="feature-icon">🏛️</div>
+                <div class="feature-label">Government</div>
+                <div class="feature-desc">Services & docs</div>
+            </button>
+            
+            <button class="feature-card" id="videoFeature">
+                <div class="feature-icon">📺</div>
+                <div class="feature-label">Video</div>
+                <div class="feature-desc">Stream & watch</div>
+            </button>
+        </div>
+
+        <!-- Quick Transactions -->
+        <div class="section-header">
+            <h3>Recent Activity</h3>
+            <button id="viewAllTransactions" style="background: transparent; border: none; color: var(--x-blue); cursor: pointer; font-size: 14px; font-weight: 600;">View all</button>
+        </div>
+
+        <div id="transactionsContainer" class="transactions-list">
+            <!-- Transactions will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item active" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+.everything-view .view-content {
+    background: var(--x-black);
+}
+
+.balance-card {
+    margin: 16px;
+    padding: 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    text-align: center;
+}
+
+.balance-label {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.balance-amount {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.balance-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.balance-actions .btn {
+    flex: 1;
+    max-width: 150px;
+}
+
+.section-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px;
+}
+
+.feature-card {
+    background: var(--x-dark-gray);
+    border: 1px solid var(--x-border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.feature-card:hover {
+    background: var(--x-hover);
+    transform: translateY(-2px);
+    border-color: var(--x-blue);
+}
+
+.feature-icon {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.feature-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--x-white);
+    margin-bottom: 4px;
+}
+
+.feature-desc {
+    font-size: 12px;
+    color: var(--x-gray);
+}
+
+.transactions-list {
+    background: var(--x-black);
+}
+
+.transaction-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.transaction-item:hover {
+    background: var(--x-hover);
+}
+
+.transaction-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--x-dark-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.transaction-icon.sent {
+    background: rgba(244, 33, 46, 0.15);
+}
+
+.transaction-icon.received {
+    background: rgba(0, 186, 124, 0.15);
+}
+
+.transaction-details {
+    flex: 1;
+}
+
+.transaction-name {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.transaction-date {
+    font-size: 13px;
+    color: var(--x-gray);
+}
+
+.transaction-amount {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.transaction-amount.sent {
+    color: var(--x-red);
+}
+
+.transaction-amount.received {
+    color: var(--x-green);
+}
+
+.empty-transactions {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.empty-transactions .empty-icon {
+    font-size: 60px;
+    margin-bottom: 16px;
+}
+
+.empty-transactions h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.empty-transactions p {
+    color: var(--x-gray);
+    font-size: 14px;
+}
+</style>

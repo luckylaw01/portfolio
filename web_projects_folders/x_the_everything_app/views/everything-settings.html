@@ -1,0 +1,420 @@
+<div class="view everything-settings-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Everything Settings</h2>
+        <button class="settings-btn" style="opacity: 0; pointer-events: none;">⚙️</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Wallet Settings -->
+        <div class="section-header">
+            <h3>Wallet & Payments</h3>
+        </div>
+
+        <div class="settings-list">
+            <div class="setting-item" id="managePaymentMethods">
+                <div class="setting-icon">💳</div>
+                <div class="setting-info">
+                    <div class="setting-name">Payment Methods</div>
+                    <div class="setting-desc">Manage cards and accounts</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="transactionLimits">
+                <div class="setting-icon">🔒</div>
+                <div class="setting-info">
+                    <div class="setting-name">Transaction Limits</div>
+                    <div class="setting-desc">Set spending limits</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="autoReload">
+                <div class="setting-icon">🔄</div>
+                <div class="setting-info">
+                    <div class="setting-name">Auto-Reload Wallet</div>
+                    <div class="setting-desc">Automatic top-up when balance is low</div>
+                </div>
+                <div class="setting-toggle">
+                    <input type="checkbox" id="autoReloadToggle" class="toggle-switch" />
+                    <label for="autoReloadToggle" class="toggle-label"></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Preferences -->
+        <div class="section-header">
+            <h3>Feature Preferences</h3>
+        </div>
+
+        <div class="settings-list">
+            <div class="setting-item" id="defaultFeatures">
+                <div class="setting-icon">⭐</div>
+                <div class="setting-info">
+                    <div class="setting-name">Default Features</div>
+                    <div class="setting-desc">Customize home screen shortcuts</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="notifications">
+                <div class="setting-icon">🔔</div>
+                <div class="setting-info">
+                    <div class="setting-name">Notifications</div>
+                    <div class="setting-desc">Manage notification preferences</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="locationServices">
+                <div class="setting-icon">📍</div>
+                <div class="setting-info">
+                    <div class="setting-name">Location Services</div>
+                    <div class="setting-desc">For rides, food delivery, and events</div>
+                </div>
+                <div class="setting-toggle">
+                    <input type="checkbox" id="locationToggle" class="toggle-switch" checked />
+                    <label for="locationToggle" class="toggle-label"></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy & Security -->
+        <div class="section-header">
+            <h3>Privacy & Security</h3>
+        </div>
+
+        <div class="settings-list">
+            <div class="setting-item" id="biometricAuth">
+                <div class="setting-icon">🔐</div>
+                <div class="setting-info">
+                    <div class="setting-name">Biometric Authentication</div>
+                    <div class="setting-desc">Use fingerprint or face ID</div>
+                </div>
+                <div class="setting-toggle">
+                    <input type="checkbox" id="biometricToggle" class="toggle-switch" />
+                    <label for="biometricToggle" class="toggle-label"></label>
+                </div>
+            </div>
+
+            <div class="setting-item" id="twoFactorAuth">
+                <div class="setting-icon">🛡️</div>
+                <div class="setting-info">
+                    <div class="setting-name">Two-Factor Authentication</div>
+                    <div class="setting-desc">Extra security for transactions</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="privacySettings">
+                <div class="setting-icon">👁️</div>
+                <div class="setting-info">
+                    <div class="setting-name">Privacy Settings</div>
+                    <div class="setting-desc">Control data sharing</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+        </div>
+
+        <!-- App Settings -->
+        <div class="section-header">
+            <h3>App Settings</h3>
+        </div>
+
+        <div class="settings-list">
+            <div class="setting-item" id="language">
+                <div class="setting-icon">🌐</div>
+                <div class="setting-info">
+                    <div class="setting-name">Language</div>
+                    <div class="setting-desc">English (US)</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="currency">
+                <div class="setting-icon">💵</div>
+                <div class="setting-info">
+                    <div class="setting-name">Currency</div>
+                    <div class="setting-desc">USD ($)</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="darkMode">
+                <div class="setting-icon">🌙</div>
+                <div class="setting-info">
+                    <div class="setting-name">Dark Mode</div>
+                    <div class="setting-desc">Always enabled</div>
+                </div>
+                <div class="setting-toggle">
+                    <input type="checkbox" id="darkModeToggle" class="toggle-switch" checked disabled />
+                    <label for="darkModeToggle" class="toggle-label"></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data & Storage -->
+        <div class="section-header">
+            <h3>Data & Storage</h3>
+        </div>
+
+        <div class="settings-list">
+            <div class="setting-item" id="cacheSettings">
+                <div class="setting-icon">📦</div>
+                <div class="setting-info">
+                    <div class="setting-name">Cache & Data</div>
+                    <div class="setting-desc">Manage app storage</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="clearCache">
+                <div class="setting-icon">🗑️</div>
+                <div class="setting-info">
+                    <div class="setting-name">Clear Cache</div>
+                    <div class="setting-desc">Free up storage space</div>
+                </div>
+                <div class="setting-value">
+                    <button class="btn-clear">Clear</button>
+                </div>
+            </div>
+
+            <div class="setting-item" id="downloadQuality">
+                <div class="setting-icon">📥</div>
+                <div class="setting-info">
+                    <div class="setting-name">Download Quality</div>
+                    <div class="setting-desc">High quality</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+        </div>
+
+        <!-- Help & Support -->
+        <div class="section-header">
+            <h3>Help & Support</h3>
+        </div>
+
+        <div class="settings-list">
+            <div class="setting-item" id="helpCenter">
+                <div class="setting-icon">❓</div>
+                <div class="setting-info">
+                    <div class="setting-name">Help Center</div>
+                    <div class="setting-desc">FAQs and guides</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="contactSupport">
+                <div class="setting-icon">💬</div>
+                <div class="setting-info">
+                    <div class="setting-name">Contact Support</div>
+                    <div class="setting-desc">Get help from our team</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="reportProblem">
+                <div class="setting-icon">🐛</div>
+                <div class="setting-info">
+                    <div class="setting-name">Report a Problem</div>
+                    <div class="setting-desc">Send feedback or bug reports</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+        </div>
+
+        <!-- About -->
+        <div class="section-header">
+            <h3>About</h3>
+        </div>
+
+        <div class="settings-list">
+            <div class="setting-item" id="termsOfService">
+                <div class="setting-icon">📄</div>
+                <div class="setting-info">
+                    <div class="setting-name">Terms of Service</div>
+                    <div class="setting-desc">Legal information</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="privacyPolicy">
+                <div class="setting-icon">🔏</div>
+                <div class="setting-info">
+                    <div class="setting-name">Privacy Policy</div>
+                    <div class="setting-desc">How we protect your data</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item" id="appVersion">
+                <div class="setting-icon">ℹ️</div>
+                <div class="setting-info">
+                    <div class="setting-name">App Version</div>
+                    <div class="setting-desc">1.0.0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="section-header">
+            <h3>Account</h3>
+        </div>
+
+        <div class="settings-list">
+            <div class="setting-item danger" id="logoutAccount">
+                <div class="setting-icon">🚪</div>
+                <div class="setting-info">
+                    <div class="setting-name">Log Out</div>
+                    <div class="setting-desc">Sign out of your account</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+
+            <div class="setting-item danger" id="deleteAccount">
+                <div class="setting-icon">⚠️</div>
+                <div class="setting-info">
+                    <div class="setting-name">Delete Account</div>
+                    <div class="setting-desc">Permanently delete your account</div>
+                </div>
+                <div class="setting-arrow">›</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.everything-settings-view .view-content {
+    background: var(--x-black);
+    padding-bottom: 40px;
+}
+
+.settings-list {
+    background: var(--x-black);
+}
+
+.setting-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.setting-item:hover {
+    background: var(--x-hover);
+}
+
+.setting-item.danger:hover {
+    background: rgba(244, 33, 46, 0.1);
+}
+
+.setting-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--x-dark-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.setting-item.danger .setting-icon {
+    background: rgba(244, 33, 46, 0.15);
+}
+
+.setting-info {
+    flex: 1;
+}
+
+.setting-name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.setting-item.danger .setting-name {
+    color: var(--x-red);
+}
+
+.setting-desc {
+    font-size: 13px;
+    color: var(--x-gray);
+}
+
+.setting-arrow {
+    font-size: 18px;
+    color: var(--x-gray);
+}
+
+.setting-value {
+    font-size: 14px;
+    color: var(--x-gray);
+}
+
+.btn-clear {
+    padding: 6px 16px;
+    background: var(--x-dark-gray);
+    border: 1px solid var(--x-border);
+    border-radius: 16px;
+    color: var(--x-white);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-clear:hover {
+    background: var(--x-hover);
+    border-color: var(--x-blue);
+}
+
+.setting-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-switch {
+    display: none;
+}
+
+.toggle-label {
+    width: 48px;
+    height: 28px;
+    background: var(--x-dark-gray);
+    border-radius: 14px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.toggle-label::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--x-white);
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+.toggle-switch:checked + .toggle-label {
+    background: var(--x-blue);
+}
+
+.toggle-switch:checked + .toggle-label::after {
+    transform: translateX(20px);
+}
+
+.toggle-switch:disabled + .toggle-label {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+</style>

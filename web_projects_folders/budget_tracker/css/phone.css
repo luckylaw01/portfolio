@@ -1,0 +1,293 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PHONE FRAME STYLES - Realistic iPhone Mockup
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    padding: 20px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Phone Container - Centers the device
+   ───────────────────────────────────────────────────────────────────────────── */
+.phone-container {
+    perspective: 1000px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Phone Frame - The device body
+   ───────────────────────────────────────────────────────────────────────────── */
+.phone-frame {
+    width: 375px;
+    height: 812px;
+    background: linear-gradient(145deg, #2d2d2d 0%, #1a1a1a 100%);
+    border-radius: 55px;
+    padding: 12px;
+    position: relative;
+    box-shadow: 
+        0 0 0 3px #1a1a1a,
+        0 0 0 6px #3d3d3d,
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 50px 100px -20px rgba(0, 0, 0, 0.4),
+        inset 0 0 10px rgba(255, 255, 255, 0.05);
+    transform: rotateX(2deg);
+    transition: transform 0.3s ease;
+}
+
+.phone-frame:hover {
+    transform: rotateX(0deg) scale(1.01);
+}
+
+/* Side buttons */
+.phone-frame::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 120px;
+    width: 4px;
+    height: 30px;
+    background: #3d3d3d;
+    border-radius: 2px 0 0 2px;
+    box-shadow: 
+        0 50px 0 #3d3d3d,
+        0 90px 0 #3d3d3d;
+}
+
+.phone-frame::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 180px;
+    width: 4px;
+    height: 60px;
+    background: #3d3d3d;
+    border-radius: 0 2px 2px 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Phone Notch - Camera and sensors area
+   ───────────────────────────────────────────────────────────────────────────── */
+.phone-notch {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 32px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.notch-camera {
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle at 30% 30%, #3d5a80, #1a1a2e);
+    border-radius: 50%;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.notch-speaker {
+    width: 50px;
+    height: 6px;
+    background: #2d2d2d;
+    border-radius: 3px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Phone Screen - Main display area
+   ───────────────────────────────────────────────────────────────────────────── */
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: #f8f9fa;
+    border-radius: 45px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Status Bar - Time, signal, battery
+   ───────────────────────────────────────────────────────────────────────────── */
+.status-bar {
+    height: 44px;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    position: relative;
+    z-index: 50;
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-left {
+    flex: 1;
+}
+
+.status-time {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.status-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-signal,
+.status-wifi,
+.status-battery {
+    display: flex;
+    align-items: center;
+}
+
+.status-signal svg,
+.status-wifi svg,
+.status-battery svg {
+    display: block;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   App Content - Where views are loaded
+   ───────────────────────────────────────────────────────────────────────────── */
+.app-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+}
+
+/* The actual scrollable area inside views */
+.view {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Hide scrollbar but keep functionality */
+.view::-webkit-scrollbar {
+    width: 0;
+    display: none;
+}
+
+.view {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Home Indicator - Bottom bar
+   ───────────────────────────────────────────────────────────────────────────── */
+.phone-home-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+.home-bar {
+    width: 135px;
+    height: 5px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    opacity: 0.3;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Placeholder Content - Temporary display
+   ───────────────────────────────────────────────────────────────────────────── */
+.placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: #333;
+    padding: 20px;
+}
+
+.placeholder-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.placeholder-content h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #1a1a2e;
+}
+
+.placeholder-content p {
+    font-size: 16px;
+    color: #666;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Responsive Adjustments
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (max-height: 850px) {
+    .phone-frame {
+        transform: scale(0.9) rotateX(2deg);
+    }
+    
+    .phone-frame:hover {
+        transform: scale(0.91) rotateX(0deg);
+    }
+}
+
+@media (max-height: 750px) {
+    .phone-frame {
+        transform: scale(0.8) rotateX(2deg);
+    }
+    
+    .phone-frame:hover {
+        transform: scale(0.81) rotateX(0deg);
+    }
+}
+
+@media (max-width: 400px) {
+    .phone-frame {
+        width: 100%;
+        max-width: 375px;
+        border-radius: 40px;
+    }
+    
+    .phone-screen {
+        border-radius: 32px;
+    }
+}

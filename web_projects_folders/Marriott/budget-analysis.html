@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Impact Analyzer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+    <style>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Base colors for dynamic classes to work with Tailwind JIT mode */
+        .bg-blue-50, .text-blue-600, .text-blue-700, .text-blue-500, .border-blue-400, .bg-blue-100 {}
+        .bg-green-50, .text-green-600, .text-green-700, .text-green-500, .border-green-400, .bg-green-100 {}
+        .bg-red-50, .text-red-600, .text-red-700, .text-red-500, .border-red-400, .bg-red-100 {}
+        .bg-purple-50, .text-purple-800, .text-purple-700 {}
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100 p-8 flex items-center justify-center font-sans">
+    <div class="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-2xl">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-center mb-6 text-gray-800">Budget Impact Analyzer</h1>
+        <p class="text-center text-gray-600 mb-8">
+            Enter your project's original and allocated budgets to analyze the impact on time and resources.
+        </p>
+
+        <form id="budget-form" class="space-y-6">
+            <div>
+                <label for="originalBudget" class="block text-sm font-medium text-gray-700 mb-1">
+                    Original Department Budget (€)
+                </label>
+                <div class="relative rounded-md shadow-sm">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-gray-400">
+                            <line x1="12" x2="12" y1="2" y2="22"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <input
+                        type="number"
+                        id="originalBudget"
+                        class="block w-full rounded-2xl border-gray-300 pl-10 pr-4 py-2 text-lg focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                        placeholder="e.g., 84000"
+                        required
+                    />
+                </div>
+            </div>
+
+            <div>
+                <label for="allocatedBudget" class="block text-sm font-medium text-gray-700 mb-1">
+                    Allocated Budget (€)
+                </label>
+                <div class="relative rounded-md shadow-sm">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-gray-400">
+                            <line x1="12" x2="12" y1="2" y2="22"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <input
+                        type="number"
+                        id="allocatedBudget"
+                        class="block w-full rounded-2xl border-gray-300 pl-10 pr-4 py-2 text-lg focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                        placeholder="e.g., 77500"
+                        required
+                    />
+                </div>
+            </div>
+
+            <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl relative">
+                <span id="error-text" class="block sm:inline"></span>
+            </div>
+
+            <button
+                type="submit"
+                class="w-full flex justify-center items-center py-3 px-6 border border-transparent rounded-2xl shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+            >
+                Run Analysis
+            </button>
+        </form>
+
+        <div id="results-container" class="hidden mt-10 pt-8 border-t border-gray-200 fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Analysis Results</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+                <div id="percent-card" class="bg-blue-50 p-6 rounded-2xl shadow-inner flex flex-col items-center">
+                    <div id="percent-value" class="text-5xl font-extrabold text-blue-600"></div>
+                    <div id="percent-label" class="mt-2 text-lg font-semibold text-blue-700"></div>
+                    <p id="percent-description" class="mt-1 text-sm text-blue-500"></p>
+                </div>
+                <div id="time-card" class="bg-blue-50 p-6 rounded-2xl shadow-inner flex flex-col items-center">
+                    <div class="text-5xl font-extrabold text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto lucide-icon lucide-clock">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <div class="mt-2 text-lg font-semibold text-blue-700">Time Slack Impact</div>
+                    <p id="time-description" class="mt-1 text-sm text-blue-500"></p>
+                </div>
+                <div id="resource-card" class="bg-blue-50 p-6 rounded-2xl shadow-inner flex flex-col items-center">
+                    <div class="text-5xl font-extrabold text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto lucide-icon lucide-users">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 5.75"></path>
+                        </svg>
+                    </div>
+                    <div class="mt-2 text-lg font-semibold text-blue-700">Resource Slack Impact</div>
+                    <p id="resource-description" class="mt-1 text-sm text-blue-500"></p>
+                </div>
+                <div id="criticality-card" class="bg-red-50 p-6 rounded-2xl shadow-inner flex flex-col items-center">
+                    <div id="criticality-icon" class="text-5xl font-extrabold text-red-600"></div>
+                    <div class="mt-2 text-lg font-semibold text-red-700">Project Criticality</div>
+                    <p id="criticality-description" class="mt-1 text-sm text-red-500"></p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 text-center mt-8 mb-4">Recommendations</h3>
+            <ul id="recommendations-list" class="list-none space-y-2 text-gray-700"></ul>
+            
+            <button
+                id="apply-button"
+                disabled
+                class="w-full mt-4 flex justify-center items-center py-3 px-6 border border-transparent rounded-2xl shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 lucide-icon lucide-check-square">
+                    <polyline points="9 11 12 14 22 4"></polyline>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+                Apply Selected Recommendations
+            </button>
+
+            <div id="applied-summary" class="hidden mt-6 p-6 bg-blue-50 rounded-2xl shadow-inner fade-in">
+                <h4 class="font-semibold text-lg text-blue-800 mb-2">Your Action Plan:</h4>
+                <p id="applied-summary-text" class="text-blue-700 whitespace-pre-line"></p>
+            </div>
+            
+            <div class="mt-8">
+                <button
+                    id="ai-button"
+                    class="w-full flex justify-center items-center py-3 px-6 rounded-2xl shadow-sm text-lg font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 lucide-icon lucide-wand-2">
+                        <path d="M21 7.74a2.41 2.41 0 0 0-1.42-2.18l-5.6-.96a2.41 2.41 0 0 1-2.18-1.42l-.96-5.6A2.41 2.41 0 0 0 9.26 0l-.96 5.6a2.41 2.41 0 0 1-1.42 2.18L.22 8.7a2.41 2.41 0 0 0 0 4.6l5.6.96a2.41 2.41 0 0 1 1.42 2.18l.96 5.6a2.41 2.41 0 0 0 4.6 0l.96-5.6a2.41 2.41 0 0 1 2.18-1.42l5.6-.96a2.41 2.41 0 0 0 0-4.6z"></path>
+                    </svg>
+                    Get AI Recommendation
+                </button>
+                <div id="ai-recommendation-container" class="hidden mt-6 p-6 bg-purple-50 rounded-2xl shadow-inner fade-in">
+                    <h4 class="font-semibold text-lg text-purple-800 mb-2">AI Insights:</h4>
+                    <p id="ai-recommendation-text" class="text-purple-700"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            document.addEventListener('DOMContentLoaded', () => {
+                // DOM element references
+                const form = document.getElementById('budget-form');
+                const originalBudgetInput = document.getElementById('originalBudget');
+                const allocatedBudgetInput = document.getElementById('allocatedBudget');
+                const errorMessageDiv = document.getElementById('error-message');
+                const errorTextSpan = document.getElementById('error-text');
+                const resultsContainer = document.getElementById('results-container');
+                const percentCard = document.getElementById('percent-card');
+                const percentValue = document.getElementById('percent-value');
+                const percentLabel = document.getElementById('percent-label');
+                const percentDescription = document.getElementById('percent-description');
+                const timeCard = document.getElementById('time-card');
+                const timeDescription = document.getElementById('time-description');
+                const resourceCard = document.getElementById('resource-card');
+                const resourceDescription = document.getElementById('resource-description');
+                const criticalityCard = document.getElementById('criticality-card');
+                const criticalityIcon = document.getElementById('criticality-icon');
+                const criticalityDescription = document.getElementById('criticality-description');
+                const recommendationsListEl = document.getElementById('recommendations-list');
+                const applyButton = document.getElementById('apply-button');
+                const appliedSummaryDiv = document.getElementById('applied-summary');
+                const appliedSummaryText = document.getElementById('applied-summary-text');
+                const aiButton = document.getElementById('ai-button');
+                const aiRecommendationContainer = document.getElementById('ai-recommendation-container');
+                const aiRecommendationText = document.getElementById('ai-recommendation-text');
+
+                let analysisResult = null;
+                let recommendations = [];
+                let checkedRecommendations = [];
+                let isLoading = false;
+
+                /**
+                 * Handles form submission to calculate budget impact.
+                 * @param {Event} e - The form submit event.
+                 */
+                const handleCalculate = (e) => {
+                    e.preventDefault();
+                    hideAllResults();
+                    
+                    const original = parseFloat(originalBudgetInput.value);
+                    const allocated = parseFloat(allocatedBudgetInput.value);
+
+                    if (isNaN(original) || isNaN(allocated) || original <= 0 || allocated <= 0) {
+                        showError('Please enter valid positive numbers for both budgets.');
+                        return;
+                    }
+
+                    const budgetDifference = original - allocated;
+                    const percentageDifference = (budgetDifference / original) * 100;
+                    
+                    const resourceImpactPercentage = percentageDifference;
+                    const originalProjectWeeks = 52;
+                    const timeImpactWeeks = (-resourceImpactPercentage / 100) * originalProjectWeeks;
+                    
+                    const projectCriticality = allocated > original ? 'Low' : 'High';
+
+                    analysisResult = {
+                        original,
+                        allocated,
+                        percentageDifference,
+                        timeImpactWeeks,
+                        resourceImpactPercentage,
+                        projectCriticality,
+                    };
+                    
+                    renderResults();
+                };
+
+                /**
+                 * Renders the analysis results and recommendations based on the analysisResult state.
+                 */
+                const renderResults = () => {
+                    const isIncrease = analysisResult.allocated > analysisResult.original;
+                    const mainColor = isIncrease ? 'green' : 'blue';
+                    const accentColor = isIncrease ? 'green' : 'red';
+                    const iconSVG = isIncrease ? 
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto lucide-icon lucide-arrow-down"><line x1="12" x2="12" y1="5" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>' : 
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto lucide-icon lucide-arrow-up"><line x1="12" x2="12" y1="19" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>';
+
+                    // Update cards with new data and colors
+                    percentCard.className = `bg-${mainColor}-50 p-6 rounded-2xl shadow-inner flex flex-col items-center`;
+                    percentValue.textContent = `${Math.abs(analysisResult.percentageDifference).toFixed(1)}%`;
+                    percentValue.className = `text-5xl font-extrabold text-${mainColor}-600`;
+                    percentLabel.textContent = isIncrease ? 'Budget Increase' : 'Budget Cut';
+                    percentLabel.className = `mt-2 text-lg font-semibold text-${mainColor}-700`;
+                    percentDescription.textContent = `From €${analysisResult.original} to €${analysisResult.allocated}.`;
+                    percentDescription.className = `mt-1 text-sm text-${mainColor}-500`;
+
+                    timeCard.className = `bg-${mainColor}-50 p-6 rounded-2xl shadow-inner flex flex-col items-center`;
+                    timeDescription.innerHTML = `Project time will ${isIncrease ? 'decrease' : 'increase'} by <span class="font-bold">${Math.abs(analysisResult.timeImpactWeeks).toFixed(1)} weeks</span>.`;
+                    timeDescription.className = `mt-1 text-sm text-${mainColor}-500`;
+
+                    resourceCard.className = `bg-${mainColor}-50 p-6 rounded-2xl shadow-inner flex flex-col items-center`;
+                    resourceDescription.innerHTML = `Team workload will ${isIncrease ? 'decrease' : 'increase'} by <span class="font-bold">${Math.abs(analysisResult.resourceImpactPercentage).toFixed(1)}%</span>.`;
+                    resourceDescription.className = `mt-1 text-sm text-${mainColor}-500`;
+
+                    criticalityCard.className = `bg-${accentColor}-50 p-6 rounded-2xl shadow-inner flex flex-col items-center`;
+                    criticalityIcon.innerHTML = iconSVG;
+                    criticalityIcon.className = `text-5xl font-extrabold text-${accentColor}-600`;
+                    criticalityDescription.innerHTML = `The project now has a <span class="font-bold text-${accentColor}-700">${analysisResult.projectCriticality}</span> buffer for delays.`;
+                    criticalityDescription.className = `mt-1 text-sm text-${accentColor}-500`;
+
+                    // Update recommendations
+                    recommendations = getRecommendations();
+                    checkedRecommendations = new Array(recommendations.length).fill(false);
+                    renderRecommendations();
+                    
+                    // Show the results container
+                    resultsContainer.classList.remove('hidden');
+                };
+
+                /**
+                 * Generates a list of initial recommendations based on the analysis result.
+                 * @returns {string[]} An array of recommendation strings.
+                 */
+                const getRecommendations = () => {
+                    if (!analysisResult) return [];
+                    
+                    const { percentageDifference, timeImpactWeeks } = analysisResult;
+                    const recs = [];
+                    const timeString = `${Math.abs(timeImpactWeeks).toFixed(1)} weeks`;
+                    const workloadString = `${Math.abs(analysisResult.resourceImpactPercentage).toFixed(1)}%`;
+                    const budgetString = `${Math.abs(percentageDifference).toFixed(1)}%`;
+                    const extraFundsString = `€${(analysisResult.allocated - analysisResult.original).toFixed(0)}`;
+
+                    if (percentageDifference > 0) { // Budget cut
+                        recs.push(
+                            `Adjust the project timeline by an additional ${timeString} to accommodate the budget reduction.`
+                        );
+                        recs.push(
+                            `Increase work hours for your team by approximately ${Math.abs((-analysisResult.resourceImpactPercentage / 52 * 40).toFixed(1))} hours per week.`
+                        );
+                        recs.push(
+                            `Explore reducing project scope or deliverables by up to ${workloadString} to meet the original deadline.`
+                        );
+                        recs.push(
+                            `Prioritize tasks with the highest return on investment and defer non-essential activities.`
+                        );
+                        recs.push(
+                            `Negotiate with vendors or external partners to reduce costs by ${budgetString}.`
+                        );
+                    } else { // Budget increase
+                        recs.push(
+                            `Decrease the project timeline by approximately ${timeString} by utilizing the additional funds.`
+                        );
+                        recs.push(
+                            `Reinvest the additional funds (${extraFundsString}) into project resources to increase efficiency.`
+                        );
+                        recs.push(
+                            `Decrease the individual team workload by ${workloadString} to prevent burnout and improve morale.`
+                        );
+                        recs.push(
+                            `Invest in new technology or tools to streamline operations and enhance team productivity.`
+                        );
+                        recs.push(
+                            `Explore opportunities to expand the project scope or add new high-impact deliverables.`
+                        );
+                    }
+                    return recs;
+                };
+
+                /**
+                 * Renders the recommendations list dynamically.
+                 */
+                const renderRecommendations = () => {
+                    recommendationsListEl.innerHTML = '';
+                    recommendations.forEach((rec, index) => {
+                        const li = document.createElement('li');
+                        li.className = `p-4 rounded-xl shadow-sm transition-all duration-200 cursor-pointer border-2 flex items-start ${
+                            checkedRecommendations[index]
+                                ? 'bg-blue-100 border-blue-400 transform scale-[1.02]'
+                                : 'bg-gray-50 border-transparent hover:bg-gray-100'
+                        }`;
+                        li.innerHTML = `
+                            <input type="checkbox" data-index="${index}" class="mt-1 mr-3 h-5 w-5 text-blue-600 rounded focus:ring-blue-500" ${checkedRecommendations[index] ? 'checked' : ''}>
+                            <span>${rec}</span>
+                        `;
+                        li.onclick = (e) => {
+                            const checkbox = li.querySelector('input[type="checkbox"]');
+                            checkbox.checked = !checkbox.checked;
+                            handleCheckboxChange(index, checkbox.checked);
+                        };
+                        recommendationsListEl.appendChild(li);
+                    });
+                    updateApplyButtonState();
+                };
+
+                /**
+                 * Toggles the checked state of a recommendation checkbox.
+                 * @param {number} index - The index of the checkbox to toggle.
+                 * @param {boolean} isChecked - The new checked state.
+                 */
+                const handleCheckboxChange = (index, isChecked) => {
+                    checkedRecommendations[index] = isChecked;
+                    renderRecommendations(); // Re-render to update classes
+                    updateApplyButtonState();
+                };
+
+                /**
+                 * Enables or disables the apply button based on checked recommendations.
+                 */
+                const updateApplyButtonState = () => {
+                    const anyChecked = checkedRecommendations.some(is_checked => is_checked);
+                    applyButton.disabled = !anyChecked;
+                };
+
+                /**
+                 * Handles the "Apply Selected" button click, creating a combined action plan.
+                 */
+                const handleApplyRecommendations = () => {
+                    const selectedIndices = checkedRecommendations.reduce((acc, isChecked, index) => {
+                        if (isChecked) {
+                            acc.push(index);
+                        }
+                        return acc;
+                    }, []);
+                    
+                    const numSelected = selectedIndices.length;
+                    if (numSelected === 0) {
+                        appliedSummaryDiv.classList.add('hidden');
+                        return;
+                    }
+
+                    const share = 1 / numSelected;
+                    const isIncrease = analysisResult.allocated > analysisResult.original;
+                    const combinedRecommendations = selectedIndices.map(index => {
+                        const rec = recommendations[index];
+                        let newRec = rec;
+
+                        if (rec.includes("project timeline")) {
+                            const adjustedTimeWeeks = Math.abs(analysisResult.timeImpactWeeks) * share;
+                            newRec = `Adjust the project timeline by ${isIncrease ? 'decreasing' : 'increasing'} it by approximately ${adjustedTimeWeeks.toFixed(1)} weeks.`;
+                        } else if (rec.includes("work hours for your team")) {
+                            const adjustedWorkHours = Math.abs((-analysisResult.resourceImpactPercentage / 52 * 40)) * share;
+                            newRec = `Increase work hours for your team by approximately ${adjustedWorkHours.toFixed(1)} hours per week.`;
+                        } else if (rec.includes("project scope or deliverables")) {
+                            const adjustedScopePercent = Math.abs(analysisResult.resourceImpactPercentage) * share;
+                            newRec = `Explore reducing project scope or deliverables by up to ${adjustedScopePercent.toFixed(1)}%.`;
+                        } else if (rec.includes("Reinvest the additional funds")) {
+                            const adjustedFunds = (analysisResult.allocated - analysisResult.original) * share;
+                            newRec = `Reinvest an additional €${adjustedFunds.toFixed(0)} into project resources.`;
+                        } else if (rec.includes("individual team workload")) {
+                            const adjustedWorkload = Math.abs(analysisResult.resourceImpactPercentage) * share;
+                            newRec = `Decrease the individual team workload by ${adjustedWorkload.toFixed(1)}%.`;
+                        } else if (rec.includes("vendors or external partners")) {
+                            const adjustedBudgetPercent = Math.abs(analysisResult.percentageDifference) * share;
+                            newRec = `Negotiate with vendors or external partners to reduce costs by ${adjustedBudgetPercent.toFixed(1)}%.`;
+                        } else if (rec.includes("hiring additional team members")) {
+                            newRec = `Add an additional team member to expand project capacity and reduce individual workload.`;
+                        } else if (rec.includes("new technology or tools")) {
+                            newRec = `Invest in new technology or tools to streamline operations and enhance team productivity.`;
+                        } else if (rec.includes("expand the project scope")) {
+                            newRec = `Explore opportunities to expand the project scope or add new high-impact deliverables.`;
+                        }
+                        return newRec;
+                    });
+                    
+                    let combinedText = "Based on your selections, here is a combined action plan: ";
+                    if (combinedRecommendations.length === 1) {
+                        combinedText += combinedRecommendations[0] + ".";
+                    } else {
+                        const lastRec = combinedRecommendations.pop();
+                        combinedText += combinedRecommendations.join('; ') + `; and ${lastRec}.`;
+                    }
+                    
+                    appliedSummaryText.textContent = combinedText;
+                    appliedSummaryDiv.classList.remove('hidden');
+                };
+                
+                /**
+                 * Hides all results and summary sections.
+                 */
+                const hideAllResults = () => {
+                    resultsContainer.classList.add('hidden');
+                    appliedSummaryDiv.classList.add('hidden');
+                    aiRecommendationContainer.classList.add('hidden');
+                };
+
+                /**
+                 * Shows an error message.
+                 * @param {string} message - The error message to display.
+                 */
+                const showError = (message) => {
+                    errorTextSpan.textContent = message;
+                    errorMessageDiv.classList.remove('hidden');
+                };
+
+                /**
+                 * Calls the Gemini API to generate a detailed AI recommendation.
+                 */
+                const getAIRecommendation = async () => {
+                    if (!analysisResult || isLoading) return;
+                    
+                    isLoading = true;
+                    aiButton.textContent = 'Generating...';
+                    aiButton.disabled = true;
+                    aiRecommendationContainer.classList.add('hidden');
+                    
+                    const { original, allocated, percentageDifference, timeImpactWeeks, resourceImpactPercentage } = analysisResult;
+                    const isIncrease = allocated > original;
+                    
+                    const prompt = `You are a project management consultant. A team's department budget was originally €${original} but they were allocated €${allocated}. This is a ${isIncrease ? 'budget increase' : 'budget cut'} of ${Math.abs(percentageDifference).toFixed(1)}%. This has a time impact of ${Math.abs(timeImpactWeeks).toFixed(1)} weeks and a resource workload impact of ${Math.abs(resourceImpactPercentage).toFixed(1)}%. Please provide a detailed, actionable recommendation on how to best manage this financial change. Start your recommendation with "Based on your financial analysis, here is a strategic action plan:". The response should be a concise paragraph and not a list.`;
+
+                    const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                    try {
+                        let response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        let result = await response.json();
+                        if (result.candidates && result.candidates.length > 0 &&
+                            result.candidates[0].content && result.candidates[0].content.parts &&
+                            result.candidates[0].content.parts.length > 0) {
+                            const text = result.candidates[0].content.parts[0].text;
+                            aiRecommendationText.textContent = text;
+                        } else {
+                            aiRecommendationText.textContent = 'Sorry, I couldn\'t generate a recommendation. Please try again.';
+                        }
+                        aiRecommendationContainer.classList.remove('hidden');
+                    } catch (error) {
+                        console.error('Error fetching AI recommendation:', error);
+                        aiRecommendationText.textContent = 'Sorry, I couldn\'t connect to the AI service. Please try again.';
+                        aiRecommendationContainer.classList.remove('hidden');
+                    } finally {
+                        isLoading = false;
+                        aiButton.textContent = 'Get AI Recommendation';
+                        aiButton.disabled = false;
+                    }
+                };
+
+                // Event Listeners
+                form.addEventListener('submit', handleCalculate);
+                applyButton.addEventListener('click', handleApplyRecommendations);
+                aiButton.addEventListener('click', getAIRecommendation);
+            });
+        })();
+    </script>
+</body>
+</html>

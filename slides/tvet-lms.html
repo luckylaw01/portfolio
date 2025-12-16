@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVET LMS | Lawrence Munyaka Portfolio</title>
+    <meta name="description" content="TVET LMS - An AI-powered Learning Management System for TVET institutions">
+
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="../assets/css/design-system.css">
+    <link rel="stylesheet" href="../assets/css/transitions.css">
+    <link rel="stylesheet" href="../assets/css/navigation.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
+
+    <style>
+        /* TVET LMS Slide - AI/Education Theme */
+        /* Vibrant Color Palette: Green + Purple + Orange + Magenta */
+
+        :root {
+            --tvet-purple: #9C27B0;
+            --tvet-magenta: #E91E63;
+            --tvet-orange: #FF6F00;
+            --tvet-violet: #7C4DFF;
+            --tvet-pink: #FF4081;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fef8 0%, #F3E5F5 30%, #FFF3E0 70%, #FCE4EC 100%);
+            overflow-x: hidden;
+        }
+
+        /* Animated Wave Background */
+        .wave-background {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    rgba(156, 39, 176, 0.1),
+                    rgba(255, 64, 129, 0.1),
+                    rgba(255, 111, 0, 0.1));
+            animation: wave-flow 15s ease-in-out infinite;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: 2s;
+            opacity: 0.5;
+        }
+
+        .wave:nth-child(3) {
+            animation-delay: 4s;
+            opacity: 0.3;
+        }
+
+        @keyframes wave-flow {
+
+            0%,
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-25%) translateY(-20px);
+            }
+        }
+
+        /* Floating Brain Neurons */
+        .neuron {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--tvet-purple);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: neuron-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes neuron-pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        .neuron:nth-child(1) {
+            top: 20%;
+            left: 15%;
+            animation-delay: 0s;
+            background: var(--tvet-purple);
+        }
+
+        .neuron:nth-child(2) {
+            top: 40%;
+            left: 25%;
+            animation-delay: 0.5s;
+            background: var(--tvet-magenta);
+        }
+
+        .neuron:nth-child(3) {
+            top: 60%;
+            left: 10%;
+            animation-delay: 1s;
+            background: var(--tvet-orange);
+        }
+
+        .neuron:nth-child(4) {
+            top: 30%;
+            right: 20%;
+            animation-delay: 1.5s;
+            background: var(--tvet-violet);
+        }
+
+        .neuron:nth-child(5) {
+            top: 70%;
+            right: 15%;
+            animation-delay: 2s;
+            background: var(--tvet-pink);
+        }
+
+        .neuron:nth-child(6) {
+            bottom: 20%;
+            right: 30%;
+            animation-delay: 2.5s;
+            background: var(--tvet-purple);
+        }
+
+        /* Connect neurons with lines */
+        .synapse {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--tvet-purple), transparent);
+            opacity: 0.3;
+            animation: synapse-flow 4s linear infinite;
+        }
+
+        @keyframes synapse-flow {
+            0% {
+                opacity: 0.2;
+                transform: scaleX(0.5);
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 0.2;
+                transform: scaleX(1);
+            }
+        }
+
+        /* Main Content Container */
+        .tvet-container {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 70% 30%;
+            gap: var(--space-2xl);
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-lg);
+        }
+
+        /* Left Side - Visual Preview */
+        .visual-side {
+            position: relative;
+        }
+
+        .ai-badge {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            padding: var(--space-sm) var(--space-lg);
+            background: linear-gradient(135deg, var(--tvet-purple), var(--tvet-magenta));
+            color: white;
+            font-size: var(--text-xs);
+            font-weight: var(--weight-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: var(--radius-full);
+            box-shadow: 0 6px 25px rgba(156, 39, 176, 0.5);
+            z-index: 20;
+            animation: float-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes float-badge {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .screenshot-container {
+            position: relative;
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow:
+                0 25px 70px rgba(156, 39, 176, 0.4),
+                0 0 60px rgba(255, 64, 129, 0.2);
+            border: 4px solid transparent;
+            background:
+                linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, var(--tvet-purple), var(--tvet-orange), var(--tvet-magenta)) border-box;
+            transition: all var(--transition-slow);
+        }
+
+        .screenshot-container:hover {
+            transform: scale(1.03) rotate(-1deg);
+            box-shadow:
+                0 30px 90px rgba(156, 39, 176, 0.5),
+                0 0 80px rgba(255, 64, 129, 0.3);
+        }
+
+        .screenshot-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Right Side - Project Info */
+        .info-side {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .tag-row {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: var(--space-xs) var(--space-md);
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.15), rgba(255, 64, 129, 0.15));
+            border: 1.5px solid var(--tvet-magenta);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--weight-bold);
+            color: var(--tvet-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .main-title {
+            font-family: var(--font-display);
+            font-size: var(--text-5xl);
+            font-weight: var(--weight-black);
+            background: linear-gradient(135deg, var(--tvet-purple), var(--tvet-orange), var(--tvet-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: var(--leading-tight);
+            margin-bottom: var(--space-sm);
+        }
+
+        .subtitle {
+            font-size: var(--text-xl);
+            color: var(--text-secondary);
+            font-weight: var(--weight-medium);
+            margin-bottom: var(--space-md);
+        }
+
+        .description-text {
+            font-size: var(--text-base);
+            color: var(--text-primary);
+            line-height: var(--leading-normal);
+            margin-bottom: var(--space-sm);
+        }
+
+        .story-section {
+            padding: var(--space-md);
+            background: linear-gradient(135deg,
+                    rgba(156, 39, 176, 0.08),
+                    rgba(255, 111, 0, 0.08));
+            border-left: 3px solid var(--tvet-orange);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-md);
+        }
+
+        .story-title {
+            font-family: var(--font-display);
+            font-size: var(--text-base);
+            font-weight: var(--weight-bold);
+            color: var(--tvet-orange);
+            margin-bottom: var(--space-xs);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .story-text {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: var(--leading-normal);
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .impact-box {
+            padding: var(--space-md);
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            background:
+                linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, var(--tvet-purple), var(--tvet-pink)) border-box;
+            border-radius: var(--radius-xl);
+            text-align: center;
+            transition: all var(--transition-base);
+        }
+
+        .impact-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(156, 39, 176, 0.3);
+        }
+
+        .impact-num {
+            font-family: var(--font-display);
+            font-size: var(--text-3xl);
+            font-weight: var(--weight-black);
+            background: linear-gradient(135deg, var(--tvet-purple), var(--tvet-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-xs);
+        }
+
+        .impact-label {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-md);
+        }
+
+        .tech-item {
+            padding: var(--space-xs) var(--space-md);
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.1), rgba(255, 111, 0, 0.1));
+            border: 2px solid var(--tvet-purple);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--weight-semibold);
+            color: var(--tvet-purple);
+            transition: all var(--transition-base);
+        }
+
+        .tech-item:hover {
+            background: linear-gradient(135deg, var(--tvet-purple), var(--tvet-orange));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(156, 39, 176, 0.3);
+        }
+
+        .visit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-xl);
+            background: linear-gradient(135deg, var(--tvet-purple), var(--tvet-magenta), var(--tvet-orange));
+            color: white;
+            font-size: var(--text-base);
+            font-weight: var(--weight-bold);
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            box-shadow: 0 12px 35px rgba(156, 39, 176, 0.4);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .visit-btn:hover::before {
+            left: 100%;
+        }
+
+        .visit-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 50px rgba(156, 39, 176, 0.6);
+        }
+
+        /* Animated Gradient Orbs */
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.25;
+            pointer-events: none;
+            animation: orb-float 8s ease-in-out infinite;
+        }
+
+        .orb-purple {
+            top: 10%;
+            right: 5%;
+            width: 400px;
+            height: 400px;
+            background: var(--tvet-purple);
+        }
+
+        .orb-orange {
+            bottom: 15%;
+            left: 10%;
+            width: 350px;
+            height: 350px;
+            background: var(--tvet-orange);
+            animation-delay: 3s;
+        }
+
+        .orb-magenta {
+            top: 50%;
+            left: 40%;
+            width: 300px;
+            height: 300px;
+            background: var(--tvet-magenta);
+            animation-delay: 6s;
+        }
+
+        @keyframes orb-float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        /* Animations */
+        .stagger-item {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .stagger-item.animate {
+            animation: slideIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .tvet-container {
+                grid-template-columns: 1fr;
+                gap: var(--space-2xl);
+            }
+
+            .main-title {
+                font-size: var(--text-4xl);
+            }
+
+            .impact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip Navigation -->
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+    <!-- Slide Counter -->
+    <div id="slide-counter" class="slide-counter"></div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button id="nav-prev" class="nav-btn" aria-label="Previous slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <button id="nav-next" class="nav-btn" aria-label="Next slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Wave Background -->
+    <div class="wave-background">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- Neurons -->
+    <div class="neuron"></div>
+    <div class="neuron"></div>
+    <div class="neuron"></div>
+    <div class="neuron"></div>
+    <div class="neuron"></div>
+    <div class="neuron"></div>
+
+    <!-- Gradient Orbs -->
+    <div class="gradient-orb orb-purple"></div>
+    <div class="gradient-orb orb-orange"></div>
+    <div class="gradient-orb orb-magenta"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="tvet-container">
+            <!-- Left Side - Visual Preview -->
+            <div class="visual-side">
+                <div class="ai-badge stagger-item">✨ AI-POWERED</div>
+                <div class="screenshot-container stagger-item">
+                    <img src="../assets/images/projects/tvet-lms-screenshot.jpg" alt="TVET LMS Dashboard"
+                        class="screenshot-img">
+                </div>
+            </div>
+
+            <!-- Right Side - Project Information -->
+            <div class="info-side">
+                <div class="tag-row stagger-item">
+                    <span class="tag">AI/ML Platform</span>
+                    <span class="tag">Education Tech</span>
+                    <span class="tag">2025</span>
+                </div>
+
+                <h1 class="main-title stagger-item">TVET LMS</h1>
+                <p class="subtitle stagger-item">AI-Powered Learning Management System</p>
+
+                <p class="description-text stagger-item">
+                    An AI-powered LMS for TVET institutions that enhances collaboration and personalizes learning
+                    experiences.
+                </p>
+
+                <div class="story-section stagger-item">
+                    <h3 class="story-title">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                        The Journey
+                    </h3>
+                    <p class="story-text">
+                        Led a team of five through nine months to create this system. Empowers 20 teachers and 250
+                        students with intelligent learning paths and AI-driven insights.
+                    </p>
+                </div>
+
+                <div class="impact-grid">
+                    <div class="impact-box stagger-item">
+                        <div class="impact-num">5</div>
+                        <div class="impact-label">Team Members</div>
+                    </div>
+                    <div class="impact-box stagger-item">
+                        <div class="impact-num">9</div>
+                        <div class="impact-label">Months Dev</div>
+                    </div>
+                    <div class="impact-box stagger-item">
+                        <div class="impact-num">270</div>
+                        <div class="impact-label">Users Impacted</div>
+                    </div>
+                </div>
+
+                <div class="tech-list stagger-item">
+                    <span class="tech-item">AI/ML</span>
+                    <span class="tech-item">React</span>
+                    <span class="tech-item">Node.js</span>
+                    <span class="tech-item">Python</span>
+                    <span class="tech-item">MySQL</span>
+                    <span class="tech-item">TensorFlow</span>
+                </div>
+
+                <a href="https://www.lawrencemunyaka.engineer" target="_blank" rel="noopener"
+                    class="visit-btn stagger-item">
+                    <span>Explore Platform</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Core Scripts -->
+    <script src="../assets/js/navigation-core.js"></script>
+    <script src="../assets/js/transitions.js"></script>
+    <script src="../assets/js/menu.js"></script>
+
+    <!-- Initialize -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Stagger animations
+            setTimeout(() => {
+                const items = document.querySelectorAll('.stagger-item');
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('animate');
+                    }, index * 100);
+                });
+            }, 200);
+        });
+    </script>
+</body>
+
+</html>

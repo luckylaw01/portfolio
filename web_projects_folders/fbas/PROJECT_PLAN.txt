@@ -1,0 +1,522 @@
+================================================================================
+    FINGERPRINT-BASED ATTENDANCE SYSTEM (FBAS) - 3D SIMULATION PROJECT PLAN
+================================================================================
+
+OVERVIEW
+--------
+This project simulates the complete FBAS ecosystem including:
+- The portable FBAS device (3D model with interactive touch screen)
+- A simulated computer interface for setup and dashboard views
+- Multiple case scenarios demonstrating real-world usage
+
+The simulation will showcase how the device works in various contexts:
+classroom attendance, teacher interactions, charging, device setup, and
+administrative dashboard views.
+
+
+================================================================================
+DESIGN DECISIONS (Confirmed)
+================================================================================
+
+1. SCREEN INTERACTION: Option A - Click directly on 3D device screen
+   - Camera auto-snaps to front-facing angle before screen interaction
+   - More immersive experience
+   - Orbit controls pause during screen interaction mode
+
+2. FINGERPRINT SCAN: Sometimes fails (~2% failure rate)
+   - Adds realism with occasional "Finger not recognized" errors
+   - Shows error UI state and red LED flash
+   - User can retry
+
+3. COMPUTER MONITOR: Floating monitor with frame
+   - Clean, minimal design
+   - Just the monitor (no keyboard/mouse/desk)
+   - Frame gives it physical presence in the 3D scene
+
+4. DATA SCOPE: Large realistic dataset
+   - 30+ students across multiple classes
+   - 5+ classes/courses
+   - Multiple teachers
+   - Realistic Kenyan names and registration numbers
+
+5. AUDIO: Yes - Sound effects included
+   - Success beep on valid scan
+   - Error buzz on failed scan
+   - Button click sounds
+   - Charging plug-in sound
+   - Connection/sync sounds
+
+
+================================================================================
+DEVICE SPECIFICATIONS (Simulated)
+================================================================================
+
+Physical:
+- Portable, handheld device
+- Rechargeable battery (USB Type-C)
+- Touch-enabled screen
+- Fingerprint biometric sensor with LED ring
+- Power button on right side
+
+Connectivity:
+- WiFi (internet connectivity)
+- Bluetooth (for alternative setups)
+- Can work offline with local storage
+
+Data:
+- Local storage for offline operation
+- Syncs with central server when online
+- Stores relevant teacher/class/student data locally
+
+
+================================================================================
+CASE SCENARIOS TO IMPLEMENT
+================================================================================
+
+SCENARIO 1: CLASS ATTENDANCE RECORDING
+--------------------------------------
+Description:
+  The device is being passed around in class. Students place their fingers
+  one by one to record attendance.
+
+UI Elements:
+  - Student list panel (floating HTML overlay on the side)
+  - Student selector (click to simulate that student scanning)
+  - Animated finger approaching and touching the sensor
+  - Device screen updates with student info + SUCCESS message
+  - LED ring animation (blue → green on success)
+  - Audio feedback (optional beep sound)
+
+Implementation:
+  - Floating HTML panel with student list
+  - Click student → finger animation plays → screen updates
+  - Store attendance record in localStorage
+
+
+SCENARIO 2: TEACHER CLASS SELECTION
+-----------------------------------
+Description:
+  Teacher uses the touch screen to select which class they're teaching.
+  They navigate through menus on the device screen.
+
+UI Elements:
+  - Device screen shows interactive menu (HTML overlay mapped to screen)
+  - Class list view
+  - Subject selection
+  - Confirmation screen
+
+Implementation:
+  - HTML views that replace the device screen content
+  - Views: Home → Classes → Select Class → Confirm → Ready for Attendance
+  - "Pause Controls" button to disable orbit controls for screen interaction
+  - "Reset View" button to snap camera to front-facing position
+
+
+SCENARIO 3: CHARGING MODE
+-------------------------
+Description:
+  Device is plugged in and charging.
+
+UI Elements:
+  - USB cable 3D model connected to the port
+  - Charging indicator on screen (battery icon with animation)
+  - LED ring shows charging state (pulsing orange/amber)
+
+Implementation:
+  - Toggle button to "plug in" the device
+  - Animate cable appearing/connecting
+  - Screen shows charging UI
+  - LED ring color changes
+
+
+SCENARIO 4: DEVICE SETUP (PAIRING WITH COMPUTER)
+------------------------------------------------
+Description:
+  Initial setup where device pairs with the school's computer system.
+  Shows both device and computer screen side by side.
+
+UI Elements:
+  - 3D computer monitor appears next to FBAS device
+  - Computer screen shows pairing interface
+  - Device screen shows pairing code/QR
+  - Simulated wireless connection animation (particles/waves)
+  - Step-by-step setup wizard on both screens
+
+Implementation:
+  - Add 3D computer monitor model to scene
+  - Position camera to show both device and monitor
+  - HTML overlays for both screens
+  - Setup flow: 
+    1. Computer: "Searching for devices..."
+    2. Device: Shows pairing code
+    3. Computer: "Device found - Enter code"
+    4. Connection animation
+    5. Computer: "Syncing data..."
+    6. Both: "Setup complete"
+
+
+SCENARIO 5: ADMIN DASHBOARD (COMPUTER ONLY)
+-------------------------------------------
+Description:
+  Full computer interface showing the school's attendance system dashboard.
+
+UI Elements:
+  - Large computer monitor (or fullscreen)
+  - Dashboard with:
+    - Attendance statistics
+    - Charts and graphs
+    - Student management
+    - Device management
+    - Reports
+
+Implementation:
+  - Hide FBAS device, show only computer monitor
+  - Full dashboard HTML interface
+  - Multiple pages: Dashboard, Students, Teachers, Devices, Reports
+  - Sample data visualization
+
+
+================================================================================
+TECHNICAL ARCHITECTURE
+================================================================================
+
+FILE STRUCTURE:
+---------------
+fbas/
+├── index.html              # Main entry point
+├── main.js                 # Three.js scene, device, animations
+├── style.css               # Global styles
+├── PROJECT_PLAN.txt        # This file
+│
+├── js/
+│   ├── data.js             # Static data (students, classes, teachers)
+│   ├── storage.js          # localStorage utilities
+│   ├── device.js           # Device-related functions
+│   ├── computer.js         # Computer monitor model & functions
+│   ├── animations.js       # Finger animation, connection effects
+│   └── scenarios.js        # Scenario controllers
+│
+├── views/
+│   ├── device/
+│   │   ├── home.html           # Device home screen
+│   │   ├── classes.html        # Class selection
+│   │   ├── attendance.html     # Attendance mode screen
+│   │   ├── success.html        # Scan success screen
+│   │   ├── charging.html       # Charging screen
+│   │   └── pairing.html        # Setup/pairing screen
+│   │
+│   └── computer/
+│       ├── dashboard.html      # Main dashboard
+│       ├── students.html       # Student management
+│       ├── teachers.html       # Teacher management
+│       ├── devices.html        # Device management
+│       ├── reports.html        # Reports view
+│       └── setup.html          # Device setup wizard
+│
+├── css/
+│   ├── device-views.css    # Styles for device screen views
+│   └── computer-views.css  # Styles for computer screen views
+│
+└── Assets/
+    └── images/
+        ├── avatars/        # Student/teacher photos
+        └── icons/          # UI icons
+
+
+DATA STRUCTURE (js/data.js):
+----------------------------
+```javascript
+const SCHOOL_DATA = {
+    school: {
+        name: "Nairobi Technical University",
+        code: "NTU"
+    },
+    
+    teachers: [
+        {
+            id: "T001",
+            name: "Prof. Andrew Mwangi",
+            department: "Computer Science",
+            assignedDeviceId: "FBAS-001",
+            classes: ["CIT-225", "CIT-301"]
+        }
+    ],
+    
+    classes: [
+        {
+            id: "CIT-225",
+            name: "Data Structures and Algorithms",
+            department: "Computer Science",
+            intake: "September 2025",
+            year: 2,
+            semester: 2,
+            students: ["S001", "S002", "S003", ...]
+        }
+    ],
+    
+    students: [
+        {
+            id: "S001",
+            regNo: "CIT-225-067/2025",
+            name: "Anthony Kimani",
+            avatar: "avatars/anthony.jpg",
+            fingerprintHash: "FP_HASH_001"
+        }
+    ],
+    
+    devices: [
+        {
+            id: "FBAS-001",
+            status: "active",
+            batteryLevel: 85,
+            lastSync: "2025-11-27T08:00:00Z",
+            assignedTeacherId: "T001"
+        }
+    ]
+};
+```
+
+
+LOCALSTORAGE STRUCTURE (dynamic data):
+--------------------------------------
+- `fbas_attendance_records`: Array of attendance records
+- `fbas_current_session`: Current class session info
+- `fbas_device_state`: Device state (on/off, battery, connected)
+- `fbas_sync_queue`: Records pending sync to server
+
+
+================================================================================
+UI CONTROLS (HTML OVERLAY)
+================================================================================
+
+Main Control Panel (always visible):
+------------------------------------
+┌─────────────────────────────────────────┐
+│  FBAS Simulation Controls               │
+├─────────────────────────────────────────┤
+│  SCENARIOS:                             │
+│  [1. Attendance] [2. Class Select]      │
+│  [3. Charging]   [4. Setup]             │
+│  [5. Dashboard]                         │
+├─────────────────────────────────────────┤
+│  VIEW CONTROLS:                         │
+│  [Pause Rotation] [Reset to Front]      │
+│  [Show Device] [Show Computer] [Both]   │
+├─────────────────────────────────────────┤
+│  DEVICE STATE:                          │
+│  Battery: [████████░░] 80%              │
+│  Connection: ● Online                   │
+│  [Toggle Power] [Toggle Charge]         │
+└─────────────────────────────────────────┘
+
+Student List Panel (Scenario 1):
+--------------------------------
+┌─────────────────────────┐
+│  CIT-225 Students       │
+│  Data Structures & Algo │
+├─────────────────────────┤
+│  ○ Anthony Kimani    ✓  │
+│  ○ Jane Wanjiku      ✓  │
+│  ○ Peter Ochieng     ○  │  ← Click to scan
+│  ○ Mary Akinyi       ○  │
+│  ○ John Kamau        ○  │
+│  ...                    │
+├─────────────────────────┤
+│  Present: 12/25         │
+│  [End Session]          │
+└─────────────────────────┘
+
+
+================================================================================
+IMPLEMENTATION PHASES
+================================================================================
+
+PHASE 1: FOUNDATION ✅ COMPLETE
+---------------------------------------------
+[✓] Basic 3D device model
+[✓] Power button and USB port (recessed like mobile phones)
+[✓] Refactor code into modules (js/ folder)
+[✓] Create data.js with sample data (47 students, 6 classes, 3 teachers)
+[✓] Create storage.js utilities
+[✓] Create audio.js with Web Audio API sounds
+[✓] Add control panel HTML overlay
+[✓] Implement "Pause Controls" and "Reset View" buttons
+[✓] Make device screen display dynamic content (Canvas 2D texture)
+
+PHASE 2: VISUAL FEEDBACK & ANIMATIONS ✅ COMPLETE
+-------------------------------------------------
+[✓] Create screenRenderer.js with all screen states
+[✓] Screen states: OFF, HOME, CLASS_SELECT, PLACE_FINGER, SCANNING, SUCCESS, ERROR, CHARGING, PAIRING
+[✓] Animated screen transitions (brightness, gradients, pulsing)
+[✓] Create finger.js with 3D finger model
+[✓] Finger animation phases: idle, approaching, pressing, holding, retracting
+[✓] LED ring color states (IDLE blue, SCANNING cyan, SUCCESS green, ERROR red, CHARGING orange)
+[✓] LED ring pulsing animation
+
+PHASE 3: SCENARIOS ✅ COMPLETE
+------------------------------
+[✓] Scenario 1: Attendance - Click device screen to scan random student
+[✓] Scenario 1: Student list panel with clickable items
+[✓] Scenario 1: Place Finger → Scanning → Success/Error → Place Finger flow
+[✓] Scenario 2: Class selection screen with interactive list
+[✓] Scenario 2: Select class → Start button → Transition to attendance
+[✓] Scenario 3: Charging mode with battery animation
+[✓] Scenario 3: Battery level increments over time
+[✓] Scenario 3: Plug connect sound and charging LED
+[✓] Scenario 4: Device setup/pairing screen
+[✓] Scenario 4: Pairing code display
+[✓] Scenario 5: Home/Dashboard screen with menu items
+[✓] Scenario 5: Interactive menu navigation
+
+PHASE 4: COMPUTER MONITOR & PAIRING ✅ COMPLETE
+------------------------------------------
+[✓] Create 3D computer monitor model
+[✓] Position scene for dual-device view
+[✓] Create pairing views for both screens
+[✓] Wireless connection animation (particles)
+[✓] Step-by-step setup wizard flow
+[✓] Sync animation between devices
+
+PHASE 5: FULL DASHBOARD ✅ COMPLETE
+-----------------------
+[✓] Create full dashboard HTML interface for computer
+[✓] Attendance statistics with charts
+[✓] Student/Teacher management views (CRUD with localStorage)
+[✓] Device management view (CRUD with localStorage)
+[✓] Reports with visualizations
+[✓] Hide FBAS device, show only monitor mode
+[✓] "Bring Dashboard to Screen" fullscreen mode
+[✓] Settings page with data backup/restore
+
+PHASE 6: POLISH & EXTRAS ✅ COMPLETE
+------------------------
+[✓] USB cable 3D model for charging scenario
+[✓] Power button functionality (turn device on/off)
+[✓] Screen dim/wake on power toggle
+[✓] Keyboard shortcuts for testing (1-5, P, C, R, S, D, Arrows)
+[✓] Smooth camera transitions between scenarios
+[✓] Loading/transition animations (cable plug-in, modals)
+
+
+================================================================================
+ANIMATIONS LIST
+================================================================================
+
+1. LED Ring Pulse (idle)        - Subtle blue glow pulsing
+2. LED Ring Scan (scanning)     - Quick bright pulse
+3. LED Ring Success             - Green glow, then back to blue
+4. LED Ring Error               - Red flash
+5. LED Ring Charging            - Orange/amber slow pulse
+6. Finger Approach              - Finger model moves toward sensor
+7. Finger Press                 - Finger touches and presses slightly
+8. Finger Retract               - Finger moves away
+9. Screen Transition            - Fade between views
+10. Connection Particles        - Dots/waves between device and computer
+11. Cable Plug-in               - Cable animates into USB port
+12. Power On/Off                - Screen fade + LED changes
+
+
+================================================================================
+SAMPLE STUDENT DATA (for testing)
+================================================================================
+
+TEACHERS:
+---------
+1. T001 - Prof. Andrew Mwangi (Computer Science) - Device: FBAS-001
+2. T002 - Dr. Grace Otieno (Information Technology) - Device: FBAS-002
+3. T003 - Mr. James Kiprop (Software Engineering) - Device: FBAS-003
+
+CLASSES:
+--------
+1. CIT-225 - Data Structures and Algorithms (Year 2, Sem 2)
+2. CIT-301 - Database Management Systems (Year 3, Sem 1)
+3. CIT-118 - Introduction to Programming (Year 1, Sem 1)
+4. CIT-245 - Object Oriented Programming (Year 2, Sem 2)
+5. CIT-310 - Software Engineering (Year 3, Sem 1)
+6. CIT-215 - Computer Networks (Year 2, Sem 1)
+
+STUDENTS (35 total):
+--------------------
+Class: CIT-225 - Data Structures and Algorithms (12 students)
+1.  CIT-225-067/2025  - Anthony Kimani
+2.  CIT-225-012/2025  - Jane Wanjiku
+3.  CIT-225-034/2025  - Peter Ochieng
+4.  CIT-225-045/2025  - Mary Akinyi
+5.  CIT-225-023/2025  - John Kamau
+6.  CIT-225-089/2025  - Grace Muthoni
+7.  CIT-225-056/2025  - David Kipchoge
+8.  CIT-225-078/2025  - Sarah Njeri
+9.  CIT-225-091/2025  - Michael Otieno
+10. CIT-225-003/2025  - Faith Wambui
+11. CIT-225-015/2025  - Brian Mutua
+12. CIT-225-042/2025  - Lucy Chebet
+
+Class: CIT-301 - Database Management Systems (10 students)
+1.  CIT-301-008/2024  - Samuel Wekesa
+2.  CIT-301-021/2024  - Christine Adhiambo
+3.  CIT-301-033/2024  - Dennis Korir
+4.  CIT-301-047/2024  - Nancy Wanjiru
+5.  CIT-301-019/2024  - Patrick Maina
+6.  CIT-301-055/2024  - Esther Nyambura
+7.  CIT-301-062/2024  - Vincent Ouma
+8.  CIT-301-028/2024  - Caroline Kemunto
+9.  CIT-301-041/2024  - Joseph Kibet
+10. CIT-301-074/2024  - Beatrice Achieng
+
+Class: CIT-118 - Introduction to Programming (8 students)
+1.  CIT-118-101/2025  - Kevin Njoroge
+2.  CIT-118-102/2025  - Ann Moraa
+3.  CIT-118-103/2025  - Daniel Rotich
+4.  CIT-118-104/2025  - Mercy Wairimu
+5.  CIT-118-105/2025  - Stephen Odhiambo
+6.  CIT-118-106/2025  - Pauline Cherop
+7.  CIT-118-107/2025  - Charles Mwenda
+8.  CIT-118-108/2025  - Diana Nafula
+
+Class: CIT-245 - Object Oriented Programming (5 students)
+1.  CIT-245-011/2025  - Robert Karanja
+2.  CIT-245-022/2025  - Winnie Auma
+3.  CIT-245-033/2025  - Eric Langat
+4.  CIT-245-044/2025  - Jacqueline Mwikali
+5.  CIT-245-055/2025  - Geoffrey Mutiso
+
+
+================================================================================
+AUDIO FILES TO GENERATE (Web Audio API / Oscillator)
+================================================================================
+
+All sounds will be generated programmatically using Web Audio API:
+
+1. success_beep.js    - Short high-pitched beep (800Hz, 150ms)
+2. error_buzz.js      - Low buzzer sound (200Hz, 300ms, slight distortion)
+3. button_click.js    - Subtle click (white noise burst, 30ms)
+4. plug_connect.js    - Satisfying click + subtle chime
+5. sync_sound.js      - Soft ascending tones (data transfer feel)
+6. power_on.js        - Rising tone sequence
+7. power_off.js       - Falling tone sequence
+
+
+================================================================================
+NOTES
+================================================================================
+
+- Use CSS3DRenderer for interactive HTML on the device screen, or update
+  canvas texture for simpler approach
+- OrbitControls can be disabled/enabled dynamically
+- Camera positions should be saved for quick view switching
+- Consider adding sound effects for immersion (optional)
+- All data persists in localStorage for session continuity
+- The simulation should be fully functional without a backend
+
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Review and approve this plan
+2. Begin Phase 1: Refactor code and set up module structure
+3. Create the control panel overlay
+4. Implement view switching on the device screen
+5. Proceed scenario by scenario
+
+================================================================================

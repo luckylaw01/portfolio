@@ -1,0 +1,54 @@
+<div class="view settings-view">
+    <div class="view-header">
+        <button class="back-btn" id="backFromSettings">←</button>
+        <h2>Settings</h2>
+    </div>
+    <div class="view-content">
+        <div class="settings-section">
+            <h3>Account Information</h3>
+            <div class="setting-item">
+                <span class="setting-label">Name</span>
+                <span class="setting-value" id="settingsName">--</span>
+            </div>
+            <div class="setting-item">
+                <span class="setting-label">Phone</span>
+                <span class="setting-value" id="settingsPhone">--</span>
+            </div>
+            <div class="setting-item">
+                <span class="setting-label">Email</span>
+                <span class="setting-value" id="settingsEmail">--</span>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <h3>Security</h3>
+            <button class="setting-btn" id="changePinBtn">
+                <span>Change PIN</span>
+                <span class="arrow">→</span>
+            </button>
+        </div>
+        
+        <div class="settings-section">
+            <h3>Preferences</h3>
+            <div class="setting-item">
+                <span class="setting-label">Notifications</span>
+                <label class="toggle">
+                    <input type="checkbox" id="notificationsToggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <h3>Developer Options</h3>
+            <button class="setting-btn" id="simulateDayBtn">
+                <span>⏩ Simulate 1 Day Passing</span>
+                <span class="arrow">→</span>
+            </button>
+        </div>
+        
+        <div class="settings-section">
+            <button class="btn btn-danger btn-block" id="logoutBtn">Logout</button>
+        </div>
+    </div>
+</div>

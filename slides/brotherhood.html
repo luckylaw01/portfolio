@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brotherhood | Lawrence Munyaka Portfolio</title>
+    <meta name="description" content="Brotherhood Community Platform">
+
+    <link rel="stylesheet" href="../assets/css/design-system.css">
+    <link rel="stylesheet" href="../assets/css/transitions.css">
+    <link rel="stylesheet" href="../assets/css/navigation.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
+    <link rel="stylesheet" href="../assets/css/local-projects.css">
+
+    <style>
+        /* Brotherhood - Community Dark Blue/Gold Theme */
+        :root {
+            --bro-blue: #1e3a8a;
+            --bro-gold: #fbbf24;
+            --bro-dark: #0f172a;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eff6ff 0%, #fffbeb 100%);
+        }
+
+        .project-type-badge {
+            background: linear-gradient(135deg, var(--bro-blue), var(--bro-gold));
+        }
+
+        .iframe-frame {
+            border-color: var(--bro-blue);
+        }
+
+        .project-main-title {
+            background: linear-gradient(135deg, var(--bro-dark), var(--bro-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .highlight-box {
+            background: rgba(30, 58, 138, 0.05);
+            border-left-color: var(--bro-blue);
+        }
+
+        .highlight-title {
+            color: var(--bro-blue);
+        }
+
+        .tech-tag-item {
+            border-color: var(--bro-blue);
+            color: var(--bro-blue);
+        }
+
+        .tech-tag-item:hover {
+            background: var(--bro-blue);
+            color: white;
+        }
+
+        .fullscreen-toggle:hover {
+            background: var(--bro-blue);
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+    <div id="slide-counter" class="slide-counter"></div>
+
+    <div class="nav-controls">
+        <button id="nav-prev" class="nav-btn" aria-label="Previous slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <button id="nav-next" class="nav-btn" aria-label="Next slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </button>
+    </div>
+
+    <main id="main-content">
+        <div class="local-project-container">
+            <div class="iframe-section">
+                <div class="iframe-frame stagger-item">
+                    <iframe src="../web_projects_folders/Brotherhood/index.html" class="project-iframe"
+                        title="Brotherhood Community"></iframe>
+                </div>
+                <button class="fullscreen-toggle" aria-label="Toggle fullscreen">
+                    <span class="enter-fullscreen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                            </path>
+                        </svg>
+                        Fullscreen
+                    </span>
+                    <span class="exit-fullscreen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3">
+                            </path>
+                        </svg>
+                        Exit
+                    </span>
+                </button>
+            </div>
+
+            <div class="info-section">
+                <div class="project-type-badge stagger-item">Community • 2024</div>
+                <h1 class="project-main-title stagger-item">Brotherhood</h1>
+                <p class="project-subtitle stagger-item">Community Engagement Platform</p>
+                <p class="project-desc stagger-item">A platform designed to foster connection and collaboration through
+                    shared interests and events.</p>
+
+                <div class="highlight-box stagger-item">
+                    <h3 class="highlight-title">Features</h3>
+                    <p class="highlight-text">Event coordination, member profiles, and discussion forums.</p>
+                </div>
+
+                <div class="tech-tags-list stagger-item">
+                    <span class="tech-tag-item">HTML/CSS</span>
+                    <span class="tech-tag-item">JavaScript</span>
+                    <span class="tech-tag-item">Bootstrap</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/navigation-core.js"></script>
+    <script src="../assets/js/transitions.js"></script>
+    <script src="../assets/js/menu.js"></script>
+    <script src="../assets/js/fullscreen-toggle.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.stagger-item').forEach((item, index) => {
+                    setTimeout(() => item.classList.add('animate'), index * 100);
+                });
+            }, 200);
+        });
+    </script>
+</body>
+
+</html>

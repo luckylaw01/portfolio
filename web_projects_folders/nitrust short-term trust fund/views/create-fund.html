@@ -1,0 +1,96 @@
+<div class="view create-fund-view">
+    <div class="view-header">
+        <button class="back-btn" id="backToDashboard">←</button>
+        <h2>Create Trust Fund</h2>
+    </div>
+    <div class="view-content">
+        <form id="createFundForm" class="form">
+            <div class="form-group">
+                <label>Fund Name</label>
+                <input type="text" id="fundName" placeholder="e.g., Monthly Savings" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Beneficiary Type</label>
+                <select id="beneficiaryType" required>
+                    <option value="self">Self</option>
+                    <option value="dependent">Dependent</option>
+                </select>
+            </div>
+            
+            <div class="form-group" id="dependentSelectGroup" style="display: none;">
+                <label>Select Dependent</label>
+                <select id="dependentSelect">
+                    <option value="">Choose dependent...</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Deposit Amount (KSh)</label>
+                <input type="number" id="depositAmount" placeholder="3000" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Fund Duration</label>
+                <select id="fundDuration" required>
+                    <option value="15">15 Days</option>
+                    <option value="30" selected>30 Days (Monthly)</option>
+                    <option value="60">60 Days</option>
+                    <option value="90">90 Days</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Payout Frequency</label>
+                <select id="payoutFrequency" required>
+                    <option value="daily" selected>Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="biweekly">Every 2 Weeks</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+            </div>
+            
+            <div class="calculation-preview">
+                <h4>Payout Summary</h4>
+                <div class="preview-item">
+                    <span>Payout Amount:</span>
+                    <strong id="payoutAmount">KSh 0</strong>
+                </div>
+                <div class="preview-item">
+                    <span>Number of Payouts:</span>
+                    <strong id="numberOfPayouts">0</strong>
+                </div>
+                <div class="preview-item">
+                    <span>First Payout:</span>
+                    <strong id="firstPayoutDate">--</strong>
+                </div>
+            </div>
+            
+            <div class="calculation-preview charges-preview">
+                <h4>Charges Breakdown</h4>
+                <div class="preview-item">
+                    <span>Fund Amount:</span>
+                    <strong id="fundAmountDisplay">KSh 0</strong>
+                </div>
+                <div class="preview-item">
+                    <span>M-Pesa Transaction Fees:</span>
+                    <strong id="mpesaCharges">KSh 0</strong>
+                </div>
+                <div class="preview-item">
+                    <span>Service Charge (3%):</span>
+                    <strong id="serviceCharge">KSh 0</strong>
+                </div>
+                <div class="preview-item total-charges">
+                    <span>Total Charges:</span>
+                    <strong id="totalCharges">KSh 0</strong>
+                </div>
+                <div class="preview-item grand-total">
+                    <span>Total to Deposit:</span>
+                    <strong id="grandTotal">KSh 0</strong>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Create Fund</button>
+        </form>
+    </div>
+</div>

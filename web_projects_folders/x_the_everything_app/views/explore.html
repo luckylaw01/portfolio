@@ -1,0 +1,193 @@
+<div class="view explore-view">
+    <div class="view-header">
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search X" />
+        </div>
+    </div>
+
+    <div class="view-content">
+        <!-- Search Results (hidden by default) -->
+        <div id="searchResults" class="search-results" style="display: none;">
+            <div class="section-header">
+                <h3>Search Results</h3>
+            </div>
+            <div id="searchResultsContainer"></div>
+        </div>
+
+        <!-- Trending Section -->
+        <div id="trendingSection">
+            <div class="section-header">
+                <h3>Trends for you</h3>
+            </div>
+
+            <div class="trends-container">
+                <div class="trend-item" data-hashtag="AI">
+                    <div class="trend-category">Trending in Technology</div>
+                    <div class="trend-title">#AI</div>
+                    <div class="trend-stats">125K posts</div>
+                </div>
+
+                <div class="trend-item" data-hashtag="Innovation">
+                    <div class="trend-category">Trending worldwide</div>
+                    <div class="trend-title">#Innovation</div>
+                    <div class="trend-stats">98.5K posts</div>
+                </div>
+
+                <div class="trend-item" data-hashtag="Startups">
+                    <div class="trend-category">Trending in Business</div>
+                    <div class="trend-title">#Startups</div>
+                    <div class="trend-stats">67.2K posts</div>
+                </div>
+
+                <div class="trend-item" data-hashtag="WebDevelopment">
+                    <div class="trend-category">Trending in Tech</div>
+                    <div class="trend-title">#WebDevelopment</div>
+                    <div class="trend-stats">45.8K posts</div>
+                </div>
+
+                <div class="trend-item" data-hashtag="ElonMusk">
+                    <div class="trend-category">Trending</div>
+                    <div class="trend-title">#ElonMusk</div>
+                    <div class="trend-stats">234K posts</div>
+                </div>
+
+                <div class="trend-item" data-hashtag="Technology">
+                    <div class="trend-category">Trending in Tech</div>
+                    <div class="trend-title">#Technology</div>
+                    <div class="trend-stats">156K posts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item active" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+.search-container {
+    flex: 1;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--x-dark-gray);
+    border: none;
+    border-radius: var(--radius-full);
+    color: var(--x-white);
+    font-size: 15px;
+}
+
+.search-input:focus {
+    outline: none;
+    background: var(--x-black);
+    border: 1px solid var(--x-blue);
+}
+
+.search-input::placeholder {
+    color: var(--x-gray);
+}
+
+.search-results {
+    background: var(--x-black);
+}
+
+.search-results-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-results-item:hover {
+    background: var(--x-hover);
+}
+
+.search-result-type {
+    font-size: 12px;
+    color: var(--x-gray);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.search-result-name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.search-result-username {
+    font-size: 14px;
+    color: var(--x-gray);
+}
+
+.section-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.section-header h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.trends-container {
+    background: var(--x-black);
+}
+
+.trend-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.trend-item:hover {
+    background: var(--x-hover);
+}
+
+.trend-category {
+    font-size: 13px;
+    color: var(--x-gray);
+    margin-bottom: 4px;
+}
+
+.trend-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.trend-stats {
+    font-size: 13px;
+    color: var(--x-gray);
+}
+
+.no-results {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--x-gray);
+}
+</style>

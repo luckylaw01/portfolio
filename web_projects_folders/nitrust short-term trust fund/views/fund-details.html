@@ -1,0 +1,53 @@
+<div class="view fund-details-view">
+    <div class="view-header">
+        <button class="back-btn" id="backFromFund">←</button>
+        <h2 id="fundDetailName">Fund Details</h2>
+    </div>
+    <div class="view-content">
+        <div class="fund-status-card">
+            <div class="status-badge" id="fundStatusBadge">Active</div>
+            <h1 class="fund-balance">KSh <span id="fundBalance">0</span></h1>
+            <p class="fund-beneficiary">Beneficiary: <span id="fundBeneficiary">--</span></p>
+        </div>
+        
+        <div class="fund-info-grid">
+            <div class="info-item">
+                <span class="info-label">Payout Amount</span>
+                <span class="info-value" id="fundPayoutAmount">KSh 0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Frequency</span>
+                <span class="info-value" id="fundFrequency">--</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Next Payout</span>
+                <span class="info-value" id="fundNextPayout">--</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Payouts Left</span>
+                <span class="info-value" id="fundPayoutsLeft">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Created</span>
+                <span class="info-value" id="fundCreatedDate">--</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Ends</span>
+                <span class="info-value" id="fundEndDate">--</span>
+            </div>
+        </div>
+        
+        <div class="fund-actions">
+            <button class="btn btn-secondary" id="pauseFundBtn">⏸️ Pause</button>
+            <button class="btn btn-warning" id="withdrawFundBtn">💰 Withdraw Early</button>
+            <button class="btn btn-danger" id="cancelFundBtn">🗑️ Cancel Fund</button>
+        </div>
+        
+        <div class="section-header">
+            <h3>Recent Transactions</h3>
+        </div>
+        <div id="fundTransactions" class="transactions-list">
+            <p class="empty-subtitle">No transactions yet</p>
+        </div>
+    </div>
+</div>

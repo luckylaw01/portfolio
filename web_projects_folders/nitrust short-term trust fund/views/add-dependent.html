@@ -1,0 +1,30 @@
+<div class="view add-dependent-view">
+    <div class="view-header">
+        <button class="back-btn" id="backToDependents">←</button>
+        <h2>Add Dependent</h2>
+    </div>
+    <div class="view-content">
+        <form id="addDependentForm" class="form">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="dependentName" placeholder="e.g., John Doe" required>
+            </div>
+            <div class="form-group">
+                <label>Relationship</label>
+                <input type="text" id="dependentRelationship" placeholder="e.g., Son, Daughter, Parent" required>
+            </div>
+            <div class="form-group">
+                <label>Mobile Money Provider</label>
+                <select id="dependentProvider" required>
+                    <option value="mpesa">M-Pesa</option>
+                    <option value="airtel">Airtel Money</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Mobile Money Number</label>
+                <input type="tel" id="dependentPhone" placeholder="07XX XXX XXX" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Dependent</button>
+        </form>
+    </div>
+</div>

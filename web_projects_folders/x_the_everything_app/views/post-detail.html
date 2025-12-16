@@ -1,0 +1,217 @@
+<div class="view post-detail-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Post</h2>
+    </div>
+
+    <div class="view-content">
+        <!-- Main Post -->
+        <div id="mainPostContainer" class="main-post-container">
+            <!-- Main post will be loaded here -->
+        </div>
+
+        <!-- Reply Composer -->
+        <div class="reply-composer">
+            <div class="post-avatar">👤</div>
+            <div class="reply-input-container">
+                <textarea 
+                    id="replyInput" 
+                    class="reply-textarea" 
+                    placeholder="Post your reply"
+                    maxlength="280"
+                ></textarea>
+                <div class="reply-actions">
+                    <span id="replyCharCount" class="char-count">0/280</span>
+                    <button id="replyBtn" class="btn btn-primary btn-sm">Reply</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Replies/Thread -->
+        <div class="thread-header">
+            <h3>Replies</h3>
+        </div>
+        <div id="repliesContainer" class="replies-container">
+            <!-- Replies will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>
+.main-post-container {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.main-post {
+    margin-bottom: 16px;
+}
+
+.main-post .post-header {
+    margin-bottom: 12px;
+}
+
+.main-post .post-content {
+    margin-left: 0;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.main-post .post-image {
+    margin-left: 0;
+}
+
+.main-post .post-meta {
+    color: var(--x-gray);
+    font-size: 15px;
+    margin-bottom: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--x-border);
+    border-bottom: 1px solid var(--x-border);
+}
+
+.main-post .post-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.main-post .stat-item {
+    display: flex;
+    gap: 4px;
+}
+
+.main-post .stat-number {
+    font-weight: 700;
+}
+
+.main-post .stat-label {
+    color: var(--x-gray);
+}
+
+.main-post .post-actions {
+    margin-left: 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--x-border);
+}
+
+.reply-composer {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    display: flex;
+    gap: 12px;
+}
+
+.reply-input-container {
+    flex: 1;
+}
+
+.reply-textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--x-white);
+    font-size: 16px;
+    font-family: inherit;
+    resize: none;
+    min-height: 80px;
+    outline: none;
+    margin-bottom: 8px;
+}
+
+.reply-textarea::placeholder {
+    color: var(--x-gray);
+}
+
+.reply-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.thread-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.thread-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.replies-container {
+    background: var(--x-black);
+}
+
+.reply-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    display: flex;
+    gap: 12px;
+}
+
+.reply-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--x-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.reply-content-wrapper {
+    flex: 1;
+}
+
+.reply-user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.reply-name {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.reply-username {
+    color: var(--x-gray);
+    font-size: 15px;
+}
+
+.reply-text {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.reply-actions-row {
+    display: flex;
+    gap: 8px;
+}
+
+.empty-replies {
+    padding: 60px 40px;
+    text-align: center;
+    color: var(--x-gray);
+}
+
+.empty-replies h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.empty-replies p {
+    font-size: 14px;
+}
+</style>

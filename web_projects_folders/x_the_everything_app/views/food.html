@@ -1,0 +1,258 @@
+<div class="view food-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Food Delivery</h2>
+        <button id="foodCartBtn" class="settings-btn">🛒</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Location & Search -->
+        <div class="food-location-bar">
+            <div class="location-info">
+                <span class="location-icon">📍</span>
+                <span id="deliveryLocation">123 Main St, New York</span>
+            </div>
+            <input type="text" id="foodSearchInput" placeholder="Search restaurants, dishes..." />
+        </div>
+
+        <!-- Category Filters -->
+        <div class="food-categories">
+            <button class="category-chip active" data-category="all">All</button>
+            <button class="category-chip" data-category="pizza">🍕 Pizza</button>
+            <button class="category-chip" data-category="burger">🍔 Burgers</button>
+            <button class="category-chip" data-category="sushi">🍣 Sushi</button>
+            <button class="category-chip" data-category="asian">🥡 Asian</button>
+            <button class="category-chip" data-category="healthy">🥗 Healthy</button>
+            <button class="category-chip" data-category="dessert">🍰 Dessert</button>
+        </div>
+
+        <!-- Featured Section -->
+        <div class="section-header">
+            <h3>Popular Near You</h3>
+        </div>
+
+        <!-- Restaurant Listings -->
+        <div id="restaurantListingsContainer" class="restaurants-list">
+            <!-- Restaurants will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+.food-location-bar {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+}
+
+.location-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: var(--x-blue);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.location-icon {
+    font-size: 16px;
+}
+
+.food-location-bar input {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--x-dark-gray);
+    border: 1px solid var(--x-border);
+    border-radius: 24px;
+    color: var(--x-white);
+    font-size: 15px;
+}
+
+.food-location-bar input:focus {
+    outline: none;
+    border-color: var(--x-blue);
+}
+
+.food-categories {
+    padding: 16px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--x-border);
+    scrollbar-width: none;
+}
+
+.food-categories::-webkit-scrollbar {
+    display: none;
+}
+
+.category-chip {
+    background: var(--x-dark-gray);
+    border: 1px solid var(--x-border);
+    color: var(--x-white);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.category-chip:hover {
+    background: var(--x-hover);
+}
+
+.category-chip.active {
+    background: var(--x-blue);
+    border-color: var(--x-blue);
+}
+
+.restaurants-list {
+    background: var(--x-black);
+}
+
+.restaurant-card {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.restaurant-card:hover {
+    background: var(--x-hover);
+}
+
+.restaurant-image {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    background: var(--x-dark-gray);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    overflow: hidden;
+}
+
+.restaurant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.restaurant-info {
+    flex: 1;
+}
+
+.restaurant-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.restaurant-cuisine {
+    font-size: 14px;
+    color: var(--x-gray);
+}
+
+.restaurant-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--x-dark-gray);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.rating-star {
+    color: #fbbf24;
+}
+
+.restaurant-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--x-gray);
+}
+
+.restaurant-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.restaurant-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.restaurant-badge {
+    background: var(--x-dark-gray);
+    color: var(--x-white);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.restaurant-badge.free-delivery {
+    background: rgba(0, 186, 124, 0.15);
+    color: var(--x-green);
+}
+
+.restaurant-badge.promo {
+    background: rgba(244, 33, 46, 0.15);
+    color: var(--x-red);
+}
+
+.empty-restaurants {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.empty-restaurants .empty-icon {
+    font-size: 60px;
+    margin-bottom: 16px;
+}
+
+.empty-restaurants h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.empty-restaurants p {
+    color: var(--x-gray);
+    font-size: 14px;
+}
+</style>

@@ -1,0 +1,118 @@
+<div class="view compose-view">
+    <div class="view-header">
+        <button class="back-btn">✕</button>
+        <h2>New post</h2>
+    </div>
+
+    <div class="view-content">
+        <div class="compose-container">
+            <form id="composeForm">
+                <div class="compose-user">
+                    <div class="post-avatar">👤</div>
+                    <div class="compose-input-container">
+                        <textarea 
+                            id="postInput" 
+                            class="compose-textarea" 
+                            placeholder="What's happening?"
+                            maxlength="280"
+                            autofocus
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="compose-footer">
+                    <div class="compose-tools">
+                        <button type="button" class="tool-btn" title="Add image">
+                            🖼️
+                        </button>
+                        <button type="button" class="tool-btn" title="Add GIF">
+                            GIF
+                        </button>
+                        <button type="button" class="tool-btn" title="Add poll">
+                            📊
+                        </button>
+                        <button type="button" class="tool-btn" title="Add emoji">
+                            😊
+                        </button>
+                    </div>
+                    
+                    <div class="compose-actions">
+                        <span id="charCount" class="char-count">0/280</span>
+                        <button type="submit" class="btn btn-primary">Post</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.compose-container {
+    padding: 16px;
+}
+
+.compose-user {
+    display: flex;
+    gap: 12px;
+}
+
+.compose-input-container {
+    flex: 1;
+}
+
+.compose-textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--x-white);
+    font-size: 18px;
+    font-family: inherit;
+    resize: none;
+    min-height: 200px;
+    outline: none;
+}
+
+.compose-textarea::placeholder {
+    color: var(--x-gray);
+}
+
+.compose-footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--x-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.compose-tools {
+    display: flex;
+    gap: 4px;
+}
+
+.tool-btn {
+    background: transparent;
+    border: none;
+    color: var(--x-blue);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-full);
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+.tool-btn:hover {
+    background: rgba(29, 155, 240, 0.1);
+}
+
+.compose-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.char-count {
+    font-size: 13px;
+    color: var(--x-gray);
+}
+</style>

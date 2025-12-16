@@ -1,0 +1,238 @@
+<div class="view invest-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Invest</h2>
+        <button id="investInfoBtn" class="settings-btn">ℹ️</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Portfolio Overview -->
+        <div class="portfolio-card">
+            <div class="portfolio-label">Portfolio Value</div>
+            <div id="portfolioValue" class="portfolio-amount">$0.00</div>
+            <div id="portfolioChange" class="portfolio-change">+$0.00 (0%)</div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Invested</div>
+                <div id="totalInvested" class="stat-value">$0.00</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Return</div>
+                <div id="totalReturn" class="stat-value">$0.00</div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="invest-actions">
+            <button id="buyStocksBtn" class="btn btn-primary" style="flex: 1;">Buy Stocks</button>
+            <button id="viewPortfolioBtn" class="btn btn-outline" style="flex: 1;">Portfolio</button>
+        </div>
+
+        <!-- Popular Stocks -->
+        <div class="section-header">
+            <h3>Popular Stocks</h3>
+        </div>
+
+        <div id="stocksContainer" class="stocks-list">
+            <!-- Stocks will be loaded here -->
+        </div>
+
+        <!-- Crypto -->
+        <div class="section-header">
+            <h3>Cryptocurrency</h3>
+        </div>
+
+        <div id="cryptoContainer" class="crypto-list">
+            <!-- Crypto will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+.settings-btn {
+    background: transparent;
+    border: none;
+    color: var(--x-white);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-full);
+    transition: background 0.2s;
+}
+
+.settings-btn:hover {
+    background: var(--x-hover);
+}
+
+.portfolio-card {
+    margin: 16px;
+    padding: 24px;
+    background: linear-gradient(135deg, #00BA7C 0%, #00966E 100%);
+    border-radius: 16px;
+    text-align: center;
+}
+
+.portfolio-label {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.portfolio-amount {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.portfolio-change {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0 16px 16px;
+}
+
+.stat-card {
+    background: var(--x-dark-gray);
+    border: 1px solid var(--x-border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--x-gray);
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.invest-actions {
+    display: flex;
+    gap: 12px;
+    padding: 0 16px 16px;
+}
+
+.section-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.stocks-list,
+.crypto-list {
+    background: var(--x-black);
+}
+
+.stock-item,
+.crypto-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--x-border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.stock-item:hover,
+.crypto-item:hover {
+    background: var(--x-hover);
+}
+
+.stock-icon,
+.crypto-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--x-dark-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.stock-details,
+.crypto-details {
+    flex: 1;
+}
+
+.stock-name,
+.crypto-name {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.stock-symbol,
+.crypto-symbol {
+    font-size: 13px;
+    color: var(--x-gray);
+}
+
+.stock-price,
+.crypto-price {
+    text-align: right;
+}
+
+.price-amount {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.price-change {
+    font-size: 13px;
+}
+
+.price-change.positive {
+    color: var(--x-green);
+}
+
+.price-change.negative {
+    color: var(--x-red);
+}
+</style>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenya Heat Map | Lawrence Munyaka Portfolio</title>
+    <meta name="description" content="Interactive Data Visualization of Kenya">
+
+    <link rel="stylesheet" href="../assets/css/design-system.css">
+    <link rel="stylesheet" href="../assets/css/transitions.css">
+    <link rel="stylesheet" href="../assets/css/navigation.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
+    <link rel="stylesheet" href="../assets/css/local-projects.css">
+
+    <style>
+        /* Kenya Heat Map - Flag Colors */
+        :root {
+            --kenya-red: #BB0000;
+            --kenya-green: #006600;
+            --kenya-black: #000000;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff5f5 0%, #f0fff0 100%);
+        }
+
+        .project-type-badge {
+            background: linear-gradient(135deg, var(--kenya-red), var(--kenya-black));
+        }
+
+        .iframe-frame {
+            border-color: var(--kenya-red);
+        }
+
+        .project-main-title {
+            background: linear-gradient(135deg, var(--kenya-black), var(--kenya-red), var(--kenya-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .highlight-box {
+            background: rgba(187, 0, 0, 0.05);
+            border-left-color: var(--kenya-red);
+        }
+
+        .highlight-title {
+            color: var(--kenya-red);
+        }
+
+        .tech-tag-item {
+            border-color: var(--kenya-green);
+            color: var(--kenya-green);
+        }
+
+        .tech-tag-item:hover {
+            background: var(--kenya-green);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+    <div id="slide-counter" class="slide-counter"></div>
+
+    <div class="nav-controls">
+        <button id="nav-prev" class="nav-btn" aria-label="Previous slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <button id="nav-next" class="nav-btn" aria-label="Next slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </button>
+    </div>
+
+    <main id="main-content">
+        <div class="local-project-container">
+            <div class="iframe-section">
+                <div class="iframe-frame stagger-item">
+                    <iframe src="../web_projects_folders/kenya_heat_map/index.html" class="project-iframe"
+                        title="Kenya Data Visualization"></iframe>
+                </div>
+                <button class="fullscreen-toggle" aria-label="Toggle fullscreen">
+                    <span class="enter-fullscreen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                            </path>
+                        </svg>
+                        Fullscreen
+                    </span>
+                    <span class="exit-fullscreen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3">
+                            </path>
+                        </svg>
+                        Exit
+                    </span>
+                </button>
+            </div>
+
+            <div class="info-section">
+                <div class="project-type-badge stagger-item">Data Viz • 2024</div>
+                <h1 class="project-main-title stagger-item">Kenya Heat Map</h1>
+                <p class="project-subtitle stagger-item">Interactive Regional Analytics</p>
+                <p class="project-desc stagger-item">Visualizing geographical data across Kenya's regions for
+                    demographic and statistical analysis.</p>
+
+                <div class="highlight-box stagger-item">
+                    <h3 class="highlight-title">Features</h3>
+                    <p class="highlight-text">Interactive map regions, real-time data filtering, and color-coded
+                        metrics.</p>
+                </div>
+
+                <div class="tech-tags-list stagger-item">
+                    <span class="tech-tag-item">D3.js</span>
+                    <span class="tech-tag-item">Leaflet</span>
+                    <span class="tech-tag-item">GeoJSON</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/navigation-core.js"></script>
+    <script src="../assets/js/transitions.js"></script>
+    <script src="../assets/js/menu.js"></script>
+    <script src="../assets/js/fullscreen-toggle.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.stagger-item').forEach((item, index) => {
+                    setTimeout(() => item.classList.add('animate'), index * 100);
+                });
+            }, 200);
+        });
+    </script>
+</body>
+
+</html>

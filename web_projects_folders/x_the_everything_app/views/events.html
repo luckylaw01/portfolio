@@ -1,0 +1,302 @@
+<div class="view events-view">
+    <div class="view-header">
+        <button class="back-btn">←</button>
+        <h2>Events</h2>
+        <button id="eventsSearchBtn" class="settings-btn">🔍</button>
+    </div>
+
+    <div class="view-content">
+        <!-- Event Search -->
+        <div class="event-search-bar">
+            <input type="text" id="eventSearchInput" placeholder="Search events..." />
+            <button id="filterEventsBtn" class="filter-btn">⚙️</button>
+        </div>
+
+        <!-- Quick Filters -->
+        <div class="event-filters">
+            <button class="filter-chip active" data-filter="all">All Events</button>
+            <button class="filter-chip" data-filter="today">Today</button>
+            <button class="filter-chip" data-filter="this-week">This Week</button>
+            <button class="filter-chip" data-filter="online">Online</button>
+            <button class="filter-chip" data-filter="free">Free</button>
+        </div>
+
+        <!-- Event Listings -->
+        <div id="eventListingsContainer" class="events-list">
+            <!-- Events will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item" data-view="home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" data-view="explore">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Explore</span>
+        </button>
+        <button class="nav-item" data-view="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Messages</span>
+        </button>
+        <button class="nav-item" data-view="everything">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Everything</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Profile</span>
+        </button>
+    </div>
+</div>
+
+<style>
+    /* Search Bar */
+    .events-view .event-search-bar {
+        padding: 16px;
+        display: flex;
+        gap: 12px;
+        background: var(--x-black);
+    }
+
+    .events-view .event-search-bar input {
+        flex: 1;
+        padding: 12px 16px 12px 44px;
+        background: var(--x-dark-gray);
+        border: 1px solid var(--x-border);
+        border-radius: 24px;
+        color: var(--x-white);
+        font-size: 15px;
+        transition: all 0.2s;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: 16px center;
+    }
+
+    .events-view .event-search-bar input:focus {
+        outline: none;
+        border-color: var(--x-blue);
+        background-color: rgba(29, 155, 240, 0.05);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231d9bf0' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+    }
+
+    .events-view .event-search-bar input::placeholder {
+        color: var(--x-gray);
+    }
+
+    .events-view .filter-btn {
+        width: 48px;
+        height: 48px;
+        background: var(--x-dark-gray);
+        border: 1px solid var(--x-border);
+        border-radius: 50%;
+        color: var(--x-white);
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .events-view .filter-btn:hover {
+        background: var(--x-hover);
+        border-color: var(--x-blue);
+    }
+
+    /* Filter Chips */
+    .event-filters {
+        padding: 0 16px 16px 16px;
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        background: var(--x-black);
+        scrollbar-width: none;
+    }
+
+    .event-filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-chip {
+        padding: 10px 18px;
+        background: var(--x-dark-gray);
+        border: 1px solid var(--x-border);
+        border-radius: 20px;
+        color: var(--x-white);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s;
+    }
+
+    .filter-chip:hover {
+        background: var(--x-hover);
+        border-color: rgba(29, 155, 240, 0.5);
+    }
+
+    .filter-chip.active {
+        background: var(--x-blue);
+        border-color: var(--x-blue);
+        color: var(--x-white);
+    }
+
+    .events-list {
+        background: var(--x-black);
+    }
+
+    .event-card {
+        padding: 16px;
+        border-bottom: 1px solid var(--x-border);
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .event-card:hover {
+        background: var(--x-hover);
+    }
+
+    .event-image {
+        width: 100%;
+        height: 180px;
+        border-radius: 12px;
+        background: var(--x-dark-gray);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        overflow: hidden;
+    }
+
+    .event-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .event-date-badge {
+        background: var(--x-blue);
+        color: var(--x-white);
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 8px;
+    }
+
+    .event-date-badge.upcoming {
+        background: var(--x-blue);
+    }
+
+    .event-date-badge.today {
+        background: var(--x-green);
+    }
+
+    .event-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .event-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+
+    .event-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: var(--x-gray);
+    }
+
+    .event-meta-icon {
+        font-size: 16px;
+    }
+
+    .event-description {
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--x-gray);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 12px;
+    }
+
+    .event-tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+    }
+
+    .event-tag {
+        background: var(--x-dark-gray);
+        color: var(--x-white);
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .event-tag.free {
+        background: rgba(0, 186, 124, 0.15);
+        color: var(--x-green);
+    }
+
+    .event-tag.online {
+        background: rgba(29, 155, 240, 0.15);
+        color: var(--x-blue);
+    }
+
+    .event-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .event-attendees {
+        font-size: 13px;
+        color: var(--x-gray);
+    }
+
+    .event-price {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--x-blue);
+    }
+
+    .event-price.free {
+        color: var(--x-green);
+    }
+
+    .empty-events {
+        padding: 60px 40px;
+        text-align: center;
+    }
+
+    .empty-events .empty-icon {
+        font-size: 60px;
+        margin-bottom: 16px;
+    }
+
+    .empty-events h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .empty-events p {
+        color: var(--x-gray);
+        font-size: 14px;
+    }
+</style>
